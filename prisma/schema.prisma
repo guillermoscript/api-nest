@@ -1,0 +1,549 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Addresses {
+  id            Int       @id @default(autoincrement())
+  cityId        Int?
+  Address1      String?   @db.VarChar(255)
+  Address2      String?   @db.VarChar(255)
+  GPS           String?   @db.VarChar(255)
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
+  Cities        Cities?   @relation(fields: [cityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Persons       Persons[]
+}
+
+model Agents {
+  id              Int               @id @default(autoincrement())
+  personId        Int?
+  AgenciesId      Int?
+  createdAt       DateTime?         @default(now()) @db.Timestamp(6)
+  createdBy       String?           @db.VarChar(255)
+  updatedAt       DateTime?         @db.Timestamp(6)
+  softDeletedAt   DateTime?         @db.Timestamp(6)
+  softDeletedBy   String?           @db.VarChar(255)
+  Agencies        Agencies?         @relation(fields: [AgenciesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Persons         Persons?          @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  AgentContracts  AgentContracts[]
+  ClientHasAgents ClientHasAgents[]
+}
+
+model ClientHasAgents {
+  id            Int       @id @default(autoincrement())
+  clientId      Int?
+  agentId       Int?
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
+  Agents        Agents?   @relation(fields: [agentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Clients       Clients?  @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model ClientHasTomadors {
+  id                 Int                 @id @default(autoincrement())
+  clientPolizaId     Int?
+  createdAt          DateTime?           @default(now()) @db.Timestamp(6)
+  createdBy          String?             @db.VarChar(255)
+  updatedAt          DateTime?           @db.Timestamp(6)
+  updatedBy          String?             @db.VarChar(255)
+  softDeletedAt      DateTime?           @db.Timestamp(6)
+  softDeletedBy      String?             @db.VarChar(255)
+  EntitiesHasPolizas EntitiesHasPolizas? @relation(fields: [clientPolizaId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  OrderDetails       OrderDetails[]
+}
+
+model Clients {
+  id                Int               @id @default(autoincrement())
+  personId          Int?
+  civilPolicyStatus String?           @db.VarChar(255)
+  company           String?           @db.VarChar(255)
+  ocupation         String?           @db.VarChar(255)
+  createdAt         DateTime?         @default(now()) @db.Timestamp(6)
+  createdBy         String?           @db.VarChar(255)
+  updatedAt         DateTime?         @db.Timestamp(6)
+  updatedBy         String?           @db.VarChar(255)
+  softDeletedAt     DateTime?         @db.Timestamp(6)
+  softDeletedBy     String?           @db.VarChar(255)
+  Persons           Persons?          @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ClientHasAgents   ClientHasAgents[]
+  Notifications     Notifications[]
+}
+
+model Configs {
+  id            Int       @id @default(autoincrement())
+  key           String    @db.VarChar(255)
+  value         String    @db.VarChar(255)
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
+}
+
+model InsuranceCarriers {
+  id            Int        @id @default(autoincrement())
+  entitiesId    Int?
+  account       String?    @db.VarChar(255)
+  paymentLink   String?    @db.VarChar(255)
+  createdAt     DateTime?  @default(now()) @db.Timestamp(6)
+  createdBy     String?    @db.VarChar(255)
+  updatedAt     DateTime?  @db.Timestamp(6)
+  updatedBy     String?    @db.VarChar(255)
+  softDeletedAt DateTime?  @db.Timestamp(6)
+  softDeletedBy String?    @db.VarChar(255)
+  Entities      Entities?  @relation(fields: [entitiesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Policies      Policies[]
+}
+
+model OrderDetails {
+  id                    Int                @id @default(autoincrement())
+  ClientHasTomadorId    Int?
+  primeValue            Decimal?           @db.Decimal(9, 2)
+  taxes                 Decimal?           @db.Decimal(9, 2)
+  AnnexValue            Decimal?           @db.Decimal(9, 2)
+  comission             Decimal?           @db.Decimal(9, 2)
+  comissionPolicyStatus Boolean?
+  ValorFinalizacion     Decimal?           @db.Decimal(9, 2)
+  Total                 Decimal?           @db.Decimal(9, 2)
+  periodicityId         Int?
+  createdAt             DateTime?          @default(now()) @db.Timestamp(6)
+  createdBy             String?            @db.VarChar(255)
+  updatedAt             DateTime?          @db.Timestamp(6)
+  updatedBy             String?            @db.VarChar(255)
+  softDeletedAt         DateTime?          @db.Timestamp(6)
+  softDeletedBy         String?            @db.VarChar(255)
+  ClientHasTomadors     ClientHasTomadors? @relation(fields: [ClientHasTomadorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Periodicities         Periodicities?     @relation(fields: [periodicityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Payments              Payments[]
+  Taxes                 Taxes[]
+}
+
+model Patrimonials {
+  id            Int       @id @default(autoincrement())
+  policyId      Int?
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
+  Policies      Policies? @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Payments {
+  id             Int           @id @default(autoincrement())
+  orderDetailsId Int?
+  receiptNumber  Decimal?      @db.Decimal(12, 0)
+  paymentValue   Decimal?      @db.Decimal(9, 2)
+  paymentDate    DateTime?     @db.Date
+  comissionDate  DateTime?     @db.Date
+  createdAt      DateTime?     @default(now()) @db.Timestamp(6)
+  createdBy      String?       @db.VarChar(255)
+  updatedAt      DateTime?     @db.Timestamp(6)
+  updatedBy      String?       @db.VarChar(255)
+  softDeletedAt  DateTime?     @db.Timestamp(6)
+  softDeletedBy  String?       @db.VarChar(255)
+  OrderDetails   OrderDetails? @relation(fields: [orderDetailsId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Periods {
+  id            Int       @id @default(autoincrement())
+  policyId      Int?
+  startDate     DateTime  @db.Date
+  endDate       DateTime  @db.Date
+  renewal       Int?
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
+  Policies      Policies? @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Persons {
+  id            Int          @id @default(autoincrement())
+  entitiesId    Int?
+  AddressId     Int?
+  gender        gendersenum?
+  birthDate     DateTime?    @db.Date()
+  createdAt     DateTime?    @default(now()) @db.Timestamp(6)
+  createdBy     String?      @db.VarChar(255)
+  updatedAt     DateTime?    @db.Timestamp(6)
+  updatedBy     String?      @db.VarChar(255)
+  softDeletedAt DateTime?    @db.Timestamp(6)
+  softDeletedBy String?      @db.VarChar(255)
+  Addresses     Addresses?   @relation(fields: [AddressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Entities      Entities?    @relation(fields: [entitiesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Agents        Agents[]
+  Clients       Clients[]
+  Users         Users[]
+}
+
+model PolicyStatus {
+  id               Int        @id @default(autoincrement())
+  PolicystatusName String?    @db.VarChar(255)
+  Description      String?    @db.VarChar(255)
+  createdAt        DateTime?  @default(now()) @db.Timestamp(6)
+  createdBy        String?    @db.VarChar(255)
+  updatedAt        DateTime?  @db.Timestamp(6)
+  updatedBy        String?    @db.VarChar(255)
+  softDeletedAt    DateTime?  @db.Timestamp(6)
+  softDeletedBy    String?    @db.VarChar(255)
+  Policies         Policies[]
+}
+
+model RelationPolicyStatus {
+  id                 Int                  @id @default(autoincrement())
+  relationName       String?              @db.VarChar(255)
+  createdAt          DateTime?            @default(now()) @db.Timestamp(6)
+  createdBy          String?              @db.VarChar(255)
+  updatedAt          DateTime?            @db.Timestamp(6)
+  updatedBy          String?              @db.VarChar(255)
+  softDeletedAt      DateTime?            @db.Timestamp(6)
+  softDeletedBy      String?              @db.VarChar(255)
+  EntitiesHasPolizas EntitiesHasPolizas[]
+}
+
+model Travels {
+  id                                        Int        @id @default(autoincrement())
+  startCountry                              Int?
+  endCountry                                Int?
+  policyId                                  Int?
+  startDate                                 DateTime?  @db.Date
+  endDate                                   DateTime?  @db.Date
+  createdAt                                 DateTime?  @default(now()) @db.Timestamp(6)
+  createdBy                                 String?    @db.VarChar(255)
+  updatedAt                                 DateTime?  @db.Timestamp(6)
+  updatedBy                                 String?    @db.VarChar(255)
+  softDeletedAt                             DateTime?  @db.Timestamp(6)
+  softDeletedBy                             String?    @db.VarChar(255)
+  Countries_CountriesToTravels_endCountry   Countries? @relation("CountriesToTravels_endCountry", fields: [endCountry], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Policies                                  Policies?  @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Countries_CountriesToTravels_startCountry Countries? @relation("CountriesToTravels_startCountry", fields: [startCountry], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model UserHasPermissions {
+  id          Int    @id @default(autoincrement())
+  userId      Int?
+  permisionId Int?
+  Roles       Roles? @relation(fields: [permisionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Users       Users? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Users {
+  id                 Int                  @id @default(autoincrement())
+  personId           Int?
+  hashedPassword     String
+  createdAt          DateTime?            @default(now()) @db.Timestamp(6)
+  createdBy          String?              @db.VarChar(255)
+  updatedAt          DateTime?            @db.Timestamp(6)
+  updatedBy          String?              @db.VarChar(255)
+  softDeletedAt      DateTime?            @db.Timestamp(6)
+  softDeletedBy      String?              @db.VarChar(255)
+  Persons            Persons?             @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  UserHasPermissions UserHasPermissions[]
+}
+
+model Vehicles {
+  id            Int       @id @default(autoincrement())
+  policyId      Int?
+  brand         String?   @db.VarChar(255)
+  class         String?   @db.VarChar(255)
+  model         String?   @db.VarChar(255)
+  vehicleType   String?   @db.VarChar(255)
+  serviceType   String?   @db.VarChar(255)
+  gasConverted  String?   @db.VarChar(255)
+  insuredValue  String?   @db.VarChar(255)
+  vehicleAge    DateTime? @db.Date
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
+  Policies      Policies? @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model BranchTypes {
+  id            Int          @id @default(autoincrement())
+  name          String?      @db.VarChar(255)
+  createdAt     DateTime?    @default(now()) @db.Timestamp(6)
+  createdBy     String?      @db.VarChar(255)
+  updatedAt     DateTime?    @db.Timestamp(6)
+  updatedBy     String?      @db.VarChar(255)
+  softDeletedAt DateTime?    @db.Timestamp(6)
+  softDeletedBy String?      @db.VarChar(255)
+  Policies      Policies[]
+  SubBranchs    SubBranchs[]
+}
+
+model Continents {
+  id            Int         @id @default(autoincrement())
+  name          String?     @db.VarChar(255)
+  createdAt     DateTime?   @default(now()) @db.Timestamp(6)
+  createdBy     String?     @db.VarChar(255)
+  updatedAt     DateTime?   @db.Timestamp(6)
+  updatedBy     String?     @db.VarChar(255)
+  softDeletedAt DateTime?   @db.Timestamp(6)
+  softDeletedBy String?     @db.VarChar(255)
+  Countries     Countries[]
+}
+
+model CountryStates {
+  id            Int        @id @default(autoincrement())
+  name          String?    @db.VarChar(255)
+  contryId      Int?
+  createdAt     DateTime?  @default(now()) @db.Timestamp(6)
+  createdBy     String?    @db.VarChar(255)
+  updatedAt     DateTime?  @db.Timestamp(6)
+  updatedBy     String?    @db.VarChar(255)
+  softDeletedAt DateTime?  @db.Timestamp(6)
+  softDeletedBy String?    @db.VarChar(255)
+  Countries     Countries? @relation(fields: [contryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Cities        Cities[]
+}
+
+model Roles {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @db.VarChar(255)
+  isActive           Boolean
+  createdAt          DateTime?            @default(now()) @db.Timestamp(6)
+  createdBy          String?              @db.VarChar(255)
+  updatedAt          DateTime?            @db.Timestamp(6)
+  updatedBy          String?              @db.VarChar(255)
+  softDeletedAt      DateTime?            @db.Timestamp(6)
+  softDeletedBy      String?              @db.VarChar(255)
+  UserHasPermissions UserHasPermissions[]
+}
+
+model SubBranchs {
+  id            Int          @id @default(autoincrement())
+  name          String?      @db.VarChar(255)
+  branchTypeId  Int?
+  createdAt     DateTime?    @default(now()) @db.Timestamp(6)
+  createdBy     String?      @db.VarChar(255)
+  updatedAt     DateTime?    @db.Timestamp(6)
+  updatedBy     String?      @db.VarChar(255)
+  softDeletedAt DateTime?    @db.Timestamp(6)
+  softDeletedBy String?      @db.VarChar(255)
+  BranchTypes   BranchTypes? @relation(fields: [branchTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Policies      Policies[]
+}
+
+model Taxes {
+  id             Int           @id @default(autoincrement())
+  OrderDetailsId Int?
+  metakey        String?
+  metavalue      String?
+  createdAt      DateTime?     @default(now()) @db.Timestamp(6)
+  createdBy      String?       @db.VarChar(255)
+  updatedAt      DateTime?     @db.Timestamp(6)
+  updatedBy      String?       @db.VarChar(255)
+  softDeletedAt  DateTime?     @db.Timestamp(6)
+  softDeletedBy  String?       @db.VarChar(255)
+  OrderDetails   OrderDetails? @relation(fields: [OrderDetailsId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Agencies {
+  id             Int       @id @default(autoincrement())
+  entitiesId     Int?
+  createdAt      DateTime? @default(now()) @db.Timestamp(6)
+  createdBy      String?   @db.VarChar(255)
+  updatedAt      DateTime? @db.Timestamp(6)
+  updatedBy      String?   @db.VarChar(255)
+  softDesletedAt DateTime? @db.Timestamp(6)
+  Entities       Entities? @relation(fields: [entitiesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Agents         Agents[]
+}
+
+model Cities {
+  id             Int            @id @default(autoincrement())
+  name           String?        @db.VarChar(255)
+  countryStateId Int?
+  createdAt      DateTime?      @default(now()) @db.Timestamp(6)
+  createdBy      String?        @db.VarChar(255)
+  updatedAt      DateTime?      @db.Timestamp(6)
+  updatedBy      String?        @db.VarChar(255)
+  softDeletedAt  DateTime?      @db.Timestamp(6)
+  softDeletedBy  String?        @db.VarChar(255)
+  CountryStates  CountryStates? @relation(fields: [countryStateId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Addresses      Addresses[]
+}
+
+model Companies {
+  id               Int       @id @default(autoincrement())
+  entitiesId       Int?
+  socialReason     String?   @db.VarChar(255)
+  economicActivity String?   @db.VarChar(255)
+  webPage          String?   @db.VarChar(255)
+  createdAt        DateTime? @default(now()) @db.Timestamp(6)
+  createdBy        String?   @db.VarChar(255)
+  updatedAt        DateTime? @db.Timestamp(6)
+  updatedBy        String?   @db.VarChar(255)
+  softDeletedAt    DateTime? @db.Timestamp(6)
+  softDeletedBy    String?   @db.VarChar(255)
+  Entities         Entities? @relation(fields: [entitiesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Countries {
+  id                                      Int             @id @default(autoincrement())
+  continentId                             Int?
+  countryName                             String          @db.VarChar(255)
+  createdAt                               DateTime?       @default(now()) @db.Timestamp(6)
+  createdBy                               String?         @db.VarChar(255)
+  updatedAt                               DateTime?       @db.Timestamp(6)
+  updatedBy                               String?         @db.VarChar(255)
+  softDeletedAt                           DateTime?       @db.Timestamp(6)
+  softDeletedBy                           String?         @db.VarChar(255)
+  Continents                              Continents?     @relation(fields: [continentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  CountryStates                           CountryStates[]
+  Travels_CountriesToTravels_endCountry   Travels[]       @relation("CountriesToTravels_endCountry")
+  Travels_CountriesToTravels_startCountry Travels[]       @relation("CountriesToTravels_startCountry")
+}
+
+model DocumentTypes {
+  id            Int        @id @default(autoincrement())
+  name          String     @db.VarChar(255)
+  createdAt     DateTime?  @default(now()) @db.Timestamp(6)
+  createdBy     String?    @db.VarChar(255)
+  updatedAt     DateTime?  @db.Timestamp(6)
+  updatedBy     String?    @db.VarChar(255)
+  softDeletedAt DateTime?  @db.Timestamp(6)
+  softDeletedBy String?    @db.VarChar(255)
+  Entities      Entities[]
+}
+
+model Entities {
+  id                Int                 @id @default(autoincrement())
+  documentTypeId    Int?
+  document          Int?                @unique
+  name              String?             @db.VarChar(255)
+  phone             String?             @db.VarChar(255)
+  email             String              @unique @db.VarChar(255)
+  createdAt         DateTime?           @default(now()) @db.Timestamp(6)
+  createdBy         String?             @db.VarChar(255)
+  updatedAt         DateTime?           @db.Timestamp(6)
+  updatedBy         String?             @db.VarChar(255)
+  softDeletedAt     DateTime?           @db.Timestamp(6)
+  softDeletedBy     String?             @db.VarChar(255)
+  DocumentTypes     DocumentTypes?      @relation(fields: [documentTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Agencies          Agencies[]
+  Companies         Companies[]
+  InsuranceCarriers InsuranceCarriers[]
+  Persons           Persons[]
+}
+
+model Periodicities {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.VarChar(255)
+  createdAt     DateTime?      @default(now()) @db.Timestamp(6)
+  createdBy     String?        @db.VarChar(255)
+  updatedAt     DateTime?      @db.Timestamp(6)
+  updatedBy     String?        @db.VarChar(255)
+  softDeletedAt DateTime?      @db.Timestamp(6)
+  softDeletedBy String?        @db.VarChar(255)
+  OrderDetails  OrderDetails[]
+}
+
+model Policies {
+  id                 Int                  @id @default(autoincrement())
+  InsuranceCarrierId Int?
+  policyNum          Decimal              @db.Decimal(9, 2)
+  policyStatusId     Int?
+  Risk               String?              @db.VarChar(255)
+  BranchId           Int?
+  branchTypeId       Int?
+  subBranchId        Int?
+  insuredValue       Decimal?             @db.Decimal(9, 2)
+  Renovable          Boolean?
+  createdAt          DateTime?            @default(now()) @db.Timestamp(6)
+  createdBy          String?              @db.VarChar(255)
+  updatedAt          DateTime?            @db.Timestamp(6)
+  updatedBy          String?              @db.VarChar(255)
+  softDeletedAt      DateTime?            @db.Timestamp(6)
+  softDeletedBy      String?              @db.VarChar(255)
+  InsuranceCarriers  InsuranceCarriers?   @relation(fields: [InsuranceCarrierId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  BranchTypes        BranchTypes?         @relation(fields: [branchTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  PolicyStatus       PolicyStatus?        @relation(fields: [policyStatusId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  SubBranchs         SubBranchs?          @relation(fields: [subBranchId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  AgentContracts     AgentContracts[]
+  EntitiesHasPolizas EntitiesHasPolizas[]
+  Patrimonials       Patrimonials[]
+  Periods            Periods[]
+  Travels            Travels[]
+  Vehicles           Vehicles[]
+}
+
+model AgentContracts {
+  id            Int       @id @default(autoincrement())
+  policyId      Int?
+  agentId       Int?
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
+  Agents        Agents?   @relation(fields: [agentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Policies      Policies? @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model EntitiesHasPolizas {
+  id                   Int                   @id @default(autoincrement())
+  policyId             Int?
+  entitiableTypes      entitiablenum
+  entitiableId         Int?
+  relationId           Int?
+  createdAt            DateTime?             @default(now()) @db.Timestamp(6)
+  createdBy            String?               @db.VarChar(255)
+  updatedAt            DateTime?             @db.Timestamp(6)
+  updatedBy            String?               @db.VarChar(255)
+  softDeletedAt        DateTime?             @db.Timestamp(6)
+  softDeletedBy        String?               @db.VarChar(255)
+  Policies             Policies?             @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  RelationPolicyStatus RelationPolicyStatus? @relation(fields: [relationId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ClientHasTomadors    ClientHasTomadors[]
+}
+
+model Notifications {
+  id             Int       @id @default(autoincrement())
+  type           String?   @db.VarChar
+  clientId       Int?
+  notifiableType String?   @db.VarChar(255)
+  notifiableId   Int?
+  data           String?
+  readAt         DateTime? @db.Timestamp(6)
+  createdAt      DateTime? @default(now()) @db.Timestamp(6)
+  createdBy      String?   @db.VarChar(255)
+  updatedAt      DateTime? @db.Timestamp(6)
+  updatedBy      String?   @db.VarChar(255)
+  softDeletedAt  DateTime? @db.Timestamp(6)
+  softDeletedBy  String?   @db.VarChar(255)
+  Clients        Clients?  @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum gendersenum {
+  male
+  female
+  Others
+}
+
+enum entitiablenum {
+  Companies
+  Clients
+}
