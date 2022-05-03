@@ -189,7 +189,7 @@ CREATE TABLE "Persons" (
     "entitiesId" INTEGER,
     "AddressId" INTEGER,
     "gender" "gendersenum",
-    "birthDate" TIMESTAMP(6),
+    "birthDate" DATE,
     "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
     "createdBy" VARCHAR(255),
     "updatedAt" TIMESTAMP(6),
@@ -390,7 +390,8 @@ CREATE TABLE "Agencies" (
     "createdBy" VARCHAR(255),
     "updatedAt" TIMESTAMP(6),
     "updatedBy" VARCHAR(255),
-    "softDesletedAt" TIMESTAMP(6),
+    "softDeletedBy" VARCHAR(255),
+    "softDeletedAt" TIMESTAMP(6),
 
     CONSTRAINT "Agencies_pkey" PRIMARY KEY ("id")
 );
