@@ -30,6 +30,7 @@ model Agents {
   createdAt       DateTime?         @default(now()) @db.Timestamp(6)
   createdBy       String?           @db.VarChar(255)
   updatedAt       DateTime?         @db.Timestamp(6)
+  updatedBy       String?           @db.VarChar(255)
   softDeletedAt   DateTime?         @db.Timestamp(6)
   softDeletedBy   String?           @db.VarChar(255)
   Agencies        Agencies?         @relation(fields: [AgenciesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -360,15 +361,16 @@ model Taxes {
 }
 
 model Agencies {
-  id             Int       @id @default(autoincrement())
-  entitiesId     Int?
-  createdAt      DateTime? @default(now()) @db.Timestamp(6)
-  createdBy      String?   @db.VarChar(255)
-  updatedAt      DateTime? @db.Timestamp(6)
-  updatedBy      String?   @db.VarChar(255)
-  softDesletedAt DateTime? @db.Timestamp(6)
-  Entities       Entities? @relation(fields: [entitiesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Agents         Agents[]
+  id            Int       @id @default(autoincrement())
+  entitiesId    Int?
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedBy String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  Entities      Entities? @relation(fields: [entitiesId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Agents        Agents[]
 }
 
 model Cities {
