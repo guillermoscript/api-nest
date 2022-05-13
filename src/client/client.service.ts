@@ -1,52 +1,29 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ClientDto } from './dto';
+import { CreateClientDto } from './dto/create-client.dto';
 
 @Injectable()
 export class ClientService {
   constructor(private prisma: PrismaService) {}
 
-  async postClient(dto: ClientDto) {
-    const {
-      gender,
-      phone,
-      email,
-      name,
-      birthDate,
-      civilPolicyStatus,
-      company,
-      ocupation,
-      documentTypeId,
-    } = dto;
+  async postClient(CreateClientDto) {
     try {
-      const entity = await this.prisma.entities.create({
+      const client = await this.prisma.persons.create({
         data: {
-          email,
-          phone,
-          name,
-          Persons: {
+          ...CreateClientDto,
+          Clients: {
             create: {
-              gender: 'Others',
-              birthDate,
-              Clients: {
-                create: {
-                  company,
-                  ocupation,
-                  civilPolicyStatus,
-                },
-              },
-              Addresses: {
-                create: {
-                  Address1: 'test creando clients',
-                },
-              },
+              civilPolicyStatus: CreateClientDto.civilPolicyStatus,
+              company: CreateClientDto.company,
+              ocupation: CreateClientDto.ocupation,
             },
           },
         },
       });
-      console.log(entity);
-      return entity;
+
+      console.log(client);
+      return client;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
@@ -54,6 +31,20 @@ export class ClientService {
         }
       }
       throw error;
+    }
+  }
+
+  async getClients() {
+    try {
+      const clients = this.prisma.clients.findMany({
+        include: {
+          Persons: true,
+        },
+      });
+      return clients;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException(' Aye Mateee thats an error xd');
     }
   }
 }
