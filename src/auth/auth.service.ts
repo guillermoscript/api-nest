@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { UserRole } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -58,6 +59,9 @@ export class AuthService {
 
   async signUp(dto: CreateUserDto) {
     console.log(dto, 'signup service dto');
+    if (!dto.userRole) {
+      dto.userRole = UserRole.DUMMY;
+    }
     const user = await this.userService.create(dto);
     console.log(user, 'signup service');
     return this.signToken(user.id, user.email);

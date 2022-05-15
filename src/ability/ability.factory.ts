@@ -28,11 +28,28 @@ export class AbilityFactory {
     );
 
     if (user.userRole === 'admin') {
-      can(Action.MANAGE, 'all');
-    } else if (user.userRole === 'digitalizer') {
+      console.log('admin');
+      // can(Action.MANAGE, 'all');
+      can(Action.CREATE, 'all');
       can(Action.READ, 'all');
+      can(Action.UPDATE, 'all');
+      can(Action.DELETE, 'all');
+    } else if (user.userRole === 'digitalizer') {
+      can(Action.READ, User);
+      can(Action.CREATE, User);
+      can(Action.READ, 'all');
+      cannot(Action.UPDATE, 'all').because(
+        'You are not allowed to update punk',
+      );
+      cannot(Action.DELETE, 'all').because(
+        'You are not allowed to delete punk',
+      );
     } else if (user.userRole === 'dummy') {
       can(Action.READ, 'all');
+      can(Action.UPDATE, User, { id: user.id });
+      cannot(Action.CREATE, 'all').because('Ay punk ya dumb to create');
+      cannot(Action.UPDATE, 'all').because('Ay punk ya dumb to update');
+      cannot(Action.DELETE, 'all').because('Ay punk ya dumb to delete');
     }
 
     return build({

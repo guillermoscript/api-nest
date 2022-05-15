@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -15,11 +15,21 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
 
-  async validate(payload: any) {
+  async validate(payload: { sub: number; email: string }) {
     const entity = await this.prisma.persons.findUnique({
       where: { id: payload.sub },
+      include: { Users: true },
     });
-    console.log(payload);
-    return payload;
+    const userRole = entity.Users.userRole;
+    if (!entity) {
+      throw new ForbiddenException(
+        'Aye Mate error from validate JWT strategy ya punk',
+      );
+    }
+    return {
+      id: entity.id,
+      email: entity.email,
+      userRole,
+    };
   }
 }
