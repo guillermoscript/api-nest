@@ -208,14 +208,14 @@ model Persons {
 
 model PolicyStatus {
   id               Int        @id @default(autoincrement())
-  PolicystatusName String     @db.VarChar(255)
-  Description      String?    @db.VarChar(255)
   createdAt        DateTime?  @default(now()) @db.Timestamp(6)
   createdBy        String?    @db.VarChar(255)
   updatedAt        DateTime?  @db.Timestamp(6)
   updatedBy        String?    @db.VarChar(255)
   softDeletedAt    DateTime?  @db.Timestamp(6)
   softDeletedBy    String?    @db.VarChar(255)
+  description      String?    @db.VarChar(255)
+  policystatusName String     @db.VarChar(255)
   Policies         Policies[]
 }
 
@@ -434,7 +434,7 @@ model Periodicities {
 model Policies {
   id                 Int                  @id @default(autoincrement())
   InsuranceCarrierId Int
-  policyNum          Float?
+  policyNum          Float
   policyStatusId     Int
   Risk               String               @db.VarChar(255)
   branchTypeId       Int
