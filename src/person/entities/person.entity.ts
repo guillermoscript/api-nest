@@ -1,3 +1,4 @@
+import { Persons } from '.prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum Gender {
@@ -6,7 +7,11 @@ export enum Gender {
   OTHERS = 'others',
 }
 
-export class Person {
+export class Person implements Persons {
+  @ApiProperty()
+  AddressId: number;
+  @ApiProperty()
+  birthDate: Date;
   @ApiProperty()
   id: number;
 
@@ -32,26 +37,11 @@ export class Person {
   phone: string;
 
   @ApiProperty()
-  birthDate: string;
-
-  @ApiProperty()
   gender: Gender;
-
-  @ApiProperty()
-  createdAt: string;
-
-  @ApiProperty()
-  updatedAt: string;
-
-  @ApiProperty()
+  createdAt: Date;
+  updatedAt: Date;
+  softDeletedAt: Date;
   updatedBy: string;
-
-  @ApiProperty()
   createdBy: string;
-
-  @ApiProperty()
-  softDeletedAt: string;
-
-  @ApiProperty()
   softDeletedBy: string;
 }

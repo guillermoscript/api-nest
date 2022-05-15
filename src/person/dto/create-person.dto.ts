@@ -3,9 +3,9 @@ import { IsNumber, IsPhoneNumber, IsString } from 'class-validator';
 import { Gender } from '../entities/person.entity';
 
 export class CreatePersonDto {
-//   @ApiProperty()
-//   @IsNumber()
-//   document?: number;
+  @ApiProperty()
+  @IsNumber()
+  document?: number;
 
   @ApiProperty()
   //   @IsNotEmpty()
@@ -25,14 +25,14 @@ export class CreatePersonDto {
   @ApiProperty()
   gender?: Gender;
 
-//   @ApiProperty()
-//   // @IsNotEmpty()
-//   // @IsString()
-//   @IsPhoneNumber('VE')
-//   phone?: string;
+  @ApiProperty()
+  // @IsNotEmpty()
+  // @IsString()
+  @IsPhoneNumber('VE')
+  phone?: string;
 
-//   @ApiProperty()
-//   //   @IsNotEmpty()
-//   @IsString()
-//   birthDate?: string;
+  @ApiProperty()
+  //   @IsNotEmpty()
+  @IsString()
+  birthDate?: string;
 }
