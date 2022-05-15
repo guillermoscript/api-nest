@@ -20,10 +20,14 @@ export class UserService {
           email: createUserDto.email,
           name: createUserDto.name,
           lastName: createUserDto.lastName,
+          document: createUserDto?.document,
+          birthDate: createUserDto?.birthDate,
+          phone: createUserDto?.phone,
+          gender: createUserDto?.gender,
           Users: {
             create: {
               hashedPassword: hash,
-              userRole: 'dummy',
+              userRole: createUserDto?.userRole,
             },
           },
         },
