@@ -7,16 +7,22 @@ import { CreateClientDto } from './dto/create-client.dto';
 export class ClientService {
   constructor(private prisma: PrismaService) {}
 
-  async postClient(CreateClientDto) {
+  async postClient(CreateClientDto: CreateClientDto) {
     try {
       const client = await this.prisma.persons.create({
         data: {
-          ...CreateClientDto,
+          name: CreateClientDto.name,
+          lastName: CreateClientDto.lastName,
+          email: CreateClientDto.email,
+          document: CreateClientDto?.document,
+          phone: CreateClientDto?.phone,
+          gender: CreateClientDto.gender,
+          birthDate: CreateClientDto?.birthDate,
           Clients: {
             create: {
-              civilPolicyStatus: CreateClientDto.civilPolicyStatus,
-              company: CreateClientDto.company,
-              ocupation: CreateClientDto.ocupation,
+              civilPolicyStatus: CreateClientDto?.civilPolicyStatus,
+              company: CreateClientDto?.company,
+              ocupation: CreateClientDto?.ocupation,
             },
           },
         },

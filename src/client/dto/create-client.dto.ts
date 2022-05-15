@@ -6,7 +6,7 @@ import { IsString } from 'class-validator';
 export class CreateClientDto extends CreatePersonDto {
   @ApiProperty()
   @IsString()
-  civilPolicyStatus: string;
+  civilPolicyStatus?: string;
 
   @ApiProperty()
   @IsString()
