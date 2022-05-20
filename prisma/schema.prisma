@@ -309,14 +309,14 @@ model Continents {
 model CountryStates {
   id            Int        @id @default(autoincrement())
   name          String     @db.VarChar(255)
-  contryId      Int?
+  countryId     Int
   createdAt     DateTime?  @default(now()) @db.Timestamp(6)
   createdBy     String?    @db.VarChar(255)
   updatedAt     DateTime?  @db.Timestamp(6)
   updatedBy     String?    @db.VarChar(255)
   softDeletedAt DateTime?  @db.Timestamp(6)
   softDeletedBy String?    @db.VarChar(255)
-  Countries     Countries? @relation(fields: [contryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Countries     Countries? @relation(fields: [countryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Cities        Cities[]
 }
 
