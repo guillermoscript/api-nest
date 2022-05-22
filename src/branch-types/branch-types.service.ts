@@ -19,7 +19,7 @@ export class BranchTypesService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee that email is mine ya');
+          throw new ForbiddenException('Error, Este nombre ya existe');
         }
       }
       throw error;

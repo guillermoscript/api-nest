@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsPhoneNumber, IsString } from 'class-validator';
+import { IsDate, IsNumber, IsPhoneNumber, IsString } from 'class-validator';
 import { Gender } from '../entities/person.entity';
 
 export class CreatePersonDto {
@@ -34,5 +34,6 @@ export class CreatePersonDto {
   @ApiProperty()
   //   @IsNotEmpty()
   @IsString()
-  birthDate?: string;
+  @IsDate()
+  birthDate?: Date;
 }
