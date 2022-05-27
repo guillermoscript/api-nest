@@ -29,7 +29,7 @@ export class AbilityFactory {
 
     if (user.userRole === 'admin') {
       console.log('admin');
-      // can(Action.MANAGE, 'all');
+      can(Action.MANAGE, 'all');
       can(Action.CREATE, 'all');
       can(Action.READ, 'all');
       can(Action.UPDATE, 'all');
