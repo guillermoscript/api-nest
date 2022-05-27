@@ -31,6 +31,10 @@ import { OrderDetailsModule } from './order-details/order-details.module';
 import { EntitiesHasPolizasModule } from './entities-has-polizas/entities-has-polizas.module';
 import { ClientHasTomadorsModule } from './client-has-tomadors/client-has-tomadors.module';
 import { PaymentsModule } from './payments/payments.module';
+import { AgentContractsModule } from './agent-contracts/agent-contracts.module';
+import { ClientHasAgentsModule } from './client-has-agents/client-has-agents.module';
+import { ConfigsModule } from './configs/configs.module';
+import { TaxesModule } from './taxes/taxes.module';
 
 @Module({
   imports: [
@@ -68,6 +72,10 @@ import { PaymentsModule } from './payments/payments.module';
     EntitiesHasPolizasModule,
     ClientHasTomadorsModule,
     PaymentsModule,
+    AgentContractsModule,
+    ClientHasAgentsModule,
+    ConfigsModule,
+    TaxesModule,
   ],
   controllers: [],
   providers: [],
