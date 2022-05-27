@@ -1,0 +1,1 @@
+Agg la tabla currency al shecma y crear el resource
