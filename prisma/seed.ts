@@ -1,103 +1,201 @@
-// import { PrismaClient } from '@prisma/client';
-// import {
-//   createRandomAddresses,
-//   createRandomAgencies,
-//   createRandomCity,
-//   createRandomClients,
-//   createRandomCompanies,
-//   createRandomCountries,
-//   createRandomEntities,
-//   createRandomPersons,
-//   createRandomContinent,
-//   createRandomCountryStates,
-//   createRandomAgents,
-//   createRandomUsers,
-//   createRandomDocumentsTypes,
-// } from './dataSeed';
+import { PrismaClient } from '@prisma/client';
+// import chalk from 'chalk';
+import {
+  createRandomAddresses,
+  createRandomCity,
+  createRandomClients,
+  createRandomCompanies,
+  createRandomCountries,
+  //   createRandomPersons,
+  createRandomContinent,
+  createRandomCountryStates,
+  createRandomAgents,
+  //   createRandomUsers,
+  createRandomDocumentsTypes,
+  createRandomPeriods,
+  createSubRandomBranchs,
+  createRandomOrderDetails,
+  createRandomBranch,
+  createRandomPolicyStatus,
+  createRandomRelationPolicyStatus,
+  createRandomPeriodicitys,
+  createRandomInsuranceCarriers,
+} from './dataSeed';
 
-// const prisma = new PrismaClient();
+// import chalk from 'chalk';
+const prisma = new PrismaClient();
 
-// const load = async () => {
-//   // await prisma.entities.deleteMany({});
-//   // await prisma.persons.deleteMany({});
-//   // await prisma.addresses.deleteMany({});
-//   // await prisma.agencies.deleteMany({});
-//   // await prisma.clients.deleteMany({});
-//   // await prisma.companies.deleteMany({});
-//   // await prisma.countries.deleteMany({});
-//   // await prisma.continents.deleteMany({});
-//   // await prisma.countryStates.deleteMany({});
-//   // await prisma.agents.deleteMany({});
-//   // await prisma.users.deleteMany({});
+const load = async () => {
+  // await prisma.entities.deleteMany({});
+  // await prisma.persons.deleteMany({});
+  // await prisma.addresses.deleteMany({});
+  // await prisma.agencies.deleteMany({});
+  // await prisma.clients.deleteMany({});
+  // await prisma.companies.deleteMany({});
+  // await prisma.countries.deleteMany({});
+  // await prisma.continents.deleteMany({});
+  // await prisma.countryStates.deleteMany({});
+  // await prisma.agents.deleteMany({});
+  // await prisma.users.deleteMany({});
+  const min = 1;
+  const max = 20;
+  try {
+    // los de primer nivel
+    const Continent = createRandomContinent();
+    const Branch = createRandomBranch();
+    const PolicyStatus = createRandomPolicyStatus();
+    const RelationPolicyStatus = createRandomRelationPolicyStatus();
+    const DocumentsTypes = createRandomDocumentsTypes();
+    const Periodicitys = createRandomPeriodicitys();
 
-//   try {
-//     const randomEntities = createRandomEntities();
-//     const randomPersons = createRandomPersons();
-//     const randomCities = createRandomCity();
-//     const randomAddresses = createRandomAddresses();
-//     const randomAgencies = createRandomAgencies();
-//     const randomAgents = createRandomAgencies();
-//     const randomClients = createRandomClients();
-//     const randomCompanies = createRandomCompanies();
-//     const randomCountrys = createRandomCountries();
-//     const randomContinents = createRandomContinent();
-//     const randomCountryStates = createRandomCountryStates();
-//     const randomUsers = createRandomUsers();
-//     const randomDocumentsTypes = createRandomDocumentsTypes();
+    await prisma.continents.createMany({
+      data: Continent,
+    });
+    console.info('continten created');
 
-//     console.log('Creating Entities');
+    await prisma.branchTypes.createMany({
+      data: Branch,
+    });
+    console.info('Branch created');
 
-//     await prisma.documentTypes.createMany({
-//       data: randomDocumentsTypes,
-//     });
+    await prisma.policyStatus.createMany({
+      data: PolicyStatus,
+    });
+    console.info('PolicyStatus created');
 
-//     // await prisma.entities.createMany({
-//     //   data: randomEntities,
-//     // });
+    await prisma.relationPolicyStatus.createMany({
+      data: RelationPolicyStatus,
+    });
+    console.info('RelationPolicyStatus created');
 
-//     await prisma.continents.createMany({
-//       data: randomContinents,
-//     });
+    await prisma.documentTypes.createMany({
+      data: DocumentsTypes,
+    });
+    console.info('DocumentsTypes created');
+    await prisma.periodicities.createMany({
+      data: Periodicitys,
+    });
+    console.info('Periodicitys created');
 
-//     await prisma.countries.createMany({
-//       data: randomCountrys,
-//     });
+    for (let index = min; index < max + 1; index++) {
+      const randomCities = createRandomCity(min, max);
+      const randomAddresses = createRandomAddresses(min, max);
+      // const randomAgencies = createRandomAgencies();
+      //   const randomAgents = createRandomAgents(min, max);
+      const randomClients = createRandomClients(min, max);
+      const randomCompanies = createRandomCompanies();
+      const randomCountrys = createRandomCountries();
+      const randomCountryStates = createRandomCountryStates(min, max);
+      // const randomUsers = createRandomUsers();
+      const randomInsuranceCarriers = createRandomInsuranceCarriers();
+      const randomPeriods = createRandomPeriods();
+      const randomSubBranchs = createSubRandomBranchs();
+      //   const randomOrderDetails = createRandomOrderDetails(min, max);
 
-//     await prisma.countryStates.createMany({
-//       data: randomCountryStates,
-//     });
+      await prisma.insuranceCarriers.create({
+        data: randomInsuranceCarriers,
+      });
+      console.info('insuranceCarriers created');
 
-//     await prisma.cities.createMany({
-//       data: randomCities,
-//     });
-//     // await prisma.addresses.createMany({
-//     //   data: randomAddresses,
-//     // });
-//     // await prisma.persons.createMany({
-//     //   data: randomPersons,
-//     // });
-//     // await prisma.agencies.createMany({
-//     //   data: randomAgencies,
-//     // });
-//     // await prisma.clients.createMany({
-//     //   data: randomClients,
-//     // });
-//     // await prisma.companies.createMany({
-//     //   data: randomCompanies,
-//     // });
-//     // await prisma.users.createMany({
-//     //   data: randomUsers,
-//     // });
-//     // await prisma.agents.createMany({
-//     //   data: randomAgents,
-//     // });
+      await prisma.companies.create({
+        data: randomCompanies,
+      });
+      console.info('randomCompanies created');
 
-//     console.log('Creating Entities Done');
-//   } catch (e) {
-//     console.error(e);
-//     process.exit(1);
-//   } finally {
-//     await prisma.$disconnect();
-//   }
-// };
-// load();
+      await prisma.clients.create({
+        data: {
+          civilPolicyStatus: randomClients.civilPolicyStatus,
+          company: randomClients.company,
+          ocupation: randomClients.ocupation,
+          Persons: {
+            create: {
+              email: randomClients.email,
+              name: randomClients.name,
+              lastName: randomClients.lastName,
+            },
+          },
+        },
+      });
+      console.info('randomClients created');
+
+      await prisma.countries.create({
+        data: randomCountrys,
+      });
+      console.info('contry created');
+
+      await prisma.countryStates.create({
+        data: {
+          //   countryId: randomCountryStates.countryId,
+          name: randomCountryStates.name,
+          Countries: {
+            connect: {
+              id: index,
+            },
+          },
+        },
+      });
+      console.info('randomCountryStates created');
+
+      await prisma.cities.create({
+        data: {
+          name: randomCities.name,
+          CountryStates: {
+            connect: {
+              id: index,
+            },
+          },
+        },
+      });
+      console.info('cities created');
+
+      await prisma.addresses.create({
+        data: {
+          residence: randomAddresses.residence,
+          street: randomAddresses.street,
+          GPS: randomAddresses.GPS,
+          Cities: {
+            connect: {
+              id: index,
+            },
+          },
+        },
+      });
+      console.info('addresses created');
+
+      await prisma.periods.create({
+        data: randomPeriods,
+      });
+      console.info('randomPeriods created');
+
+      await prisma.subBranchs.create({
+        data: randomSubBranchs,
+      });
+      console.info('randomSubBranchs created');
+
+      //   await prisma.agents.create({
+      //     data: {
+      //       Persons: {
+      //         create: {
+      //           name: randomAgents.name,
+      //           lastName: randomAgents.lastName,
+      //           email: randomAgents.email,
+      //         },
+      //       },
+      //     },
+      //   });
+      //   console.info(('randomAgents created') );
+
+      //   await prisma.orderDetails.create({
+      //     data: randoOr,
+      //   });
+      //   console.info(('randomAgents c)reated,);
+    }
+    console.info('DONEEEEE');
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+load();

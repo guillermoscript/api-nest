@@ -117,7 +117,6 @@ model OrderDetails {
   ClientHasTomadorId    Int
   periodicityId         Int
   primeValue            Float?
-  taxes                 Float?
   AnnexValue            Float?
   comission             Float?
   comissionPolicyStatus Boolean?
@@ -307,16 +306,16 @@ model Continents {
 }
 
 model CountryStates {
-  id            Int        @id @default(autoincrement())
-  name          String     @db.VarChar(255)
+  id            Int       @id @default(autoincrement())
+  name          String    @db.VarChar(255)
+  createdAt     DateTime? @default(now()) @db.Timestamp(6)
+  createdBy     String?   @db.VarChar(255)
+  updatedAt     DateTime? @db.Timestamp(6)
+  updatedBy     String?   @db.VarChar(255)
+  softDeletedAt DateTime? @db.Timestamp(6)
+  softDeletedBy String?   @db.VarChar(255)
   countryId     Int
-  createdAt     DateTime?  @default(now()) @db.Timestamp(6)
-  createdBy     String?    @db.VarChar(255)
-  updatedAt     DateTime?  @db.Timestamp(6)
-  updatedBy     String?    @db.VarChar(255)
-  softDeletedAt DateTime?  @db.Timestamp(6)
-  softDeletedBy String?    @db.VarChar(255)
-  Countries     Countries? @relation(fields: [countryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Countries     Countries @relation(fields: [countryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Cities        Cities[]
 }
 

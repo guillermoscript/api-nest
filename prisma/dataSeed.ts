@@ -1,262 +1,317 @@
-// import {
-//   PrismaClient,
-//   Clients,
-//   Users,
-//   Cities,
-//   Countries,
-//   CountryStates,
-//   Continents,
-//   Companies,
-//   Agencies,
-//   Agents,
-//   Addresses,
-//   Persons,
-//   DocumentTypes,
-// } from '@prisma/client';
+import {
+  PrismaClient,
+  Clients,
+  Users,
+  Cities,
+  Countries,
+  CountryStates,
+  Continents,
+  Companies,
+  Agencies,
+  Agents,
+  Addresses,
+  Persons,
+  DocumentTypes,
+} from '@prisma/client';
 
-// import faker from '@faker-js/faker';
-// import { Person } from 'src/person/entities/person.entity';
+import faker from '@faker-js/faker';
+import { Person } from 'src/person/entities/person.entity';
+import { CreateCountryDto } from 'src/countries/dto/create-country.dto';
+import { CreateCountryStateDto } from 'src/country-states/dto/create-country-state.dto';
+import { CreateCityDto } from 'src/cities/dto/create-city.dto';
+import { CreateAddressDto } from 'src/addresses/dto/create-address.dto';
+import { CreateClientDto } from 'src/client/dto/create-client.dto';
+import { CreatePolicyStatusDto } from 'src/policy-status/dto/create-policy-status.dto';
+import { CreateBranchTypeDto } from 'src/branch-types/dto/create-branch-type.dto';
+import { CreateCompanyDto } from 'src/companies/dto/create-company.dto';
+import { CreateAgencyDto } from 'src/agencies/dto/create-agency.dto';
+import { CreateAgentDto } from 'src/agents/dto/create-agent.dto';
+import { CreateInsuranceCarrierDto } from 'src/insurance-carrier/dto/create-insurance-carrier.dto';
+import { CreatePeriodDto } from 'src/periods/dto/create-period.dto';
+import { CreateSubBranchDto } from 'src/sub-branchs/dto/create-sub-branch.dto';
+import { CreateOrderDetailDto } from 'src/order-details/dto/create-order-detail.dto';
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
-// export function createRandomPersons() {
-//   const persons = [];
-//   for (let i = 0; i < 20; i++) {
-//     const person: Person = {
-//       id: i,
-//       AddressId: i,
-//       gender: 'male',
-//       birthDate: new Date(faker.date.past()),
-//       createdAt: new Date(faker.date.past()),
-//       updatedAt: new Date(faker.date.past()),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: new Date(faker.date.past()),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     persons.push(person);
-//   }
+function randomIntFromInterval(min, max) {
+  // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
-//   return persons;
-// }
+export function createRandomContinent() {
+  const continents = [
+    {
+      id: 1,
+      name: 'America',
+    },
+    {
+      id: 2,
+      name: 'Europa',
+    },
+    {
+      id: 3,
+      name: 'Africa',
+    },
+    {
+      id: 4,
+      name: 'Asia',
+    },
+    {
+      id: 5,
+      name: 'Oceania',
+    },
+  ];
+  return continents;
+}
 
-// export function createRandomCity() {
-//   const Cities = [];
-//   for (let i = 0; i < 20; i++) {
-//     const city = {
-//       id: i,
-//       name: faker.address.cityName(),
-//       countryStateId: i,
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     Cities.push(city);
-//   }
+export function createRandomBranch() {
+  const Branchs = [
+    {
+      id: 1,
+      name: 'Persona',
+    },
+    {
+      id: 2,
+      name: 'Vehiculo',
+    },
+    {
+      id: 3,
+      name: 'Viaje',
+    },
+    {
+      id: 4,
+      name: 'Patrimonial',
+    },
+  ];
+  return Branchs;
+}
 
-//   return Cities;
-// }
+export function createRandomPolicyStatus() {
+  const PolicyStatuses = [
+    {
+      id: 1,
+      policystatusName: 'Cotizada',
+      description: '',
+    },
+    {
+      id: 2,
+      policystatusName: 'Sin Pagar',
+      description: '',
+    },
+    {
+      id: 3,
+      policystatusName: 'Pagada',
+      description: '',
+    },
+    {
+      id: 4,
+      policystatusName: 'Patrimonial',
+      description: '',
+    },
+  ];
+  return PolicyStatuses;
+}
 
-// export function createRandomAddresses() {
-//   const addresses = [];
-//   for (let i = 0; i < 20; i++) {
-//     const address = {
-//       id: i,
-//       Address1: faker.address.streetAddress(),
-//       Address2: faker.address.secondaryAddress(),
-//       cityId: i,
-//       GPS: faker.address.latitude() + ',' + faker.address.longitude(),
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     addresses.push(address);
-//   }
+export function createRandomRelationPolicyStatus() {
+  const PolicyStatuses = [
+    {
+      id: 1,
+      relationName: 'Tomador',
+    },
+    {
+      id: 2,
+      relationName: 'Beneficiario',
+    },
 
-//   return addresses;
-// }
+    // TODO este tercero no sabemos cual es
+    {
+      id: 3,
+      relationName: 'Anexado',
+    },
+  ];
+  return PolicyStatuses;
+}
 
-// export function createRandomCountryStates() {
-//   const countryStates = [];
-//   for (let i = 0; i < 20; i++) {
-//     const countryState = {
-//       id: i,
-//       name: faker.address.state(),
-//       contryId: i,
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     countryStates.push(countryState);
-//   }
+export function createRandomDocumentsTypes() {
+  const documentTypes = [
+    {
+      id: 1,
+      name: 'Cedula de identidad',
+    },
+    {
+      id: 2,
+      name: 'Pasaporte',
+    },
+    {
+      id: 3,
+      name: 'RIF',
+    },
+    {
+      id: 4,
+      name: 'Licencia de conducir',
+    },
+  ];
+  return documentTypes;
+}
 
-//   return countryStates;
-// }
+export function createRandomPeriodicitys() {
+  const randomPeriodicitys = [
+    {
+      id: 1,
+      name: 'mensual',
+    },
+    {
+      id: 2,
+      name: 'trimestral',
+    },
+    {
+      id: 3,
+      name: 'Semestral',
+    },
+    {
+      id: 4,
+      name: 'Anual',
+    },
+  ];
 
-// export function createRandomCountries() {
-//   const countries = [];
-//   for (let i = 0; i < 20; i++) {
-//     const country = {
-//       id: i,
-//       countryName: faker.address.country(),
-//       continentId: i,
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     countries.push(country);
-//   }
+  return randomPeriodicitys;
+}
 
-//   return countries;
-// }
+export function createRandomCity(min, max) {
+  const city: CreateCityDto = {
+    name: faker.address.cityName(),
+    countryStateId: randomIntFromInterval(min, max),
+  };
+  return city;
+}
 
-// export function createRandomContinent() {
-//   const continents = [];
-//   for (let i = 0; i < 20; i++) {
-//     const continent = {
-//       id: i,
-//       name: faker.address.country(),
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     continents.push(continent);
-//   }
+export function createRandomAddresses(min, max) {
+  const address: CreateAddressDto = {
+    street: faker.address.streetAddress(),
+    residence: faker.address.secondaryAddress(),
+    cityId: randomIntFromInterval(min, max),
+    GPS: faker.address.latitude() + ',' + faker.address.longitude(),
+  };
+  return address;
+}
 
-//   return continents;
-// }
+export function createRandomCountryStates(min, max) {
+  const countryState: CreateCountryStateDto = {
+    name: faker.address.state(),
+    countryId: randomIntFromInterval(min, max),
+  };
+  return countryState;
+}
 
-// export function createRandomClients() {
-//   const clients = [];
-//   for (let i = 0; i < 20; i++) {
-//     const client = {
-//       id: i,
-//       personId: i,
-//       civilPolicyStatus: 'single',
-//       company: faker.company.companyName(),
-//       ocupation: faker.name.jobTitle(),
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     clients.push(client);
-//   }
+export function createRandomCountries() {
+  const country: CreateCountryDto = {
+    countryName: faker.address.country(),
+    continentId: randomIntFromInterval(1, 5),
+  };
 
-//   return clients;
-// }
+  return country;
+}
 
-// export function createRandomCompanies() {
-//   const companies = [];
-//   for (let i = 0; i < 20; i++) {
-//     const company = {
-//       id: i,
-//       socialReason: faker.company.companyName(),
-//       economicActivity: faker.finance.amount(),
-//       webPage: faker.internet.url(),
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     companies.push(company);
-//   }
+export function createRandomClients(min, max) {
+  // const client: CreateClientDto = {
+  const client = {
+    name: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+    personId: randomIntFromInterval(min, max),
+    civilPolicyStatus: 'single',
+    company: faker.company.companyName(),
+    ocupation: faker.name.jobTitle(),
+  };
+  return client;
+}
 
-//   return companies;
-// }
+export function createRandomCompanies() {
+  const company: CreateCompanyDto = {
+    socialReason: faker.company.companyName(),
+    economicActivity: faker.finance.amount(),
+    webPage: faker.internet.url(),
+    document: +faker.random.numeric(),
+  };
+  return company;
+}
 
 // export function createRandomUsers() {
-//   const users = [];
-//   for (let i = 0; i < 20; i++) {
-//     const user = {
-//       id: i,
-//       personId: i,
-//       hashedPassword: faker.internet.password(),
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     users.push(user);
-//   }
-
+//   const user: = {
+//     id: i,
+//     personId: i,
+//     hashedPassword: faker.internet.password(),
+//   };
 //   return users;
 // }
 
-// export function createRandomAgents() {
-//   const agents = [];
-//   for (let i = 0; i < 20; i++) {
-//     const agent = {
-//       id: i,
-//       personId: i,
-//       AgenciesId: i,
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       // updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     agents.push(agent);
-//   }
+export function createRandomAgents(min: number, max: number) {
+  const agent = {
+    personId: randomIntFromInterval(min, max),
+    AgenciesId: randomIntFromInterval(min, max),
+    name: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+  };
+  return agent;
+}
 
-//   return agents;
-// }
+export function createRandomInsuranceCarriers() {
+  const insuranceCarrier: CreateInsuranceCarrierDto = {
+    document: +faker.random.numeric(),
+    name: faker.company.companyName(),
+    phone: faker.phone.phoneNumber(),
+    email: faker.internet.email(),
+    account: faker.finance.account(4),
+    paymentLink: faker.internet.url(),
+  };
 
-// export function createRandomDocumentsTypes() {
-//   const documentTypes = [];
-//   for (let i = 0; i < 20; i++) {
-//     const documentType = {
-//       id: i,
-//       name: faker.name.jobTitle(),
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       softDeletedAt: faker.date.past(),
-//       softDeletedBy: faker.datatype.uuid(),
-//     };
-//     documentTypes.push(documentType);
-//   }
+  return insuranceCarrier;
+}
 
-//   return documentTypes;
-// }
+export function createRandomPeriods() {
+  const periods: CreatePeriodDto = {
+    startDate: faker.date.past(10),
+    endDate: faker.date.future(10),
+    renewal: +faker.random.numeric(),
+  };
+
+  return periods;
+}
+
+export function createSubRandomBranchs() {
+  const subBranchs: CreateSubBranchDto = {
+    name: faker.company.companyName(),
+    branchTypeId: randomIntFromInterval(1, 4),
+  };
+
+  return subBranchs;
+}
+
+export function createRandomOrderDetails(min, max) {
+  const orderDetails: CreateOrderDetailDto = {
+    ClientHasTomadorId: randomIntFromInterval(min, max),
+    periodicityId: randomIntFromInterval(min, max),
+    primeValue: +faker.random.numeric(),
+    AnnexValue: +faker.random.numeric(),
+    comission: +faker.random.numeric(),
+    comissionPolicyStatus: faker.datatype.boolean(),
+    ValorFinalizacion: +faker.random.numeric(),
+    Total: +faker.random.numeric(),
+  };
+  return orderDetails;
+}
 
 // export function createRandomAgencies() {
 //   const agencies = [];
-//   for (let i = 0; i < 20; i++) {
-//     const agency = {
-//       id: i,
-//       createdAt: faker.date.past(),
-//       updatedAt: faker.date.past(),
-//       updatedBy: faker.datatype.uuid(),
-//       createdBy: faker.datatype.uuid(),
-//       // softDeletedAt: faker.date.past(),
-//       // softDeletedBy: faker.datatype.uuid(),
-//     };
-//     agencies.push(agency);
-//   }
-
+//   const agency = {
+//     id: i,
+//     createdAt: faker.date.past(),
+//     updatedAt: faker.date.past(),
+//     updatedBy: faker.datatype.uuid(),
+//     createdBy: faker.datatype.uuid(),
+//     // softDeletedAt: faker.date.past(),
+//     // softDeletedBy: faker.datatype.uuid(),
+//   };
 //   return agencies;
 // }
