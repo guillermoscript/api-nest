@@ -16,22 +16,22 @@ export class PoliciesService {
           Renovable: createPolicyDto.Renovable,
           InsuranceCarriers: {
             connect: {
-              id: createPolicyDto.InsuranceCarriers.id,
+              id: createPolicyDto.insuranceCarrierId,
             },
           },
           BranchTypes: {
             connect: {
-              id: createPolicyDto.BranchTypes.id,
+              id: createPolicyDto.branchTypeId,
             },
           },
           SubBranchs: {
             connect: {
-              id: createPolicyDto.SubBranchs.id,
+              id: createPolicyDto.subBranchId,
             },
           },
           PolicyStatus: {
             connect: {
-              id: createPolicyDto.PolicyStatus.id,
+              id: createPolicyDto.policyStatusId,
             },
           },
         },

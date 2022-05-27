@@ -1,11 +1,15 @@
+import { Taxes } from '.prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { RelationPolicyStatus } from '@prisma/client';
 
-export class RelationPolicyStatuses implements RelationPolicyStatus {
+export class Tax implements Taxes {
   @ApiProperty()
   id: number;
   @ApiProperty()
-  relationName: string;
+  OrderDetailsId: number;
+  @ApiProperty()
+  metakey: string;
+  @ApiProperty()
+  metavalue: string;
   createdAt: Date;
   createdBy: string;
   updatedAt: Date;

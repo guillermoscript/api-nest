@@ -1,13 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { SubBranch } from '../entities/sub-branch.entity';
 
-export class CreateSubBranchDto {
-  @ApiProperty()
-  @IsString()
-  name: string;
-
+export class CreateTaxDto {
   @ApiProperty()
   @IsNumber()
-  branchTypeId: number;
+  OrderDetailsId: number;
+
+  @ApiProperty()
+  @IsString()
+  metakey: string;
+
+  @ApiProperty()
+  @IsString()
+  metavalue: string;
 }

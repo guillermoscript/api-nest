@@ -2,11 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreatePolicyDto {
-  [x: string]: any;
   @ApiProperty()
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  insuranceCarrierId: string;
+  insuranceCarrierId: number;
 
   @ApiProperty()
   @IsNumber()

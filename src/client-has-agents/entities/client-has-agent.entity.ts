@@ -1,11 +1,13 @@
+import { ClientHasAgents } from '.prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { RelationPolicyStatus } from '@prisma/client';
 
-export class RelationPolicyStatuses implements RelationPolicyStatus {
+export class ClientHasAgent implements ClientHasAgents {
   @ApiProperty()
   id: number;
   @ApiProperty()
-  relationName: string;
+  clientId: number;
+  @ApiProperty()
+  agentId: number;
   createdAt: Date;
   createdBy: string;
   updatedAt: Date;
