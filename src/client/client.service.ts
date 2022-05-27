@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateClientDto } from './dto/create-client.dto';
+import { CreateExitingPersonClientDto } from './dto/create-existing-person-client.dto';
 
 @Injectable()
 export class ClientService {
@@ -23,6 +24,35 @@ export class ClientService {
               civilPolicyStatus: CreateClientDto?.civilPolicyStatus,
               company: CreateClientDto?.company,
               ocupation: CreateClientDto?.ocupation,
+            },
+          },
+        },
+      });
+
+      console.log(client);
+      return client;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException(' Aye Mateee that email is mine ya');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async existingPersonClient(
+    createExitingPersonClientDto: CreateExitingPersonClientDto,
+  ) {
+    try {
+      const client = await this.prisma.clients.create({
+        data: {
+          civilPolicyStatus: createExitingPersonClientDto?.civilPolicyStatus,
+          company: createExitingPersonClientDto?.company,
+          ocupation: createExitingPersonClientDto?.ocupation,
+          Persons: {
+            connect: {
+              id: createExitingPersonClientDto.personId,
             },
           },
         },

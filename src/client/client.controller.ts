@@ -68,6 +68,20 @@ export class ClientController {
     return this.clientService.postClient(dto);
   }
 
+  @Post('/:id/person')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOkResponse({
+    type: CreateClientDto,
+    description: 'Client Created Response',
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden email may exist mate' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized Mate' })
+  @UseGuards(AbilityGuard)
+  @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
+  createExistingPersonClient(@Body() dto: CreateClientDto) {
+    return this.clientService.postClient(dto);
+  }
+
   @Put('/:id')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: CreateClientDto, description: 'Client response' })
