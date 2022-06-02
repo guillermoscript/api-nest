@@ -36,7 +36,7 @@ export class DocumentTypesController {
    return this.documentTypesService.create(createDocumentTypeDto);
  }
 
- @Get()
+ @Get('/')
  @HttpCode(HttpStatus.OK)
  @ApiOkResponse()
  @ApiNotFoundResponse()

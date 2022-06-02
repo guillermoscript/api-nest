@@ -9,6 +9,10 @@ export class CreatePersonDto {
   document?: number;
 
   @ApiProperty()
+  @IsNumber()
+  documentTypeId: number;
+
+  @ApiProperty()
   //   @IsNotEmpty()
   @IsString()
   name: string;

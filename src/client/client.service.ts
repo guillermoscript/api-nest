@@ -26,6 +26,11 @@ export class ClientService {
               ocupation: CreateClientDto?.ocupation,
             },
           },
+          DocumentTypes:{
+            connect:{
+              id: CreateClientDto.documentTypeId,
+            },
+          },
         },
       });
 
