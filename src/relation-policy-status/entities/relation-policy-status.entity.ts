@@ -6,10 +6,6 @@ export class RelationPolicyStatuses implements RelationPolicyStatus {
   id: number;
   @ApiProperty()
   relationName: string;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
-}
+  
+        
+  }

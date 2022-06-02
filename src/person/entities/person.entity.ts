@@ -38,10 +38,6 @@ export class Person implements Persons {
 
   @ApiProperty()
   gender: Gender;
-  createdAt: Date;
-  updatedAt: Date;
-  softDeletedAt: Date;
-  updatedBy: string;
-  createdBy: string;
-  softDeletedBy: string;
-}
+  
+    
+      }

@@ -6,10 +6,6 @@ export class Continent implements Continents {
   id: number;
   @ApiProperty()
   name: string;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
-}
+  
+        
+  }

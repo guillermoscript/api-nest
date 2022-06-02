@@ -22,10 +22,6 @@ export class OrderDetail implements OrderDetails{
     ValorFinalizacion: number;
     @ApiProperty()
     Total: number;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

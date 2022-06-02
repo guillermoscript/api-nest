@@ -306,10 +306,6 @@ export function createRandomOrderDetails(min, max) {
 //   const agencies = [];
 //   const agency = {
 //     id: i,
-//     createdAt: faker.date.past(),
-//     updatedAt: faker.date.past(),
-//     updatedBy: faker.datatype.uuid(),
-//     createdBy: faker.datatype.uuid(),
 //     // softDeletedAt: faker.date.past(),
 //     // softDeletedBy: faker.datatype.uuid(),
 //   };

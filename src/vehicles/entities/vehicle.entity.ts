@@ -20,10 +20,6 @@ export class Vehicle implements Vehicles{
     gasConverted: string;
     @ApiProperty()
     vehicleAge: number;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }
