@@ -14,12 +14,6 @@ CREATE TABLE "Addresses" (
     "street" VARCHAR(255),
     "residence" VARCHAR(255),
     "GPS" VARCHAR(255),
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Addresses_pkey" PRIMARY KEY ("id")
 );
@@ -29,12 +23,6 @@ CREATE TABLE "Agents" (
     "id" SERIAL NOT NULL,
     "personId" INTEGER NOT NULL,
     "AgenciesId" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Agents_pkey" PRIMARY KEY ("id")
 );
@@ -44,12 +32,6 @@ CREATE TABLE "ClientHasAgents" (
     "id" SERIAL NOT NULL,
     "clientId" INTEGER,
     "agentId" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "ClientHasAgents_pkey" PRIMARY KEY ("id")
 );
@@ -58,12 +40,6 @@ CREATE TABLE "ClientHasAgents" (
 CREATE TABLE "ClientHasTomadors" (
     "id" SERIAL NOT NULL,
     "clientPolizaId" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "ClientHasTomadors_pkey" PRIMARY KEY ("id")
 );
@@ -75,12 +51,6 @@ CREATE TABLE "Clients" (
     "civilPolicyStatus" VARCHAR(255),
     "company" VARCHAR(255),
     "ocupation" VARCHAR(255),
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Clients_pkey" PRIMARY KEY ("id")
 );
@@ -90,14 +60,17 @@ CREATE TABLE "Configs" (
     "id" SERIAL NOT NULL,
     "key" VARCHAR(255) NOT NULL,
     "value" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Configs_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Currencies" (
+    "id" SERIAL NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
+    "symbol" VARCHAR(255) NOT NULL,
+
+    CONSTRAINT "Currencies_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -109,12 +82,6 @@ CREATE TABLE "InsuranceCarriers" (
     "email" VARCHAR(255),
     "account" VARCHAR(255),
     "paymentLink" VARCHAR(255),
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "InsuranceCarriers_pkey" PRIMARY KEY ("id")
 );
@@ -125,18 +92,12 @@ CREATE TABLE "OrderDetails" (
     "ClientHasTomadorId" INTEGER NOT NULL,
     "periodicityId" INTEGER NOT NULL,
     "primeValue" DOUBLE PRECISION,
-    "taxes" DOUBLE PRECISION,
     "AnnexValue" DOUBLE PRECISION,
     "comission" DOUBLE PRECISION,
     "comissionPolicyStatus" BOOLEAN,
     "ValorFinalizacion" DOUBLE PRECISION,
     "Total" DOUBLE PRECISION,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
+    "currencyId" INTEGER NOT NULL,
 
     CONSTRAINT "OrderDetails_pkey" PRIMARY KEY ("id")
 );
@@ -149,12 +110,6 @@ CREATE TABLE "Patrimonials" (
     "totalValue" DOUBLE PRECISION,
     "machineryValue" DOUBLE PRECISION,
     "furnitureValue" DOUBLE PRECISION,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Patrimonials_pkey" PRIMARY KEY ("id")
 );
@@ -167,12 +122,6 @@ CREATE TABLE "Payments" (
     "paymentValue" DOUBLE PRECISION,
     "paymentDate" DATE,
     "comissionDate" DATE,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Payments_pkey" PRIMARY KEY ("id")
 );
@@ -184,12 +133,6 @@ CREATE TABLE "Periods" (
     "startDate" DATE NOT NULL,
     "endDate" DATE NOT NULL,
     "renewal" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Periods_pkey" PRIMARY KEY ("id")
 );
@@ -206,12 +149,6 @@ CREATE TABLE "Persons" (
     "birthDate" DATE,
     "phone" VARCHAR(255),
     "email" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Persons_pkey" PRIMARY KEY ("id")
 );
@@ -219,12 +156,6 @@ CREATE TABLE "Persons" (
 -- CreateTable
 CREATE TABLE "PolicyStatus" (
     "id" SERIAL NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
     "description" VARCHAR(255),
     "policystatusName" VARCHAR(255) NOT NULL,
 
@@ -235,12 +166,6 @@ CREATE TABLE "PolicyStatus" (
 CREATE TABLE "RelationPolicyStatus" (
     "id" SERIAL NOT NULL,
     "relationName" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "RelationPolicyStatus_pkey" PRIMARY KEY ("id")
 );
@@ -253,12 +178,6 @@ CREATE TABLE "Travels" (
     "policyId" INTEGER NOT NULL,
     "startDate" DATE NOT NULL,
     "endDate" DATE NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Travels_pkey" PRIMARY KEY ("id")
 );
@@ -268,12 +187,6 @@ CREATE TABLE "Users" (
     "id" SERIAL NOT NULL,
     "userRole" "userroles",
     "hashedPassword" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
 );
@@ -289,12 +202,6 @@ CREATE TABLE "Vehicles" (
     "serviceType" VARCHAR(255),
     "gasConverted" VARCHAR(255),
     "vehicleAge" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Vehicles_pkey" PRIMARY KEY ("id")
 );
@@ -303,12 +210,6 @@ CREATE TABLE "Vehicles" (
 CREATE TABLE "BranchTypes" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "BranchTypes_pkey" PRIMARY KEY ("id")
 );
@@ -317,12 +218,6 @@ CREATE TABLE "BranchTypes" (
 CREATE TABLE "Continents" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Continents_pkey" PRIMARY KEY ("id")
 );
@@ -331,12 +226,6 @@ CREATE TABLE "Continents" (
 CREATE TABLE "CountryStates" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
     "countryId" INTEGER NOT NULL,
 
     CONSTRAINT "CountryStates_pkey" PRIMARY KEY ("id")
@@ -347,12 +236,6 @@ CREATE TABLE "SubBranchs" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "branchTypeId" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "SubBranchs_pkey" PRIMARY KEY ("id")
 );
@@ -363,12 +246,6 @@ CREATE TABLE "Taxes" (
     "OrderDetailsId" INTEGER NOT NULL,
     "metakey" VARCHAR(255) NOT NULL,
     "metavalue" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Taxes_pkey" PRIMARY KEY ("id")
 );
@@ -380,12 +257,6 @@ CREATE TABLE "Agencies" (
     "name" VARCHAR(255),
     "phone" VARCHAR(255),
     "email" VARCHAR(255),
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
 
     CONSTRAINT "Agencies_pkey" PRIMARY KEY ("id")
 );
@@ -395,12 +266,6 @@ CREATE TABLE "Cities" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "countryStateId" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Cities_pkey" PRIMARY KEY ("id")
 );
@@ -412,12 +277,6 @@ CREATE TABLE "Companies" (
     "socialReason" VARCHAR(255),
     "economicActivity" VARCHAR(255),
     "webPage" VARCHAR(255),
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Companies_pkey" PRIMARY KEY ("id")
 );
@@ -427,12 +286,6 @@ CREATE TABLE "Countries" (
     "id" SERIAL NOT NULL,
     "continentId" INTEGER NOT NULL,
     "countryName" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Countries_pkey" PRIMARY KEY ("id")
 );
@@ -441,12 +294,6 @@ CREATE TABLE "Countries" (
 CREATE TABLE "DocumentTypes" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "DocumentTypes_pkey" PRIMARY KEY ("id")
 );
@@ -455,12 +302,6 @@ CREATE TABLE "DocumentTypes" (
 CREATE TABLE "Periodicities" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Periodicities_pkey" PRIMARY KEY ("id")
 );
@@ -476,12 +317,6 @@ CREATE TABLE "Policies" (
     "subBranchId" INTEGER NOT NULL,
     "insuredValue" DOUBLE PRECISION,
     "Renovable" BOOLEAN NOT NULL,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Policies_pkey" PRIMARY KEY ("id")
 );
@@ -491,12 +326,6 @@ CREATE TABLE "AgentContracts" (
     "id" SERIAL NOT NULL,
     "policyId" INTEGER,
     "agentId" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "AgentContracts_pkey" PRIMARY KEY ("id")
 );
@@ -508,12 +337,6 @@ CREATE TABLE "EntitiesHasPolizas" (
     "entitiableTypes" "entitiablenum" NOT NULL,
     "entitiableId" INTEGER,
     "relationId" INTEGER,
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "EntitiesHasPolizas_pkey" PRIMARY KEY ("id")
 );
@@ -527,12 +350,6 @@ CREATE TABLE "Notifications" (
     "notifiableId" INTEGER,
     "data" TEXT,
     "readAt" TIMESTAMP(6),
-    "createdAt" TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
-    "createdBy" VARCHAR(255),
-    "updatedAt" TIMESTAMP(6),
-    "updatedBy" VARCHAR(255),
-    "softDeletedAt" TIMESTAMP(6),
-    "softDeletedBy" VARCHAR(255),
 
     CONSTRAINT "Notifications_pkey" PRIMARY KEY ("id")
 );
@@ -563,6 +380,9 @@ ALTER TABLE "Clients" ADD CONSTRAINT "Clients_personId_fkey" FOREIGN KEY ("perso
 
 -- AddForeignKey
 ALTER TABLE "OrderDetails" ADD CONSTRAINT "OrderDetails_ClientHasTomadorId_fkey" FOREIGN KEY ("ClientHasTomadorId") REFERENCES "ClientHasTomadors"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "OrderDetails" ADD CONSTRAINT "OrderDetails_currencyId_fkey" FOREIGN KEY ("currencyId") REFERENCES "Currencies"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "OrderDetails" ADD CONSTRAINT "OrderDetails_periodicityId_fkey" FOREIGN KEY ("periodicityId") REFERENCES "Periodicities"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;

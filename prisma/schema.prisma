@@ -10,9 +10,9 @@ datasource db {
 model Addresses {
   id        Int       @id @default(autoincrement())
   cityId    Int
-  GPS       String?   @db.VarChar(255)
-  residence String?   @db.VarChar(255)
   street    String?   @db.VarChar(255)
+  residence String?   @db.VarChar(255)
+  GPS       String?   @db.VarChar(255)
   Cities    Cities    @relation(fields: [cityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Persons   Persons[]
 }
@@ -60,37 +60,37 @@ model Configs {
 }
 
 model Currencies {
-  id    Int    @id @default(autoincrement())
-  name   String @db.VarChar(255)
-  symbol String @db.VarChar(255)
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  symbol       String         @db.VarChar(255)
   OrderDetails OrderDetails[]
 }
 
 model InsuranceCarriers {
   id          Int        @id @default(autoincrement())
-  account     String?    @db.VarChar(255)
-  paymentLink String?    @db.VarChar(255)
   document    Int?
-  email       String?    @db.VarChar(255)
   name        String?    @db.VarChar(255)
   phone       String?    @db.VarChar(255)
+  email       String?    @db.VarChar(255)
+  account     String?    @db.VarChar(255)
+  paymentLink String?    @db.VarChar(255)
   Policies    Policies[]
 }
 
 model OrderDetails {
   id                    Int               @id @default(autoincrement())
   ClientHasTomadorId    Int
+  periodicityId         Int
   primeValue            Float?
   AnnexValue            Float?
   comission             Float?
   comissionPolicyStatus Boolean?
   ValorFinalizacion     Float?
   Total                 Float?
-  periodicityId         Int
   currencyId            Int
   ClientHasTomadors     ClientHasTomadors @relation(fields: [ClientHasTomadorId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  Periodicities         Periodicities     @relation(fields: [periodicityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Currencies            Currencies        @relation(fields: [currencyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Periodicities         Periodicities     @relation(fields: [periodicityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Payments              Payments[]
   Taxes                 Taxes[]
 }
@@ -98,10 +98,10 @@ model OrderDetails {
 model Patrimonials {
   id             Int      @id @default(autoincrement())
   policyId       Int
-  furnitureValue Float?
-  machineryValue Float?
-  totalValue     Float?
   type           String   @db.VarChar(255)
+  totalValue     Float?
+  machineryValue Float?
+  furnitureValue Float?
   Policies       Policies @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -126,15 +126,15 @@ model Periods {
 
 model Persons {
   id             Int            @id @default(autoincrement())
-  AddressId      Int?
-  birthDate      DateTime?      @db.Date
-  document       Int?
   documentTypeId Int?
-  email          String         @unique @db.VarChar(255)
-  lastName       String         @db.VarChar(255)
-  name           String         @db.VarChar(255)
-  phone          String?        @db.VarChar(255)
+  document       Int?
+  AddressId      Int?
   gender         genders?
+  name           String         @db.VarChar(255)
+  lastName       String         @db.VarChar(255)
+  birthDate      DateTime?      @db.Date
+  phone          String?        @db.VarChar(255)
+  email          String         @unique @db.VarChar(255)
   Addresses      Addresses?     @relation(fields: [AddressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   DocumentTypes  DocumentTypes? @relation(fields: [documentTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Agents         Agents[]
@@ -169,8 +169,8 @@ model Travels {
 
 model Users {
   id             Int        @id @default(autoincrement())
-  hashedPassword String
   userRole       userroles?
+  hashedPassword String
   Persons        Persons    @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -227,9 +227,9 @@ model Taxes {
 model Agencies {
   id       Int      @id @default(autoincrement())
   document Int?
-  email    String?  @db.VarChar(255)
   name     String?  @db.VarChar(255)
   phone    String?  @db.VarChar(255)
+  email    String?  @db.VarChar(255)
   Agents   Agents[]
 }
 
@@ -243,10 +243,10 @@ model Cities {
 
 model Companies {
   id               Int     @id @default(autoincrement())
+  document         Int
   socialReason     String? @db.VarChar(255)
   economicActivity String? @db.VarChar(255)
   webPage          String? @db.VarChar(255)
-  document         Int
 }
 
 model Countries {
