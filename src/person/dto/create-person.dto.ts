@@ -5,6 +5,9 @@ import { Gender } from '../entities/person.entity';
 
 export class CreatePersonDto {
   @ApiProperty()
+  AddressId?: number;
+  
+  @ApiProperty()
   @IsNumber()
   document?: number;
 
@@ -41,4 +44,5 @@ export class CreatePersonDto {
   @Type(() => Date)
   @IsDate()
   birthDate?: Date;
+  
 }
