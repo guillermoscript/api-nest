@@ -154,6 +154,22 @@ export function createRandomDocumentsTypes() {
   return documentTypes;
 }
 
+export function createRandomCurrencies() {
+  const Currencies = [
+    {
+      id: 1,
+      name: 'Bolivar',
+      symbol: 'Bs',
+    },
+    {
+      id: 2,
+      name: 'Dollar',
+      symbol: '$',
+    },
+  ];
+  return Currencies;
+}
+
 export function createRandomPeriodicitys() {
   const randomPeriodicitys = [
     {
@@ -292,6 +308,7 @@ export function createRandomOrderDetails(min, max) {
   const orderDetails: CreateOrderDetailDto = {
     ClientHasTomadorId: randomIntFromInterval(min, max),
     periodicityId: randomIntFromInterval(min, max),
+    currencyId: randomIntFromInterval(1, 2),
     primeValue: +faker.random.numeric(),
     AnnexValue: +faker.random.numeric(),
     comission: +faker.random.numeric(),

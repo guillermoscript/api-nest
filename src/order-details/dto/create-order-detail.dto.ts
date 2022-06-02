@@ -11,6 +11,10 @@ export class CreateOrderDetailDto {
   @IsNumber()
   @IsNotEmpty()
   periodicityId: number;
+  
+  @ApiProperty()
+  @IsNumber()
+  currencyId: number;
 
   @ApiProperty()
   @IsNumber()

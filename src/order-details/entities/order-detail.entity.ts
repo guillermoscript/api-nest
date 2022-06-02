@@ -9,6 +9,8 @@ export class OrderDetail implements OrderDetails{
     @ApiProperty()
     periodicityId: number;
     @ApiProperty()
+    currencyId: number;
+    @ApiProperty()
     primeValue: number;
     @ApiProperty()
     taxes: number;
