@@ -233,6 +233,9 @@ export function createRandomClients(min, max) {
   const client = {
     name: faker.name.firstName(),
     lastName: faker.name.lastName(),
+    document: +faker.random.numeric(7),
+    documentTypeId: randomIntFromInterval(1,4),
+    birthDate:faker.date.past(),
     email: faker.internet.email(),
     personId: randomIntFromInterval(min, max),
     civilPolicyStatus: 'single',
