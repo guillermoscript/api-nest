@@ -277,7 +277,7 @@ export function createRandomAgents(min: number, max: number) {
 
 export function createRandomInsuranceCarriers() {
   const insuranceCarrier: CreateInsuranceCarrierDto = {
-    document: +faker.random.numeric(),
+    document: +faker.random.numeric(6),
     name: faker.company.companyName(),
     phone: faker.phone.phoneNumber(),
     email: faker.internet.email(),
