@@ -1,38 +1,22 @@
-import {
-  PrismaClient,
-  Clients,
-  Users,
-  Cities,
-  Countries,
-  CountryStates,
-  Continents,
-  Companies,
-  Agencies,
-  Agents,
-  Addresses,
-  Persons,
-  DocumentTypes,
-} from '@prisma/client';
 
 import faker from '@faker-js/faker';
+// import { Person } from 'src/person/entities/person.entity';
 import { CreateCountryDto } from 'src/countries/dto/create-country.dto';
 import { CreateCountryStateDto } from 'src/country-states/dto/create-country-state.dto';
 import { CreateCityDto } from 'src/cities/dto/create-city.dto';
 import { CreateAddressDto } from 'src/addresses/dto/create-address.dto';
-import { CreateClientDto } from 'src/client/dto/create-client.dto';
-import { CreatePolicyStatusDto } from 'src/policy-status/dto/create-policy-status.dto';
-import { CreateBranchTypeDto } from 'src/branch-types/dto/create-branch-type.dto';
+// import { CreateClientDto } from 'src/client/dto/create-client.dto';
+// import { CreatePolicyStatusDto } from 'src/policy-status/dto/create-policy-status.dto';
+// import { CreateBranchTypeDto } from 'src/branch-types/dto/create-branch-type.dto';
 import { CreateCompanyDto } from 'src/companies/dto/create-company.dto';
-import { CreateAgencyDto } from 'src/agencies/dto/create-agency.dto';
-import { CreateAgentDto } from 'src/agents/dto/create-agent.dto';
+// import { CreateAgencyDto } from 'src/agencies/dto/create-agency.dto';
+// import { CreateAgentDto } from 'src/agents/dto/create-agent.dto';
 import { CreateInsuranceCarrierDto } from 'src/insurance-carrier/dto/create-insurance-carrier.dto';
 import { CreatePeriodDto } from 'src/periods/dto/create-period.dto';
 import { CreateSubBranchDto } from 'src/sub-branchs/dto/create-sub-branch.dto';
 import { CreateOrderDetailDto } from 'src/order-details/dto/create-order-detail.dto';
-import { CreatePolicyDto } from 'src/policies/dto/create-policy.dto';
-// import { Gender } from 'src/person/entities/person.entity';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 function randomIntFromInterval(min, max) {
   // min and max included
@@ -235,19 +219,14 @@ export function createRandomClients(min, max) {
     name: faker.name.firstName(),
     lastName: faker.name.lastName(),
     document: +faker.random.numeric(7),
-    documentTypeId: randomIntFromInterval(1,4),
-    birthDate:faker.date.past(),
+    documentTypeId: randomIntFromInterval(1, 4),
+    birthDate: faker.date.past(),
     email: faker.internet.email(),
     personId: randomIntFromInterval(min, max),
     civilPolicyStatus: 'single',
-    // gender: Gender.MALE,
-    birthDate: faker.date.past(50),
-    document: +faker.random.numeric(6),
-    documentTypeId: randomIntFromInterval(1, 4),
-    phone: faker.phone.phoneNumber(),
-    // AddressId: randomIntFromInterval(min, max),
     company: faker.company.companyName(),
     ocupation: faker.name.jobTitle(),
+    phone: faker.phone.phoneNumber('VE'),
   };
   return client;
 }
@@ -328,20 +307,6 @@ export function createRandomOrderDetails(min, max) {
   };
   return orderDetails;
 }
-
-// export function createRandomPolicies(min, max) {
-//   const policies = {
-//     insuranceCarrierId: randomIntFromInterval(min, max),
-//     policyNum: +faker.random.numeric(5),
-//     policyStatusId: randomIntFromInterval(min, max),
-//     branchTypeId: randomIntFromInterval(1, 4),
-//     insuredValue: +faker.random.numeric(8),
-//     subBranchId: randomIntFromInterval(min, max),
-//     Risk: faker.random.alphaNumeric(8),
-//     // Renovable: faker.datatype.boolean,
-//   };
-//   return policies;
-// }
 
 // export function createRandomAgencies() {
 //   const agencies = [];
