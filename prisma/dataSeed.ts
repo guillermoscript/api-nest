@@ -15,7 +15,6 @@ import {
 } from '@prisma/client';
 
 import faker from '@faker-js/faker';
-import { Person } from 'src/person/entities/person.entity';
 import { CreateCountryDto } from 'src/countries/dto/create-country.dto';
 import { CreateCountryStateDto } from 'src/country-states/dto/create-country-state.dto';
 import { CreateCityDto } from 'src/cities/dto/create-city.dto';
@@ -30,6 +29,8 @@ import { CreateInsuranceCarrierDto } from 'src/insurance-carrier/dto/create-insu
 import { CreatePeriodDto } from 'src/periods/dto/create-period.dto';
 import { CreateSubBranchDto } from 'src/sub-branchs/dto/create-sub-branch.dto';
 import { CreateOrderDetailDto } from 'src/order-details/dto/create-order-detail.dto';
+import { CreatePolicyDto } from 'src/policies/dto/create-policy.dto';
+// import { Gender } from 'src/person/entities/person.entity';
 
 const prisma = new PrismaClient();
 
@@ -220,6 +221,12 @@ export function createRandomClients(min, max) {
     email: faker.internet.email(),
     personId: randomIntFromInterval(min, max),
     civilPolicyStatus: 'single',
+    // gender: Gender.MALE,
+    birthDate: faker.date.past(50),
+    document: +faker.random.numeric(6),
+    documentTypeId: randomIntFromInterval(1, 4),
+    phone: faker.phone.phoneNumber(),
+    // AddressId: randomIntFromInterval(min, max),
     company: faker.company.companyName(),
     ocupation: faker.name.jobTitle(),
   };
@@ -301,6 +308,20 @@ export function createRandomOrderDetails(min, max) {
   };
   return orderDetails;
 }
+
+// export function createRandomPolicies(min, max) {
+//   const policies = {
+//     insuranceCarrierId: randomIntFromInterval(min, max),
+//     policyNum: +faker.random.numeric(5),
+//     policyStatusId: randomIntFromInterval(min, max),
+//     branchTypeId: randomIntFromInterval(1, 4),
+//     insuredValue: +faker.random.numeric(8),
+//     subBranchId: randomIntFromInterval(min, max),
+//     Risk: faker.random.alphaNumeric(8),
+//     // Renovable: faker.datatype.boolean,
+//   };
+//   return policies;
+// }
 
 // export function createRandomAgencies() {
 //   const agencies = [];
