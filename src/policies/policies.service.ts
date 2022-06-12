@@ -9,35 +9,79 @@ export class PoliciesService {
   constructor(private prisma: PrismaService) {}
   async create(createPolicyDto: CreatePolicyDto) {
     try {
-      const policy = await this.prisma.policies.create({
-        data: {
-          policyNum: createPolicyDto.policyNum,
-          Risk: createPolicyDto.Risk,
-          Renovable: createPolicyDto.Renovable,
-          InsuranceCarriers: {
-            connect: {
-              id: createPolicyDto.insuranceCarrierId,
+      const result = await this.prisma.$transaction(
+        async (newPrisma: any) => {
+          const policy = await newPrisma.policies.create({
+            data: {
+              policyNum: createPolicyDto.policyNum,
+              Risk: createPolicyDto.Risk,
+              Renovable: createPolicyDto.Renovable,
+              InsuranceCarriers: {
+                connect: {
+                  id: createPolicyDto.insuranceCarrierId,
+                },
+              },
+              BranchTypes: {
+                connect: {
+                  id: createPolicyDto.branchTypeId,
+                },
+              },
+              SubBranchs: {
+                connect: {
+                  id: createPolicyDto.subBranchId,
+                },
+              },
+              PolicyStatus: {
+                connect: {
+                  id: createPolicyDto.policyStatusId,
+                },
+              },
             },
-          },
-          BranchTypes: {
-            connect: {
-              id: createPolicyDto.branchTypeId,
+          });
+          const entitiesHasPolizas = await newPrisma.entitiesHasPolizas.create({
+            data: {
+              policyId: policy.id,
+              client: [createPolicyDto.clients],
             },
-          },
-          SubBranchs: {
-            connect: {
-              id: createPolicyDto.subBranchId,
+          });
+          const clientHasTomadors = await newPrisma.clientHasTomadors.create({
+            data: {
+              EntitiesHasPolizas: {
+                connect: {
+                  id: entitiesHasPolizas.id,
+                },
+              },
             },
-          },
-          PolicyStatus: {
-            connect: {
-              id: createPolicyDto.policyStatusId,
+          });
+          const orderDetails = await newPrisma.orderDetails.create({
+            data: {
+              primeValue: createPolicyDto.primeValue,
+              AnnexValue: createPolicyDto.AnnexValue,
+              comission: createPolicyDto.comission,
+              comissionPolicyStatus: createPolicyDto.comissionPolicyStatus,
+              ValorFinalizacion: createPolicyDto.ValorFinalizacion,
+              Total: createPolicyDto.Total,
+              ClientHasTomadors: {
+                connect: {
+                  id: clientHasTomadors.id,
+                },
+              },
+              Periodicities: {
+                connect: {
+                  id: createPolicyDto.periodicityId,
+                },
+              },
+              Currencies: {
+                connect: {
+                  id: createPolicyDto.currencyId,
+                },
+              },
             },
-          },
+          });
+          return true;
         },
-      });
-
-      return policy;
+      );
+      return result;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
