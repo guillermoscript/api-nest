@@ -15,15 +15,15 @@ import {
 import { Action } from 'src/ability/ability.factory';
 import { CheckAbilty, ManageReadAbility } from 'src/ability/ability.decorator';
 import { AbilityGuard } from 'src/ability/ability.guard';
-import { DocumentTypesService } from './document-types.service';
-import { CreateDocumentTypeDto } from './dto/create-document-type.dto';
-import { UpdateDocumentTypeDto } from './dto/update-document-type.dto';
+import { CurrenciesService } from './currencies.service';
+import { CreateCurrencyDto } from './dto/create-currency.dto';
+import { UpdateCurrencyDto } from './dto/update-currency.dto';
 
 @UseGuards(JwtGuard)
-@ApiTags('Document Types')
-@Controller('document-types')
-export class DocumentTypesController {
- constructor(private readonly documentTypesService: DocumentTypesService) {}
+@ApiTags('Currencies')
+@Controller('currencies')
+export class CurrenciesController {
+ constructor(private readonly currenciesService: CurrenciesService) {}
 
  @Post()
  @HttpCode(HttpStatus.CREATED)
@@ -32,18 +32,18 @@ export class DocumentTypesController {
  @ApiUnauthorizedResponse()
  @UseGuards(AbilityGuard)
  @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
- create(@Body() createDocumentTypeDto: CreateDocumentTypeDto) {
-   return this.documentTypesService.create(createDocumentTypeDto);
+ create(@Body() createCurrencyDto: CreateCurrencyDto) {
+   return this.currenciesService.create(createCurrencyDto);
  }
 
- @Get('/')
+ @Get()
  @HttpCode(HttpStatus.OK)
  @ApiOkResponse()
  @ApiNotFoundResponse()
  @UseGuards(AbilityGuard)
  @CheckAbilty(new ManageReadAbility())
  findAll() {
-   return this.documentTypesService.findAll();
+   return this.currenciesService.findAll();
  }
 
  @Get(':id')
@@ -54,7 +54,7 @@ export class DocumentTypesController {
  @UseGuards(AbilityGuard)
  @CheckAbilty(new ManageReadAbility())
  findOne(@Param('id') id: string) {
-   return this.documentTypesService.findOne(+id);
+   return this.currenciesService.findOne(+id);
  }
 
  @Patch(':id')
@@ -64,8 +64,8 @@ export class DocumentTypesController {
  @ApiNotFoundResponse()
  @UseGuards(AbilityGuard)
  @CheckAbilty(new ManageReadAbility())
- update(@Param('id') id: string, @Body() updateDocumentTypeDto: UpdateDocumentTypeDto) {
-   return this.documentTypesService.update(+id, updateDocumentTypeDto);
+ update(@Param('id') id: string, @Body() updateCurrencyDto: UpdateCurrencyDto) {
+   return this.currenciesService.update(+id, updateCurrencyDto);
  }
 
  @Delete(':id')
@@ -75,7 +75,7 @@ export class DocumentTypesController {
  @UseGuards(AbilityGuard)
  @CheckAbilty(new ManageReadAbility())
  remove(@Param('id') id: string) {
-   return this.documentTypesService.remove(+id);
+   return this.currenciesService.remove(+id);
  }
 }
 

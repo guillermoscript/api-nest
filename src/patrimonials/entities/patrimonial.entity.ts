@@ -14,10 +14,6 @@ export class Patrimonial implements Patrimonials {
     machineryValue: number;
     @ApiProperty()
     furnitureValue: number;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

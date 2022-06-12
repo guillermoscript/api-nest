@@ -8,10 +8,6 @@ export class Country implements Countries{
     continentId: number;
     @ApiProperty()
     countryName: string;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

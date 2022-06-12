@@ -12,11 +12,7 @@ export class Period implements Periods {
     endDate: Date;
     @ApiProperty()
     renewal: number;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
     
+                
+        
 }

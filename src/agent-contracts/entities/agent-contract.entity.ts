@@ -8,10 +8,4 @@ export class AgentContract implements AgentContracts {
   policyId: number;
   @ApiProperty()
   agentId: number;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
 }

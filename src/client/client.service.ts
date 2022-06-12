@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { AddressesService } from 'src/addresses/addresses.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { CreateExitingPersonClientDto } from './dto/create-existing-person-client.dto';
@@ -9,6 +10,7 @@ export class ClientService {
   constructor(private prisma: PrismaService) {}
 
   async postClient(CreateClientDto: CreateClientDto) {
+    console.log(CreateClientDto);
     try {
       const client = await this.prisma.persons.create({
         data: {
@@ -26,6 +28,16 @@ export class ClientService {
               ocupation: CreateClientDto?.ocupation,
             },
           },
+          // DocumentTypes:{
+          //   connect:{
+          //     id: CreateClientDto.documentTypeId,
+          //   },
+          // },
+          // Addresses:{
+          //   connect:{
+          //     id: CreateClientDto.AddressId,
+          //   },
+          // },
         },
       });
 

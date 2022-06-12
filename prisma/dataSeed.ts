@@ -154,6 +154,22 @@ export function createRandomDocumentsTypes() {
   return documentTypes;
 }
 
+export function createRandomCurrencies() {
+  const Currencies = [
+    {
+      id: 1,
+      name: 'Bolivar',
+      symbol: 'Bs',
+    },
+    {
+      id: 2,
+      name: 'Dollar',
+      symbol: '$',
+    },
+  ];
+  return Currencies;
+}
+
 export function createRandomPeriodicitys() {
   const randomPeriodicitys = [
     {
@@ -217,6 +233,9 @@ export function createRandomClients(min, max) {
   const client = {
     name: faker.name.firstName(),
     lastName: faker.name.lastName(),
+    document: +faker.random.numeric(7),
+    documentTypeId: randomIntFromInterval(1,4),
+    birthDate:faker.date.past(),
     email: faker.internet.email(),
     personId: randomIntFromInterval(min, max),
     civilPolicyStatus: 'single',
@@ -258,7 +277,7 @@ export function createRandomAgents(min: number, max: number) {
 
 export function createRandomInsuranceCarriers() {
   const insuranceCarrier: CreateInsuranceCarrierDto = {
-    document: +faker.random.numeric(),
+    document: +faker.random.numeric(6),
     name: faker.company.companyName(),
     phone: faker.phone.phoneNumber(),
     email: faker.internet.email(),
@@ -292,6 +311,7 @@ export function createRandomOrderDetails(min, max) {
   const orderDetails: CreateOrderDetailDto = {
     ClientHasTomadorId: randomIntFromInterval(min, max),
     periodicityId: randomIntFromInterval(min, max),
+    currencyId: randomIntFromInterval(1, 2),
     primeValue: +faker.random.numeric(),
     AnnexValue: +faker.random.numeric(),
     comission: +faker.random.numeric(),
@@ -306,10 +326,6 @@ export function createRandomOrderDetails(min, max) {
 //   const agencies = [];
 //   const agency = {
 //     id: i,
-//     createdAt: faker.date.past(),
-//     updatedAt: faker.date.past(),
-//     updatedBy: faker.datatype.uuid(),
-//     createdBy: faker.datatype.uuid(),
 //     // softDeletedAt: faker.date.past(),
 //     // softDeletedBy: faker.datatype.uuid(),
 //   };
