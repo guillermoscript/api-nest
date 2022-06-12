@@ -28,6 +28,11 @@ export class OrderDetailsService {
               id: CreateOrderDetailDto.periodicityId,
             },
           },
+          Currencies: {
+            connect: {
+              id: CreateOrderDetailDto.currencyId,
+            },
+          },
         },
       });
 

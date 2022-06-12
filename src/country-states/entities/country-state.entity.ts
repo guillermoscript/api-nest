@@ -8,10 +8,6 @@ export class CountryState implements CountryStates {
     name: string;
     @ApiProperty()
     countryId: number;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

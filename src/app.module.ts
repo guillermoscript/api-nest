@@ -35,6 +35,7 @@ import { AgentContractsModule } from './agent-contracts/agent-contracts.module';
 import { ClientHasAgentsModule } from './client-has-agents/client-has-agents.module';
 import { ConfigsModule } from './configs/configs.module';
 import { TaxesModule } from './taxes/taxes.module';
+import { CurrenciesModule } from './currencies/currencies.module';
 
 @Module({
   imports: [
@@ -76,6 +77,7 @@ import { TaxesModule } from './taxes/taxes.module';
     ClientHasAgentsModule,
     ConfigsModule,
     TaxesModule,
+    CurrenciesModule,
   ],
   controllers: [],
   providers: [],

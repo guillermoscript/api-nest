@@ -12,10 +12,6 @@ export class Company implements Companies {
     economicActivity: string;
     @ApiProperty()
     webPage: string;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

@@ -10,10 +10,6 @@ export class Tax implements Taxes {
   metakey: string;
   @ApiProperty()
   metavalue: string;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
-}
+  
+        
+  }

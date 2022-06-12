@@ -14,10 +14,6 @@ export class Payment implements Payments {
     paymentDate: Date;
     @ApiProperty()
     comissionDate: Date;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

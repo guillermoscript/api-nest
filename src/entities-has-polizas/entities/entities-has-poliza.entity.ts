@@ -12,10 +12,6 @@ export class EntitiesHasPoliza implements EntitiesHasPolizas {
     entitiableId: number;
     @ApiProperty()
     relationId: number;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

@@ -17,10 +17,6 @@ export class Notification implements Notifications {
     data: string;
     @ApiProperty()
     readAt: Date;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }

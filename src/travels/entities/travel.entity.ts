@@ -14,10 +14,6 @@ export class Travel implements Travels {
     startDate: Date;
     @ApiProperty()
     endDate: Date;
-    createdAt: Date;
-    createdBy: string;
-    updatedAt: Date;
-    updatedBy: string;
-    softDeletedAt: Date;
-    softDeletedBy: string;
-}
+    
+                
+    }
