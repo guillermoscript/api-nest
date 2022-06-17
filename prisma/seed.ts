@@ -4,12 +4,11 @@ import {
   createRandomAddresses,
   createRandomCity,
   createRandomClients,
-  createRandomCompanies,
   createRandomCountries,
   //   createRandomPersons,
   createRandomContinent,
   createRandomCountryStates,
-  //  createRandomAgents,
+  createRandomAgents,
   //   createRandomUsers,
   createRandomDocumentsTypes,
   createRandomPeriods,
@@ -20,7 +19,8 @@ import {
   createRandomRelationPolicyStatus,
   createRandomPeriodicitys,
   createRandomInsuranceCarriers,
-  //  createRandomCurrencies,
+  createRandomAgencies,
+  createRandomCurrencies,
 } from './dataSeed';
 
 // import chalk from 'chalk';
@@ -48,7 +48,7 @@ const load = async () => {
     const RelationPolicyStatus = createRandomRelationPolicyStatus();
     const DocumentsTypes = createRandomDocumentsTypes();
     const Periodicitys = createRandomPeriodicitys();
-    //  const Currencies = createRandomCurrencies();
+    const Currencies = createRandomCurrencies();
 
     await prisma.continents.createMany({
       data: Continent,
@@ -80,18 +80,17 @@ const load = async () => {
     });
     console.info('Periodicitys created');
 
-    // await prisma.currencies.createMany({
-    //   data: Currencies,
-    // });
-    // console.info('Currencies created');
+    await prisma.currencies.createMany({
+      data: Currencies,
+    });
+    console.info('Currencies created');
 
     for (let index = min; index < max + 1; index++) {
       const randomCities = createRandomCity(min, max);
       const randomAddresses = createRandomAddresses(min, max);
-      // const randomAgencies = createRandomAgencies();
-      // const randomAgents = createRandomAgents(min, max);
+      const randomAgencies = createRandomAgencies();
+      const randomAgents = createRandomAgents(min, max);
       const randomClients = createRandomClients(min, max);
-      const randomCompanies = createRandomCompanies();
       const randomCountrys = createRandomCountries();
       const randomCountryStates = createRandomCountryStates(min, max);
       // const randomUsers = createRandomUsers();
@@ -105,10 +104,6 @@ const load = async () => {
       });
       console.info('insuranceCarriers created');
 
-      await prisma.companies.create({
-        data: randomCompanies,
-      });
-      console.info('randomCompanies created');
 
       await prisma.clients.create({
         data: {
@@ -176,6 +171,16 @@ const load = async () => {
       });
       console.info('addresses created');
 
+      await prisma.agencies.create({
+        data: {
+          document: randomAgencies.document,
+          name: randomAgencies.name,
+          phone: randomAgencies.phone,
+          email:  randomAgencies.email,
+        },
+      });
+      console.info('addresses created');
+
       await prisma.periods.create({
         data: randomPeriods,
       });
@@ -186,23 +191,23 @@ const load = async () => {
       });
       console.info('randomSubBranchs created');
 
-      //   await prisma.agents.create({
-      //     data: {
-      //       Persons: {
-      //         create: {
-      //           name: randomAgents.name,
-      //           lastName: randomAgents.lastName,
-      //           email: randomAgents.email,
-      //         },
-      //       },
-      //     },
-      //   });
-      //   console.info(('randomAgents created') );
+        await prisma.agents.create({
+          data: {
+            Persons: {
+              create: {
+                name: randomAgents.name,
+                lastName: randomAgents.lastName,
+                email: randomAgents.email,
+              },
+            },
+          },
+        });
+        console.info(('randomAgents created') );
 
-      //   await prisma.orderDetails.create({
-      //     data: randoOr,
-      //   });
-      //   console.info(('randomAgents c)reated,);
+        // await prisma.orderDetails.create({
+        //   data: randoOr,
+        // });
+        // console.info(('randomAgents c)reated,);
     }
     console.info('DONEEEEE');
   } catch (e) {

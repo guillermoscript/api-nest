@@ -9,83 +9,80 @@ export class PoliciesService {
   constructor(private prisma: PrismaService) {}
   async create(createPolicyDto: CreatePolicyDto) {
     try {
-      const result = await this.prisma.$transaction(
-        async (newPrisma: any) => {
-          const policy = await newPrisma.policies.create({
-            data: {
-              policyNum: createPolicyDto.policyNum,
-              Risk: createPolicyDto.Risk,
-              Renovable: createPolicyDto.Renovable,
-              InsuranceCarriers: {
-                connect: {
-                  id: createPolicyDto.insuranceCarrierId,
-                },
-              },
-              BranchTypes: {
-                connect: {
-                  id: createPolicyDto.branchTypeId,
-                },
-              },
-              SubBranchs: {
-                connect: {
-                  id: createPolicyDto.subBranchId,
-                },
-              },
-              PolicyStatus: {
-                connect: {
-                  id: createPolicyDto.policyStatusId,
-                },
-              },
+      const policy = await this.prisma.policies.create({
+        data: {
+          policyNum: createPolicyDto.policyNum,
+          Risk: createPolicyDto.Risk,
+          Renovable: createPolicyDto.Renovable,
+          InsuranceCarriers: {
+            connect: {
+              id: createPolicyDto.insuranceCarrierId,
             },
-          });
-          const entitiesHasPolizas = await newPrisma.entitiesHasPolizas.create({
-            data: {
-              policyId: policy.id,
-              client: [createPolicyDto.clients],
+          },
+          BranchTypes: {
+            connect: {
+              id: createPolicyDto.branchTypeId,
             },
-          });
-          const clientHasTomadors = await newPrisma.clientHasTomadors.create({
-            data: {
-              EntitiesHasPolizas: {
-                connect: {
-                  id: entitiesHasPolizas.id,
-                },
-              },
+          },
+          SubBranchs: {
+            connect: {
+              id: createPolicyDto.subBranchId,
             },
-          });
-          const orderDetails = await newPrisma.orderDetails.create({
-            data: {
-              primeValue: createPolicyDto.primeValue,
-              AnnexValue: createPolicyDto.AnnexValue,
-              comission: createPolicyDto.comission,
-              comissionPolicyStatus: createPolicyDto.comissionPolicyStatus,
-              ValorFinalizacion: createPolicyDto.ValorFinalizacion,
-              Total: createPolicyDto.Total,
+          },
+          PolicyStatus: {
+            connect: {
+              id: createPolicyDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: createPolicyDto.periodStartDate,
+              endDate: createPolicyDto.periodEndDate,
+              renewal: createPolicyDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: createPolicyDto.agentId,
+            },
+          },
+          EntitiesHasPolizas: {
+            create: {
+              relationId: 1,
+              clientId: createPolicyDto.clientId,
               ClientHasTomadors: {
-                connect: {
-                  id: clientHasTomadors.id,
-                },
-              },
-              Periodicities: {
-                connect: {
-                  id: createPolicyDto.periodicityId,
-                },
-              },
-              Currencies: {
-                connect: {
-                  id: createPolicyDto.currencyId,
+                create: {
+                  OrderDetails: {
+                    create: {
+                      primeValue: createPolicyDto.primeValue,
+                      AnnexValue: createPolicyDto.AnnexValue,
+                      comission: createPolicyDto.comission,
+                      comissionPolicyStatus: createPolicyDto.comissionPolicyStatus,
+                      ValorFinalizacion: createPolicyDto.ValorFinalizacion,
+                      Total: createPolicyDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: createPolicyDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: createPolicyDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },
-          });
-          return true;
+          },
         },
-      );
-      return result;
+      });
+      return policy;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee that email is mine ya');
+          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
         }
       }
       throw error;

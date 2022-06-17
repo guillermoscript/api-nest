@@ -2,9 +2,6 @@
 CREATE TYPE "genders" AS ENUM ('male', 'female', 'others');
 
 -- CreateEnum
-CREATE TYPE "entitiablenum" AS ENUM ('Companies', 'Clients');
-
--- CreateEnum
 CREATE TYPE "userroles" AS ENUM ('admin', 'digitalizer', 'dummy');
 
 -- CreateTable
@@ -271,17 +268,6 @@ CREATE TABLE "Cities" (
 );
 
 -- CreateTable
-CREATE TABLE "Companies" (
-    "id" SERIAL NOT NULL,
-    "document" INTEGER NOT NULL,
-    "socialReason" VARCHAR(255),
-    "economicActivity" VARCHAR(255),
-    "webPage" VARCHAR(255),
-
-    CONSTRAINT "Companies_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Countries" (
     "id" SERIAL NOT NULL,
     "continentId" INTEGER NOT NULL,
@@ -334,8 +320,7 @@ CREATE TABLE "AgentContracts" (
 CREATE TABLE "EntitiesHasPolizas" (
     "id" SERIAL NOT NULL,
     "policyId" INTEGER,
-    "entitiableTypes" "entitiablenum" NOT NULL,
-    "entitiableId" INTEGER,
+    "clientId" INTEGER,
     "relationId" INTEGER,
 
     CONSTRAINT "EntitiesHasPolizas_pkey" PRIMARY KEY ("id")
@@ -449,6 +434,9 @@ ALTER TABLE "AgentContracts" ADD CONSTRAINT "AgentContracts_agentId_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "AgentContracts" ADD CONSTRAINT "AgentContracts_policyId_fkey" FOREIGN KEY ("policyId") REFERENCES "Policies"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE "EntitiesHasPolizas" ADD CONSTRAINT "EntitiesHasPolizas_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Clients"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "EntitiesHasPolizas" ADD CONSTRAINT "EntitiesHasPolizas_relationId_fkey" FOREIGN KEY ("relationId") REFERENCES "RelationPolicyStatus"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
