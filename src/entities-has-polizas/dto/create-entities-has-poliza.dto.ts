@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { entitiablenum } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateEntitiesHasPolizaDto {
@@ -9,12 +8,8 @@ export class CreateEntitiesHasPolizaDto {
   policyId: number;
 
   @ApiProperty()
-  @IsEnum(entitiablenum)
-  entitiableTypes: entitiablenum;
-
-  @ApiProperty()
   @IsNumber()
-  entitiableId: number;
+  clientId: number;
 
   @ApiProperty()
   @IsNumber()

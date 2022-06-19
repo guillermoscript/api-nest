@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDate,
@@ -50,83 +51,79 @@ export class CreatePolicyDto {
 
   @ApiProperty()
   @IsNumber()
-  clients: Array<object>;
+  clientId: number;
 
   @ApiProperty()
   @IsNumber()
   agentId: number;
 
-  // vehicle dto
+  // // vehicle dto
 
-  @ApiProperty()
-  @IsNumber()
-  policyId: number;
+  // @ApiProperty()
+  // @IsString()
+  // brand?: string;
 
-  @ApiProperty()
-  @IsString()
-  brand: string;
+  // @ApiProperty()
+  // @IsString()
+  // class?: string;
 
-  @ApiProperty()
-  @IsString()
-  class: string;
+  // @ApiProperty()
+  // @IsString()
+  // model?: string;
 
-  @ApiProperty()
-  @IsString()
-  model: string;
+  // @ApiProperty()
+  // @IsString()
+  // vehicleType?: string;
 
-  @ApiProperty()
-  @IsString()
-  vehicleType?: string;
+  // @ApiProperty()
+  // @IsString()
+  // serviceType?: string;
 
-  @ApiProperty()
-  @IsString()
-  serviceType?: string;
+  // @ApiProperty()
+  // @IsString()
+  // gasConverted?: string;
 
-  @ApiProperty()
-  @IsString()
-  gasConverted?: string;
+  // @ApiProperty()
+  // @IsNumber()
+  // vehicleAge?: number;
 
-  @ApiProperty()
-  @IsNumber()
-  vehicleAge?: number;
+  // // patrimonials dto
 
-  // patrimonials dto
+  // @ApiProperty()
+  // @IsString()
+  // type?: string;
 
-  @ApiProperty()
-  @IsString()
-  type: string;
+  // @ApiProperty()
+  // @IsNumber()
+  // totalValue?: number;
 
-  @ApiProperty()
-  @IsNumber()
-  totalValue: number;
+  // @ApiProperty()
+  // @IsNumber()
+  // machineryValue?: number;
 
-  @ApiProperty()
-  @IsNumber()
-  machineryValue: number;
+  // @ApiProperty()
+  // @IsNumber()
+  // furnitureValue?: number;
 
-  @ApiProperty()
-  @IsNumber()
-  furnitureValue: number;
+  // // travel dto
 
-  // travel dto
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsNumber()
+  // startCountry?: number;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsNumber()
-  startCountry: number;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsNumber()
+  // endCountry?: number;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsNumber()
-  endCountry: number;
+  // @ApiProperty()
+  // @IsDate()
+  // startDate?: Date;
 
-  @ApiProperty()
-  @IsDate()
-  startDate: Date;
-
-  @ApiProperty()
-  @IsDate()
-  endDate: Date;
+  // @ApiProperty()
+  // @IsDate()
+  // endDate?: Date;
 
   //entitieshaspoliza dto
 
@@ -136,17 +133,7 @@ export class CreatePolicyDto {
 
   // clienthastomador dto
 
-  @ApiProperty()
-  @IsNumber()
-  @IsNotEmpty()
-  clientPolizaId: number;
-
   // order details dto
-
-  @ApiProperty()
-  @IsNumber()
-  @IsNotEmpty()
-  ClientHasTomadorId: number;
 
   @ApiProperty()
   @IsNumber()
@@ -180,4 +167,20 @@ export class CreatePolicyDto {
   @ApiProperty()
   @IsNumber()
   Total: number;
+
+  // periods DTO
+
+  @ApiProperty()
+  @IsDate()
+  @Type(() => Date)
+  periodStartDate: Date;
+
+  @ApiProperty()
+  @IsDate()
+  @Type(() => Date)
+  periodEndDate: Date;
+  
+  @ApiProperty()
+  @IsNumber()
+  renewal: number;
 }

@@ -8,8 +8,7 @@ import { CreateAddressDto } from 'src/addresses/dto/create-address.dto';
 // import { CreateClientDto } from 'src/client/dto/create-client.dto';
 // import { CreatePolicyStatusDto } from 'src/policy-status/dto/create-policy-status.dto';
 // import { CreateBranchTypeDto } from 'src/branch-types/dto/create-branch-type.dto';
-import { CreateCompanyDto } from 'src/companies/dto/create-company.dto';
-// import { CreateAgencyDto } from 'src/agencies/dto/create-agency.dto';
+import { CreateAgencyDto } from 'src/agencies/dto/create-agency.dto';
 // import { CreateAgentDto } from 'src/agents/dto/create-agent.dto';
 import { CreateInsuranceCarrierDto } from 'src/insurance-carrier/dto/create-insurance-carrier.dto';
 import { CreatePeriodDto } from 'src/periods/dto/create-period.dto';
@@ -231,16 +230,6 @@ export function createRandomClients(min, max) {
   return client;
 }
 
-export function createRandomCompanies() {
-  const company: CreateCompanyDto = {
-    socialReason: faker.company.companyName(),
-    economicActivity: faker.finance.amount(),
-    webPage: faker.internet.url(),
-    document: +faker.random.numeric(),
-  };
-  return company;
-}
-
 // export function createRandomUsers() {
 //   const user: = {
 //     id: i,
@@ -308,12 +297,12 @@ export function createRandomOrderDetails(min, max) {
   return orderDetails;
 }
 
-// export function createRandomAgencies() {
-//   const agencies = [];
-//   const agency = {
-//     id: i,
-//     // softDeletedAt: faker.date.past(),
-//     // softDeletedBy: faker.datatype.uuid(),
-//   };
-//   return agencies;
-// }
+export function createRandomAgencies() {
+  const agency: CreateAgencyDto = {
+    document: +faker.random.numeric(7),
+    name: faker.company.companyName(),
+    phone: faker.phone.phoneNumber('+58 414 #######'),
+    email: faker.internet.email(),
+  };
+  return agency;
+}

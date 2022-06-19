@@ -19,7 +19,6 @@ import { ContinentsModule } from './continents/continents.module';
 import { CountryStatesModule } from './country-states/country-states.module';
 import { CitiesModule } from './cities/cities.module';
 import { AddressesModule } from './addresses/addresses.module';
-import { CompaniesModule } from './companies/companies.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { PatrimonialsModule } from './patrimonials/patrimonials.module';
 import { RelationPolicyStatusModule } from './relation-policy-status/relation-policy-status.module';
@@ -61,7 +60,6 @@ import { CurrenciesModule } from './currencies/currencies.module';
     CountryStatesModule,
     CitiesModule,
     AddressesModule,
-    CompaniesModule,
     VehiclesModule,
     PatrimonialsModule,
     RelationPolicyStatusModule,

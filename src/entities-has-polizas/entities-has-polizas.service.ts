@@ -25,8 +25,11 @@ export class EntitiesHasPolizasService {
     try {
       const entitiesHasPoliza = await this.prisma.entitiesHasPolizas.create({
         data: {
-          entitiableTypes: createEntitiesHasPolizasDto.entitiableTypes,
-          entitiableId: createEntitiesHasPolizasDto.entitiableId,
+          Clients: {
+            connect: {
+              id: createEntitiesHasPolizasDto.clientId,
+            },
+          },
           Policies: {
             connect: {
               id: createEntitiesHasPolizasDto.policyId,
@@ -88,8 +91,11 @@ export class EntitiesHasPolizasService {
           id,
         },
         data: {
-          entitiableTypes: updateentitiesHasPolizaDto.entitiableTypes,
-          entitiableId: updateentitiesHasPolizaDto.entitiableId,
+          Clients: {
+            connect: {
+              id: updateentitiesHasPolizaDto.clientId,
+            },
+          },
           Policies: {
             connect: {
               id: updateentitiesHasPolizaDto.policyId,
