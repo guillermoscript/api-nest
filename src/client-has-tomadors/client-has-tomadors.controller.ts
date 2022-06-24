@@ -22,16 +22,16 @@ import {
 import { Action } from 'src/ability/ability.factory';
 import { CheckAbilty, ManageReadAbility } from 'src/ability/ability.decorator';
 import { AbilityGuard } from 'src/ability/ability.guard';
-import { ClientHasTomadorsService } from './client-has-tomadors.service';
+import { ClientHasTakerService } from './client-has-tomadors.service';
 import { CreateClientHasTomadorDto } from './dto/create-client-has-tomador.dto';
 import { UpdateClientHasTomadorDto } from './dto/update-client-has-tomador.dto';
 
 @UseGuards(JwtGuard)
 @ApiTags('Client has Tomadors')
 @Controller('client-has-tomadors')
-export class ClientHasTomadorsController {
+export class ClientHasTakerController {
   constructor(
-    private readonly clientHasTomadorsService: ClientHasTomadorsService,
+    private readonly clientHasTakerService: ClientHasTakerService,
   ) {}
 
   @Post()
@@ -42,7 +42,7 @@ export class ClientHasTomadorsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
   create(@Body() createClientHasTomadorDto: CreateClientHasTomadorDto) {
-    return this.clientHasTomadorsService.create(createClientHasTomadorDto);
+    return this.clientHasTakerService.create(createClientHasTomadorDto);
   }
 
   @Get()
@@ -52,7 +52,7 @@ export class ClientHasTomadorsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findAll() {
-    return this.clientHasTomadorsService.findAll();
+    return this.clientHasTakerService.findAll();
   }
 
   @Get(':id')
@@ -63,7 +63,7 @@ export class ClientHasTomadorsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findOne(@Param('id') id: string) {
-    return this.clientHasTomadorsService.findOne(+id);
+    return this.clientHasTakerService.findOne(+id);
   }
 
   @Patch(':id')
@@ -76,7 +76,7 @@ export class ClientHasTomadorsController {
     @Param('id') id: string,
     @Body() updateClientHasTomadorDto: UpdateClientHasTomadorDto,
   ) {
-    return this.clientHasTomadorsService.update(+id, updateClientHasTomadorDto);
+    return this.clientHasTakerService.update(+id, updateClientHasTomadorDto);
   }
 
   @Delete(':id')
@@ -86,6 +86,6 @@ export class ClientHasTomadorsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   remove(@Param('id') id: string) {
-    return this.clientHasTomadorsService.remove(+id);
+    return this.clientHasTakerService.remove(+id);
   }
 }

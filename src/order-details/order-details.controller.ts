@@ -22,15 +22,15 @@ import {
 import { Action } from 'src/ability/ability.factory';
 import { CheckAbilty, ManageReadAbility } from 'src/ability/ability.decorator';
 import { AbilityGuard } from 'src/ability/ability.guard';
-import { OrderDetailsService } from './order-details.service';
+import { PolicyDetailsService } from './order-details.service';
 import { CreateOrderDetailDto } from './dto/create-order-detail.dto';
 import { UpdateOrderDetailDto } from './dto/update-order-detail.dto';
 
 @UseGuards(JwtGuard)
 @ApiTags('Order Details')
 @Controller('order-details')
-export class OrderDetailsController {
-  constructor(private readonly orderDetailsService: OrderDetailsService) {}
+export class PolicyDetailsController {
+  constructor(private readonly policyDetailsService: PolicyDetailsService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
@@ -40,7 +40,7 @@ export class OrderDetailsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
   create(@Body() createOrderDetailDto: CreateOrderDetailDto) {
-    return this.orderDetailsService.create(createOrderDetailDto);
+    return this.policyDetailsService.create(createOrderDetailDto);
   }
 
   @Get()
@@ -50,7 +50,7 @@ export class OrderDetailsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findAll() {
-    return this.orderDetailsService.findAll();
+    return this.policyDetailsService.findAll();
   }
 
   @Get(':id')
@@ -61,7 +61,7 @@ export class OrderDetailsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findOne(@Param('id') id: string) {
-    return this.orderDetailsService.findOne(+id);
+    return this.policyDetailsService.findOne(+id);
   }
 
   @Patch(':id')
@@ -74,7 +74,7 @@ export class OrderDetailsController {
     @Param('id') id: string,
     @Body() updateOrderDetailDto: UpdateOrderDetailDto,
   ) {
-    return this.orderDetailsService.update(+id, updateOrderDetailDto);
+    return this.policyDetailsService.update(+id, updateOrderDetailDto);
   }
 
   @Delete(':id')
@@ -84,6 +84,6 @@ export class OrderDetailsController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   remove(@Param('id') id: string) {
-    return this.orderDetailsService.remove(+id);
+    return this.policyDetailsService.remove(+id);
   }
 }

@@ -5,14 +5,14 @@ import { CreateClientHasTomadorDto } from './dto/create-client-has-tomador.dto';
 import { UpdateClientHasTomadorDto } from './dto/update-client-has-tomador.dto';
 
 @Injectable()
-export class ClientHasTomadorsService {
+export class ClientHasTakerService {
   constructor(private prisma: PrismaService) {}
 
   async create(CreateClientHasTomadorDto: CreateClientHasTomadorDto) {
     try {
-      const clientHasTomador = await this.prisma.clientHasTomadors.create({
+      const clientHasTomador = await this.prisma.clientHasTaker.create({
         data: {
-          EntitiesHasPolizas: {
+          ClientHasPolicies: {
             connect: {
               id: CreateClientHasTomadorDto.clientPolizaId,
             },
@@ -33,8 +33,8 @@ export class ClientHasTomadorsService {
 
   async findAll() {
     try {
-      const clientHasTomadors = await this.prisma.clientHasTomadors.findMany();
-      return clientHasTomadors;
+      const clientHasTaker = await this.prisma.clientHasTaker.findMany();
+      return clientHasTaker;
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('Error en findAll clientHasTomador');
@@ -43,7 +43,7 @@ export class ClientHasTomadorsService {
 
   async findOne(id: number) {
     try {
-      const clientHasTomador = await this.prisma.clientHasTomadors.findUnique({
+      const clientHasTomador = await this.prisma.clientHasTaker.findUnique({
         where: {
           id,
         },
@@ -60,12 +60,12 @@ export class ClientHasTomadorsService {
     updateclientHasTomadorDto: UpdateClientHasTomadorDto,
   ) {
     try {
-      const clientHasTomador = await this.prisma.clientHasTomadors.update({
+      const clientHasTomador = await this.prisma.clientHasTaker.update({
         where: {
           id,
         },
         data: {
-          EntitiesHasPolizas: {
+          ClientHasPolicies: {
             connect: {
               id: updateclientHasTomadorDto.clientPolizaId,
             },
@@ -82,7 +82,7 @@ export class ClientHasTomadorsService {
 
   async remove(id: number) {
     try {
-      const clientHasTomador = await this.prisma.clientHasTomadors.delete({
+      const clientHasTomador = await this.prisma.clientHasTaker.delete({
         where: {
           id,
         },

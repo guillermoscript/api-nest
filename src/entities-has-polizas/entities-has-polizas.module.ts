@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { EntitiesHasPolizasService } from './entities-has-polizas.service';
-import { EntitiesHasPolizasController } from './entities-has-polizas.controller';
+import { ClientHasPoliciesService } from './entities-has-polizas.service';
+import { ClientHasPoliciesController } from './entities-has-polizas.controller';
 import { AbilityFactory } from 'src/ability/ability.factory';
 
 @Module({
-  controllers: [EntitiesHasPolizasController],
-  providers: [EntitiesHasPolizasService, AbilityFactory],
+  controllers: [ClientHasPoliciesController],
+  providers: [ClientHasPoliciesService, AbilityFactory],
 })
-export class EntitiesHasPolizasModule {}
+export class ClientHasPoliciesModule {}

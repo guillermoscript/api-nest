@@ -5,7 +5,7 @@ export class Tax implements Taxes {
   @ApiProperty()
   id: number;
   @ApiProperty()
-  OrderDetailsId: number;
+  PolicyDetailsId: number;
   @ApiProperty()
   metakey: string;
   @ApiProperty()

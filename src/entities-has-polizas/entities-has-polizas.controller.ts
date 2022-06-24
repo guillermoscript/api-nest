@@ -22,16 +22,16 @@ import {
 import { Action } from 'src/ability/ability.factory';
 import { CheckAbilty, ManageReadAbility } from 'src/ability/ability.decorator';
 import { AbilityGuard } from 'src/ability/ability.guard';
-import { EntitiesHasPolizasService } from './entities-has-polizas.service';
+import { ClientHasPoliciesService } from './entities-has-polizas.service';
 import { CreateEntitiesHasPolizaDto } from './dto/create-entities-has-poliza.dto';
 import { UpdateEntitiesHasPolizaDto } from './dto/update-entities-has-poliza.dto';
 
 @UseGuards(JwtGuard)
 @ApiTags('Entities has Polizas')
 @Controller('entities-has-polizas')
-export class EntitiesHasPolizasController {
+export class ClientHasPoliciesController {
   constructor(
-    private readonly entitiesHasPolizasService: EntitiesHasPolizasService,
+    private readonly clientHasPoliciesService: ClientHasPoliciesService,
   ) {}
 
   @Post()
@@ -42,7 +42,7 @@ export class EntitiesHasPolizasController {
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
   create(@Body() createEntitiesHasPolizaDto: CreateEntitiesHasPolizaDto) {
-    return this.entitiesHasPolizasService.create(createEntitiesHasPolizaDto);
+    return this.clientHasPoliciesService.create(createEntitiesHasPolizaDto);
   }
 
   @Get()
@@ -52,7 +52,7 @@ export class EntitiesHasPolizasController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findAll() {
-    return this.entitiesHasPolizasService.findAll();
+    return this.clientHasPoliciesService.findAll();
   }
 
   @Get(':id')
@@ -63,7 +63,7 @@ export class EntitiesHasPolizasController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findOne(@Param('id') id: string) {
-    return this.entitiesHasPolizasService.findOne(+id);
+    return this.clientHasPoliciesService.findOne(+id);
   }
 
   @Patch(':id')
@@ -76,7 +76,7 @@ export class EntitiesHasPolizasController {
     @Param('id') id: string,
     @Body() updateEntitiesHasPolizaDto: UpdateEntitiesHasPolizaDto,
   ) {
-    return this.entitiesHasPolizasService.update(
+    return this.clientHasPoliciesService.update(
       +id,
       updateEntitiesHasPolizaDto,
     );
@@ -89,6 +89,6 @@ export class EntitiesHasPolizasController {
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   remove(@Param('id') id: string) {
-    return this.entitiesHasPolizasService.remove(+id);
+    return this.clientHasPoliciesService.remove(+id);
   }
 }

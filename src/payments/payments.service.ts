@@ -16,9 +16,9 @@ export class PaymentsService {
           paymentValue: CreatePaymentDto.paymentValue,
           paymentDate: CreatePaymentDto.paymentDate,
           comissionDate: CreatePaymentDto.comissionDate,
-          OrderDetails: {
+          PolicyDetails: {
             connect: {
-              id: CreatePaymentDto.orderDetailsId,
+              id: CreatePaymentDto.policyDetailsId,
             },
           },
         },
@@ -70,9 +70,9 @@ export class PaymentsService {
           paymentValue: updatepaymentDto.paymentValue,
           paymentDate: updatepaymentDto.paymentDate,
           comissionDate: updatepaymentDto.comissionDate,
-          OrderDetails: {
+          PolicyDetails: {
             connect: {
-              id: updatepaymentDto.orderDetailsId,
+              id: updatepaymentDto.policyDetailsId,
             },
           },
         },

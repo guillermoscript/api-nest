@@ -6,7 +6,7 @@ export class CreatePaymentDto {
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
-  orderDetailsId: number;
+  policyDetailsId: number;
 
   @ApiProperty()
   @IsNumber()

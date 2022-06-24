@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 // import chalk from 'chalk';
 import {
   createRandomAddresses,
-  createRandomCity,
+  createRandomCities,
   createRandomClients,
   createRandomCountries,
   //   createRandomPersons,
@@ -13,7 +13,7 @@ import {
   createRandomDocumentsTypes,
   createRandomPeriods,
   createSubRandomBranchs,
-  //   createRandomOrderDetails,
+  //   createRandomPolicyDetails,
   createRandomBranch,
   createRandomPolicyStatus,
   createRandomRelationPolicyStatus,
@@ -49,11 +49,29 @@ const load = async () => {
     const DocumentsTypes = createRandomDocumentsTypes();
     const Periodicitys = createRandomPeriodicitys();
     const Currencies = createRandomCurrencies();
+    const Countries = createRandomCountries();
+    const CountryStates = createRandomCountryStates();
+    const Cities = createRandomCities();
 
     await prisma.continents.createMany({
       data: Continent,
     });
-    console.info('continten created');
+    console.info('contintent created');
+
+    await prisma.countries.createMany({
+      data: Countries,
+    });
+    console.info('Countries created');
+
+    await prisma.countryStates.createMany({
+      data: CountryStates,
+    });
+    console.info('CountryStates created');
+
+    await prisma.cities.createMany({
+      data: Cities,
+    });
+    console.info('Cities created');
 
     await prisma.branchTypes.createMany({
       data: Branch,
@@ -86,18 +104,15 @@ const load = async () => {
     console.info('Currencies created');
 
     for (let index = min; index < max + 1; index++) {
-      const randomCities = createRandomCity(min, max);
       const randomAddresses = createRandomAddresses(min, max);
       const randomAgencies = createRandomAgencies();
       const randomAgents = createRandomAgents(min, max);
       const randomClients = createRandomClients(min, max);
-      const randomCountrys = createRandomCountries();
-      const randomCountryStates = createRandomCountryStates(min, max);
       // const randomUsers = createRandomUsers();
       const randomInsuranceCarriers = createRandomInsuranceCarriers();
       const randomPeriods = createRandomPeriods();
       const randomSubBranchs = createSubRandomBranchs();
-      //   const randomOrderDetails = createRandomOrderDetails(min, max);
+      //   const randomPolicyDetails = createRandomPolicyDetails(min, max);
 
       await prisma.insuranceCarriers.create({
         data: randomInsuranceCarriers,
@@ -115,7 +130,7 @@ const load = async () => {
               email: randomClients.email,
               name: randomClients.name,
               lastName: randomClients.lastName,
-              // gender: randomClients.gender,
+              gender: randomClients.gender,
               birthDate: randomClients.birthDate,
               document: randomClients.document,
               documentTypeId: randomClients.documentTypeId,
@@ -127,36 +142,6 @@ const load = async () => {
       });
       console.info('randomClients created');
 
-      await prisma.countries.create({
-        data: randomCountrys,
-      });
-      console.info('contry created');
-
-      await prisma.countryStates.create({
-        data: {
-          //   countryId: randomCountryStates.countryId,
-          name: randomCountryStates.name,
-          Countries: {
-            connect: {
-              id: index,
-            },
-          },
-        },
-      });
-      console.info('randomCountryStates created');
-
-      await prisma.cities.create({
-        data: {
-          name: randomCities.name,
-          CountryStates: {
-            connect: {
-              id: index,
-            },
-          },
-        },
-      });
-      console.info('cities created');
-
       await prisma.addresses.create({
         data: {
           residence: randomAddresses.residence,
@@ -164,7 +149,7 @@ const load = async () => {
           GPS: randomAddresses.GPS,
           Cities: {
             connect: {
-              id: index,
+              id: 21,
             },
           },
         },
@@ -204,7 +189,7 @@ const load = async () => {
         });
         console.info(('randomAgents created') );
 
-        // await prisma.orderDetails.create({
+        // await prisma.policyDetails.create({
         //   data: randoOr,
         // });
         // console.info(('randomAgents c)reated,);

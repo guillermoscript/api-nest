@@ -5,7 +5,7 @@ export class Payment implements Payments {
     @ApiProperty()
     id: number;
     @ApiProperty()
-    orderDetailsId: number;
+    policyDetailsId: number;
     @ApiProperty()
     receiptNumber: number;
     @ApiProperty()

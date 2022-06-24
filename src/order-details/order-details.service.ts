@@ -5,12 +5,12 @@ import { CreateOrderDetailDto } from './dto/create-order-detail.dto';
 import { UpdateOrderDetailDto } from './dto/update-order-detail.dto';
 
 @Injectable()
-export class OrderDetailsService {
+export class PolicyDetailsService {
   constructor(private prisma: PrismaService) {}
 
   async create(CreateOrderDetailDto: CreateOrderDetailDto) {
     try {
-      const orderDetail = await this.prisma.orderDetails.create({
+      const orderDetail = await this.prisma.policyDetails.create({
         data: {
           primeValue: CreateOrderDetailDto.primeValue,
           AnnexValue: CreateOrderDetailDto.AnnexValue,
@@ -18,7 +18,7 @@ export class OrderDetailsService {
           comissionPolicyStatus: CreateOrderDetailDto.comissionPolicyStatus,
           ValorFinalizacion: CreateOrderDetailDto.ValorFinalizacion,
           Total: CreateOrderDetailDto.Total,
-          ClientHasTomadors: {
+          ClientHasTaker: {
             connect: {
               id: CreateOrderDetailDto.ClientHasTomadorId,
             },
@@ -49,8 +49,8 @@ export class OrderDetailsService {
 
   async findAll() {
     try {
-      const orderDetails = await this.prisma.orderDetails.findMany();
-      return orderDetails;
+      const policyDetails = await this.prisma.policyDetails.findMany();
+      return policyDetails;
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('Error en findAll orderDetail');
@@ -59,7 +59,7 @@ export class OrderDetailsService {
 
   async findOne(id: number) {
     try {
-      const orderDetail = await this.prisma.orderDetails.findUnique({
+      const orderDetail = await this.prisma.policyDetails.findUnique({
         where: {
           id,
         },
@@ -73,7 +73,7 @@ export class OrderDetailsService {
 
   async update(id: number, updateorderDetailDto: UpdateOrderDetailDto) {
     try {
-      const orderDetail = await this.prisma.orderDetails.update({
+      const orderDetail = await this.prisma.policyDetails.update({
         where: {
           id,
         },
@@ -84,7 +84,7 @@ export class OrderDetailsService {
           comissionPolicyStatus: updateorderDetailDto.comissionPolicyStatus,
           ValorFinalizacion: updateorderDetailDto.ValorFinalizacion,
           Total: updateorderDetailDto.Total,
-          ClientHasTomadors: {
+          ClientHasTaker: {
             connect: {
               id: updateorderDetailDto.ClientHasTomadorId,
             },
@@ -106,7 +106,7 @@ export class OrderDetailsService {
 
   async remove(id: number) {
     try {
-      const orderDetail = await this.prisma.orderDetails.delete({
+      const orderDetail = await this.prisma.policyDetails.delete({
         where: {
           id,
         },

@@ -1,4 +1,3 @@
-
 import faker from '@faker-js/faker';
 // import { Person } from 'src/person/entities/person.entity';
 import { CreateCountryDto } from 'src/countries/dto/create-country.dto';
@@ -46,6 +45,170 @@ export function createRandomContinent() {
     },
   ];
   return continents;
+}
+
+export function createRandomCountries() {
+  const countries = [
+    {
+      id: 1,
+      continentId: 1,
+      countryName: 'Venezuela',
+    },
+  ];
+  return countries;
+}
+
+export function createRandomCountryStates() {
+  const countrieStates = [
+    {
+      id: 1,
+      countryId: 1,
+      name: 'Amazonas',
+    },
+    {
+      id: 2,
+      countryId: 1,
+      name: 'Anzoátegui',
+    },
+    {
+      id: 3,
+      countryId: 1,
+      name: 'Apure',
+    },
+    {
+      id: 4,
+      countryId: 1,
+      name: 'Aragua',
+    },
+    {
+      id: 5,
+      countryId: 1,
+      name: 'Barinas',
+    },
+    {
+      id: 6,
+      countryId: 1,
+      name: 'Bolívar',
+    },
+    {
+      id: 7,
+      countryId: 1,
+      name: 'Carabobo',
+    },
+    {
+      id: 8,
+      countryId: 1,
+      name: 'Cojedes',
+    },
+    {
+      id: 9,
+      countryId: 1,
+      name: 'Delta Amacuro',
+    },
+    {
+      id: 10,
+      countryId: 1,
+      name: 'Distrito Capital',
+    },
+    {
+      id: 11,
+      countryId: 1,
+      name: 'Falcón',
+    },
+    {
+      id: 12,
+      countryId: 1,
+      name: 'Guárico',
+    },
+    {
+      id: 13,
+      countryId: 1,
+      name: 'Lara',
+    },
+    {
+      id: 14,
+      countryId: 1,
+      name: 'Mérida',
+    },
+    {
+      id: 15,
+      countryId: 1,
+      name: 'Miranda',
+    },
+    {
+      id: 16,
+      countryId: 1,
+      name: 'Monagas',
+    },
+    {
+      id: 17,
+      countryId: 1,
+      name: 'Nueva Esparta',
+    },
+    {
+      id: 18,
+      countryId: 1,
+      name: 'Portuguesa',
+    },
+    {
+      id: 19,
+      countryId: 1,
+      name: 'Sucre',
+    },
+    {
+      id: 20,
+      countryId: 1,
+      name: 'Táchira',
+    },
+    {
+      id: 21,
+      countryId: 1,
+      name: 'Trujillo',
+    },
+    {
+      id: 22,
+      countryId: 1,
+      name: 'Vargas',
+    },
+    {
+      id: 23,
+      countryId: 1,
+      name: 'Yaracuy',
+    },
+    {
+      id: 24,
+      countryId: 1,
+      name: 'Zulia',
+    },
+  ];
+  return countrieStates;
+}
+
+export function createRandomCities() {
+  const Cities = [
+    { id: 1, countryStateId: 2, name: 'Anaco' },
+    { id: 2, countryStateId: 2, name: 'Aragua de Barcelona' },
+    { id: 3, countryStateId: 2, name: 'Barcelona' },
+    { id: 4, countryStateId: 2, name: 'Clarines' },
+    { id: 5, countryStateId: 2, name: 'Valle de Guanape' },
+    { id: 6, countryStateId: 2, name: 'Onoto' },
+    { id: 7, countryStateId: 2, name: 'Lechería' },
+    { id: 8, countryStateId: 2, name: 'Cantaura' },
+    { id: 9, countryStateId: 2, name: 'Guanta' },
+    { id: 10, countryStateId: 2, name: 'San José de Guanipa' },
+    { id: 11, countryStateId: 2, name: 'Soledad' },
+    { id: 12, countryStateId: 2, name: 'San Mateo' },
+    { id: 13, countryStateId: 2, name: 'El Chaparro' },
+    { id: 14, countryStateId: 2, name: 'Pariaguán' },
+    { id: 15, countryStateId: 2, name: 'Mapire' },
+    { id: 16, countryStateId: 2, name: 'Puerto Píritu' },
+    { id: 17, countryStateId: 2, name: 'Píritu' },
+    { id: 18, countryStateId: 2, name: 'Boca de Uchire' },
+    { id: 19, countryStateId: 2, name: 'Parroquia Santa Ana' },
+    { id: 20, countryStateId: 2, name: 'El Tigre' },
+    { id: 21, countryStateId: 2, name: 'Puerto la Cruz' },
+  ];
+  return Cities;
 }
 
 export function createRandomBranch() {
@@ -177,14 +340,6 @@ export function createRandomPeriodicitys() {
   return randomPeriodicitys;
 }
 
-export function createRandomCity(min, max) {
-  const city: CreateCityDto = {
-    name: faker.address.cityName(),
-    countryStateId: randomIntFromInterval(min, max),
-  };
-  return city;
-}
-
 export function createRandomAddresses(min, max) {
   const address: CreateAddressDto = {
     street: faker.address.streetAddress(),
@@ -195,22 +350,22 @@ export function createRandomAddresses(min, max) {
   return address;
 }
 
-export function createRandomCountryStates(min, max) {
-  const countryState: CreateCountryStateDto = {
-    name: faker.address.state(),
-    countryId: randomIntFromInterval(min, max),
-  };
-  return countryState;
-}
+// export function createRandomCountryStates(min, max) {
+//   const countryState: CreateCountryStateDto = {
+//     name: faker.address.state(),
+//     countryId: randomIntFromInterval(min, max),
+//   };
+//   return countryState;
+// }
 
-export function createRandomCountries() {
-  const country: CreateCountryDto = {
-    countryName: faker.address.country(),
-    continentId: randomIntFromInterval(1, 5),
-  };
+// export function createRandomCountries() {
+//   const country: CreateCountryDto = {
+//     countryName: faker.address.country(),
+//     continentId: randomIntFromInterval(1, 5),
+//   };
 
-  return country;
-}
+//   return country;
+// }
 
 export function createRandomClients(min, max) {
   // const client: CreateClientDto = {
@@ -226,6 +381,7 @@ export function createRandomClients(min, max) {
     company: faker.company.companyName(),
     ocupation: faker.name.jobTitle(),
     phone: faker.phone.phoneNumber('VE'),
+    gender: 'male',
   };
   return client;
 }
@@ -282,8 +438,8 @@ export function createSubRandomBranchs() {
   return subBranchs;
 }
 
-export function createRandomOrderDetails(min, max) {
-  const orderDetails: CreateOrderDetailDto = {
+export function createRandomPolicyDetails(min, max) {
+  const policyDetails: CreateOrderDetailDto = {
     ClientHasTomadorId: randomIntFromInterval(min, max),
     periodicityId: randomIntFromInterval(min, max),
     currencyId: randomIntFromInterval(1, 2),
@@ -294,7 +450,7 @@ export function createRandomOrderDetails(min, max) {
     ValorFinalizacion: +faker.random.numeric(),
     Total: +faker.random.numeric(),
   };
-  return orderDetails;
+  return policyDetails;
 }
 
 export function createRandomAgencies() {

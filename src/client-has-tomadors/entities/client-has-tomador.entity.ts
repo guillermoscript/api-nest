@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ClientHasTomadors } from '@prisma/client';
+import { ClientHasTaker } from '@prisma/client';
 
-export class ClientHasTomador implements ClientHasTomadors {
+export class ClientHasTomador implements ClientHasTaker {
   @ApiProperty()
   id: number;
   @ApiProperty()
