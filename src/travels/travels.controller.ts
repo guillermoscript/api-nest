@@ -58,7 +58,6 @@ export class TravelsController {
  }
 
  @Patch(':id')
-
  @HttpCode(HttpStatus.OK)
  @ApiOkResponse()
  @ApiNotFoundResponse()
