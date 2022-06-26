@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import {EntitiesHasPolizas } from "@prisma/client"
+import {ClientHasPolicies } from "@prisma/client"
 
-export class EntitiesHasPoliza implements EntitiesHasPolizas {
+export class EntitiesHasPoliza implements ClientHasPolicies {
     @ApiProperty()
     id: number;
     @ApiProperty()

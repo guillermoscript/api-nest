@@ -5,13 +5,13 @@ import { CreateEntitiesHasPolizaDto } from './dto/create-entities-has-poliza.dto
 import { UpdateEntitiesHasPolizaDto } from './dto/update-entities-has-poliza.dto';
 
 @Injectable()
-export class EntitiesHasPolizasService {
+export class ClientHasPoliciesService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createEntitiesHasPolizasDto: CreateEntitiesHasPolizaDto) {
-    const search = await this.prisma.entitiesHasPolizas.findMany({
+  async create(createClientHasPoliciesDto: CreateEntitiesHasPolizaDto) {
+    const search = await this.prisma.clientHasPolicies.findMany({
       where: {
-        policyId: createEntitiesHasPolizasDto.policyId,
+        policyId: createClientHasPoliciesDto.policyId,
         relationId: 1,
       },
     });
@@ -23,21 +23,21 @@ export class EntitiesHasPolizasService {
     }
 
     try {
-      const entitiesHasPoliza = await this.prisma.entitiesHasPolizas.create({
+      const entitiesHasPoliza = await this.prisma.clientHasPolicies.create({
         data: {
           Clients: {
             connect: {
-              id: createEntitiesHasPolizasDto.clientId,
+              id: createClientHasPoliciesDto.clientId,
             },
           },
           Policies: {
             connect: {
-              id: createEntitiesHasPolizasDto.policyId,
+              id: createClientHasPoliciesDto.policyId,
             },
           },
           RelationPolicyStatus: {
             connect: {
-              id: createEntitiesHasPolizasDto.relationId,
+              id: createClientHasPoliciesDto.relationId,
             },
           },
         },
@@ -56,9 +56,9 @@ export class EntitiesHasPolizasService {
 
   async findAll() {
     try {
-      const entitiesHasPolizas =
-        await this.prisma.entitiesHasPolizas.findMany();
-      return entitiesHasPolizas;
+      const clientHasPolicies =
+        await this.prisma.clientHasPolicies.findMany();
+      return clientHasPolicies;
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('Error en findAll entitiesHasPoliza');
@@ -67,7 +67,7 @@ export class EntitiesHasPolizasService {
 
   async findOne(id: number) {
     try {
-      const entitiesHasPoliza = await this.prisma.entitiesHasPolizas.findUnique(
+      const entitiesHasPoliza = await this.prisma.clientHasPolicies.findUnique(
         {
           where: {
             id,
@@ -86,7 +86,7 @@ export class EntitiesHasPolizasService {
     updateentitiesHasPolizaDto: UpdateEntitiesHasPolizaDto,
   ) {
     try {
-      const entitiesHasPoliza = await this.prisma.entitiesHasPolizas.update({
+      const entitiesHasPoliza = await this.prisma.clientHasPolicies.update({
         where: {
           id,
         },
@@ -118,7 +118,7 @@ export class EntitiesHasPolizasService {
 
   async remove(id: number) {
     try {
-      const entitiesHasPoliza = await this.prisma.entitiesHasPolizas.delete({
+      const entitiesHasPoliza = await this.prisma.clientHasPolicies.delete({
         where: {
           id,
         },

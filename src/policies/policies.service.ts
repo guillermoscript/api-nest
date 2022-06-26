@@ -1,73 +1,352 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreatePolicyDto } from './dto/create-policy.dto';
-import { UpdatePolicyDto } from './dto/update-policy.dto';
+import { CreatePolicyClientDto } from './dto/create-policy-client.dto';
+import { CreatePolicyPatrimonialDto } from './dto/create-policy-patrimonial.dto';
+import { CreatePolicyTravelDto } from './dto/create-policy-travel.dto';
+import { CreatePolicyVehicleDto } from './dto/create-policy-vehicle.dto';
+import { UpdatePolicyClientDto } from './dto/update-policy-client.dto';
+import { UpdatePolicyPatrimonialDto } from './dto/update-policy-patrimonial.dto';
+import { UpdatePolicyTravelDto } from './dto/update-policy-travel.dto';
+import { UpdatePolicyVehicleDto } from './dto/update-policy-vehicle.dto';
 
 @Injectable()
 export class PoliciesService {
   constructor(private prisma: PrismaService) {}
-  async create(createPolicyDto: CreatePolicyDto) {
+  async createPolicyClient(createPolicyClientDto: CreatePolicyClientDto) {
     try {
       const policy = await this.prisma.policies.create({
         data: {
-          policyNum: createPolicyDto.policyNum,
-          Risk: createPolicyDto.Risk,
-          Renovable: createPolicyDto.Renovable,
+          policyNum: createPolicyClientDto.policyNum,
+          Risk: createPolicyClientDto.Risk,
+          Renovable: createPolicyClientDto.Renovable,
           InsuranceCarriers: {
             connect: {
-              id: createPolicyDto.insuranceCarrierId,
+              id: createPolicyClientDto.insuranceCarrierId,
             },
           },
           BranchTypes: {
             connect: {
-              id: createPolicyDto.branchTypeId,
+              id: createPolicyClientDto.branchTypeId,
             },
           },
           SubBranchs: {
             connect: {
-              id: createPolicyDto.subBranchId,
+              id: createPolicyClientDto.subBranchId,
             },
           },
           PolicyStatus: {
             connect: {
-              id: createPolicyDto.policyStatusId,
+              id: createPolicyClientDto.policyStatusId,
             },
           },
           Periods: {
             create: {
-              startDate: createPolicyDto.periodStartDate,
-              endDate: createPolicyDto.periodEndDate,
-              renewal: createPolicyDto.renewal,
+              startDate: createPolicyClientDto.periodStartDate,
+              endDate: createPolicyClientDto.periodEndDate,
+              renewal: createPolicyClientDto.renewal,
             },
           },
           AgentContracts: {
             create: {
-              agentId: createPolicyDto.agentId,
+              agentId: createPolicyClientDto.agentId,
             },
           },
-          EntitiesHasPolizas: {
+          ClientHasPolicies: {
             create: {
               relationId: 1,
-              clientId: createPolicyDto.clientId,
-              ClientHasTomadors: {
+              clientId: createPolicyClientDto.clientId,
+              ClientHasTaker: {
                 create: {
-                  OrderDetails: {
+                  PolicyDetails: {
                     create: {
-                      primeValue: createPolicyDto.primeValue,
-                      AnnexValue: createPolicyDto.AnnexValue,
-                      comission: createPolicyDto.comission,
-                      comissionPolicyStatus: createPolicyDto.comissionPolicyStatus,
-                      ValorFinalizacion: createPolicyDto.ValorFinalizacion,
-                      Total: createPolicyDto.Total,
+                      primeValue: createPolicyClientDto.primeValue,
+                      AnnexValue: createPolicyClientDto.AnnexValue,
+                      comission: createPolicyClientDto.comission,
+                      comissionPolicyStatus: createPolicyClientDto.comissionPolicyStatus,
+                      ValorFinalizacion: createPolicyClientDto.ValorFinalizacion,
+                      Total: createPolicyClientDto.Total,
                       Currencies: {
                         connect: {
-                          id: createPolicyDto.currencyId,
+                          id: createPolicyClientDto.currencyId,
                         },
                       },
                       Periodicities: {
                         connect: {
-                          id: createPolicyDto.periodicityId,
+                          id: createPolicyClientDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+      return policy;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async createPolicyVehicle(createPolicyVehicleDto: CreatePolicyVehicleDto) {
+    try {
+      const policy = await this.prisma.policies.create({
+        data: {
+          policyNum: createPolicyVehicleDto.policyNum,
+          Risk: createPolicyVehicleDto.Risk,
+          Renovable: createPolicyVehicleDto.Renovable,
+          Vehicles:{
+            create:{
+              brand:createPolicyVehicleDto.brand,
+              class: createPolicyVehicleDto.class,
+              model: createPolicyVehicleDto.model,
+              vehicleType: createPolicyVehicleDto.vehicleType,
+              serviceType: createPolicyVehicleDto.serviceType,
+              gasConverted: createPolicyVehicleDto.gasConverted,
+              vehicleAge: createPolicyVehicleDto.vehicleAge,
+            },
+          },
+          InsuranceCarriers: {
+            connect: {
+              id: createPolicyVehicleDto.insuranceCarrierId,
+            },
+          },
+          BranchTypes: {
+            connect: {
+              id: createPolicyVehicleDto.branchTypeId,
+            },
+          },
+          SubBranchs: {
+            connect: {
+              id: createPolicyVehicleDto.subBranchId,
+            },
+          },
+          PolicyStatus: {
+            connect: {
+              id: createPolicyVehicleDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: createPolicyVehicleDto.periodStartDate,
+              endDate: createPolicyVehicleDto.periodEndDate,
+              renewal: createPolicyVehicleDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: createPolicyVehicleDto.agentId,
+            },
+          },
+          ClientHasPolicies: {
+            create: {
+              relationId: 1,
+              clientId: createPolicyVehicleDto.clientId,
+              ClientHasTaker: {
+                create: {
+                  PolicyDetails: {
+                    create: {
+                      primeValue: createPolicyVehicleDto.primeValue,
+                      AnnexValue: createPolicyVehicleDto.AnnexValue,
+                      comission: createPolicyVehicleDto.comission,
+                      comissionPolicyStatus: createPolicyVehicleDto.comissionPolicyStatus,
+                      ValorFinalizacion: createPolicyVehicleDto.ValorFinalizacion,
+                      Total: createPolicyVehicleDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: createPolicyVehicleDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: createPolicyVehicleDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+      return policy;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async createPolicyPatrimonial(createPolicyPatrimonialDto: CreatePolicyPatrimonialDto) {
+    try {
+      const policy = await this.prisma.policies.create({
+        data: {
+          policyNum: createPolicyPatrimonialDto.policyNum,
+          Risk: createPolicyPatrimonialDto.Risk,
+          Renovable: createPolicyPatrimonialDto.Renovable,
+          Patrimonials:{
+            create:{
+              type: createPolicyPatrimonialDto.type,
+              totalValue: createPolicyPatrimonialDto.totalValue,
+              machineryValue: createPolicyPatrimonialDto.machineryValue,
+              furnitureValue: createPolicyPatrimonialDto.furnitureValue,
+            },
+          },
+          InsuranceCarriers: {
+            connect: {
+              id: createPolicyPatrimonialDto.insuranceCarrierId,
+            },
+          },
+          BranchTypes: {
+            connect: {
+              id: createPolicyPatrimonialDto.branchTypeId,
+            },
+          },
+          SubBranchs: {
+            connect: {
+              id: createPolicyPatrimonialDto.subBranchId,
+            },
+          },
+          PolicyStatus: {
+            connect: {
+              id: createPolicyPatrimonialDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: createPolicyPatrimonialDto.periodStartDate,
+              endDate: createPolicyPatrimonialDto.periodEndDate,
+              renewal: createPolicyPatrimonialDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: createPolicyPatrimonialDto.agentId,
+            },
+          },
+          ClientHasPolicies: {
+            create: {
+              relationId: 1,
+              clientId: createPolicyPatrimonialDto.clientId,
+              ClientHasTaker: {
+                create: {
+                  PolicyDetails: {
+                    create: {
+                      primeValue: createPolicyPatrimonialDto.primeValue,
+                      AnnexValue: createPolicyPatrimonialDto.AnnexValue,
+                      comission: createPolicyPatrimonialDto.comission,
+                      comissionPolicyStatus: createPolicyPatrimonialDto.comissionPolicyStatus,
+                      ValorFinalizacion: createPolicyPatrimonialDto.ValorFinalizacion,
+                      Total: createPolicyPatrimonialDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: createPolicyPatrimonialDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: createPolicyPatrimonialDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+      return policy;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async createPolicyTravel(createPolicyTravelDto: CreatePolicyTravelDto) {
+    try {
+      const policy = await this.prisma.policies.create({
+        data: {
+          policyNum: createPolicyTravelDto.policyNum,
+          Risk: createPolicyTravelDto.Risk,
+          Renovable: createPolicyTravelDto.Renovable,
+          Travels:{
+            create:{
+              startCountry: createPolicyTravelDto.startCountry,
+              endCountry: createPolicyTravelDto.endCountry,
+              startDate: createPolicyTravelDto.startDate,
+              endDate: createPolicyTravelDto.endDate,
+            },
+          },
+          InsuranceCarriers: {
+            connect: {
+              id: createPolicyTravelDto.insuranceCarrierId,
+            },
+          },
+          BranchTypes: {
+            connect: {
+              id: createPolicyTravelDto.branchTypeId,
+            },
+          },
+          SubBranchs: {
+            connect: {
+              id: createPolicyTravelDto.subBranchId,
+            },
+          },
+          PolicyStatus: {
+            connect: {
+              id: createPolicyTravelDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: createPolicyTravelDto.periodStartDate,
+              endDate: createPolicyTravelDto.periodEndDate,
+              renewal: createPolicyTravelDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: createPolicyTravelDto.agentId,
+            },
+          },
+          ClientHasPolicies: {
+            create: {
+              relationId: 1,
+              clientId: createPolicyTravelDto.clientId,
+              ClientHasTaker: {
+                create: {
+                  PolicyDetails: {
+                    create: {
+                      primeValue: createPolicyTravelDto.primeValue,
+                      AnnexValue: createPolicyTravelDto.AnnexValue,
+                      comission: createPolicyTravelDto.comission,
+                      comissionPolicyStatus: createPolicyTravelDto.comissionPolicyStatus,
+                      ValorFinalizacion: createPolicyTravelDto.ValorFinalizacion,
+                      Total: createPolicyTravelDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: createPolicyTravelDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: createPolicyTravelDto.periodicityId,
                         },
                       },
                     },
@@ -90,18 +369,396 @@ export class PoliciesService {
   }
 
   async findAll() {
-    return `This action returns all policies`;
+    try {
+      const policies = await this.prisma.policies.findMany();
+      return policies;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al buscar Polizas');
+    };
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} policy`;
+    try {
+      const policies = await this.prisma.policies.findUnique({
+        where: {
+          id,
+        },
+      });
+      return policies;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException(`Error al buscar poliza #${id}`);
+    };
   }
 
-  async update(id: number, updatePolicyDto: UpdatePolicyDto) {
-    return `This action updates a #${id} policy`;
+  async updatePolicyClient(id: number, UpdatePolicyClientDto: UpdatePolicyClientDto) {
+    try {
+      const policies = await this.prisma.policies.update({
+        where: {
+          id,
+        },
+        data: {
+          policyNum: UpdatePolicyClientDto.policyNum,
+          Risk: UpdatePolicyClientDto.Risk,
+          Renovable: UpdatePolicyClientDto.Renovable,
+          InsuranceCarriers: {
+            connect: {
+              id: UpdatePolicyClientDto.insuranceCarrierId,
+            },
+          },
+          BranchTypes: {
+            connect: {
+              id: UpdatePolicyClientDto.branchTypeId,
+            },
+          },
+          SubBranchs: {
+            connect: {
+              id: UpdatePolicyClientDto.subBranchId,
+            },
+          },
+          PolicyStatus: {
+            connect: {
+              id: UpdatePolicyClientDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: UpdatePolicyClientDto.periodStartDate,
+              endDate: UpdatePolicyClientDto.periodEndDate,
+              renewal: UpdatePolicyClientDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: UpdatePolicyClientDto.agentId,
+            },
+          },
+          ClientHasPolicies: {
+            create: {
+              relationId: 1,
+              clientId: UpdatePolicyClientDto.clientId,
+              ClientHasTaker: {
+                create: {
+                  PolicyDetails: {
+                    create: {
+                      primeValue: UpdatePolicyClientDto.primeValue,
+                      AnnexValue: UpdatePolicyClientDto.AnnexValue,
+                      comission: UpdatePolicyClientDto.comission,
+                      comissionPolicyStatus: UpdatePolicyClientDto.comissionPolicyStatus,
+                      ValorFinalizacion: UpdatePolicyClientDto.ValorFinalizacion,
+                      Total: UpdatePolicyClientDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: UpdatePolicyClientDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: UpdatePolicyClientDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return policies;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al actualizar poliza');
+    }
+  }
+
+  async updatePolicyVehicle(id: number, updatePolicyVehicleDto: UpdatePolicyVehicleDto) {
+    try {
+      const policies = await this.prisma.policies.update({
+        where: {
+          id,
+        },
+        data: {
+          policyNum: updatePolicyVehicleDto.policyNum,
+          Risk: updatePolicyVehicleDto.Risk,
+          Renovable: updatePolicyVehicleDto.Renovable,
+          Vehicles:{
+            create:{
+              brand: updatePolicyVehicleDto.brand,
+              class: updatePolicyVehicleDto.class,
+              model: updatePolicyVehicleDto.model,
+              vehicleType: updatePolicyVehicleDto.vehicleType,
+              serviceType: updatePolicyVehicleDto.serviceType,
+              gasConverted: updatePolicyVehicleDto.gasConverted,
+              vehicleAge: updatePolicyVehicleDto.vehicleAge,
+            },
+          },
+          InsuranceCarriers: {
+            connect: {
+              id: updatePolicyVehicleDto.insuranceCarrierId,
+            },
+          },
+          BranchTypes: {
+            connect: {
+              id: updatePolicyVehicleDto.branchTypeId,
+            },
+          },
+          SubBranchs: {
+            connect: {
+              id: updatePolicyVehicleDto.subBranchId,
+            },
+          },
+          PolicyStatus: {
+            connect: {
+              id: updatePolicyVehicleDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: updatePolicyVehicleDto.periodStartDate,
+              endDate: updatePolicyVehicleDto.periodEndDate,
+              renewal: updatePolicyVehicleDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: updatePolicyVehicleDto.agentId,
+            },
+          },
+          ClientHasPolicies: {
+            create: {
+              relationId: 1,
+              clientId: updatePolicyVehicleDto.clientId,
+              ClientHasTaker: {
+                create: {
+                  PolicyDetails: {
+                    create: {
+                      primeValue: updatePolicyVehicleDto.primeValue,
+                      AnnexValue: updatePolicyVehicleDto.AnnexValue,
+                      comission: updatePolicyVehicleDto.comission,
+                      comissionPolicyStatus: updatePolicyVehicleDto.comissionPolicyStatus,
+                      ValorFinalizacion: updatePolicyVehicleDto.ValorFinalizacion,
+                      Total: updatePolicyVehicleDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: updatePolicyVehicleDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: updatePolicyVehicleDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return policies;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al actualizar poliza');
+    }
+  }
+
+  async updatePolicyPatrimonial(id: number, UpdatePolicyPatrimonialDto: UpdatePolicyPatrimonialDto) {
+    try {
+      const policies = await this.prisma.policies.update({
+        where: {
+          id,
+        },
+        data: {
+          policyNum: UpdatePolicyPatrimonialDto.policyNum,
+          Risk: UpdatePolicyPatrimonialDto.Risk,
+          Renovable: UpdatePolicyPatrimonialDto.Renovable,
+          Patrimonials:{
+            create:{
+              type: UpdatePolicyPatrimonialDto.type,
+              totalValue: UpdatePolicyPatrimonialDto.totalValue,
+              machineryValue: UpdatePolicyPatrimonialDto.machineryValue,
+              furnitureValue: UpdatePolicyPatrimonialDto.furnitureValue,
+            },
+          },
+          InsuranceCarriers: {
+            connect: {
+              id: UpdatePolicyPatrimonialDto.insuranceCarrierId,
+            },
+          },
+          BranchTypes: {
+            connect: {
+              id: UpdatePolicyPatrimonialDto.branchTypeId,
+            },
+          },
+          SubBranchs: {
+            connect: {
+              id: UpdatePolicyPatrimonialDto.subBranchId,
+            },
+          },
+          PolicyStatus: {
+            connect: {
+              id: UpdatePolicyPatrimonialDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: UpdatePolicyPatrimonialDto.periodStartDate,
+              endDate: UpdatePolicyPatrimonialDto.periodEndDate,
+              renewal: UpdatePolicyPatrimonialDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: UpdatePolicyPatrimonialDto.agentId,
+            },
+          },
+          ClientHasPolicies: {
+            create: {
+              relationId: 1,
+              clientId: UpdatePolicyPatrimonialDto.clientId,
+              ClientHasTaker: {
+                create: {
+                  PolicyDetails: {
+                    create: {
+                      primeValue: UpdatePolicyPatrimonialDto.primeValue,
+                      AnnexValue: UpdatePolicyPatrimonialDto.AnnexValue,
+                      comission: UpdatePolicyPatrimonialDto.comission,
+                      comissionPolicyStatus: UpdatePolicyPatrimonialDto.comissionPolicyStatus,
+                      ValorFinalizacion: UpdatePolicyPatrimonialDto.ValorFinalizacion,
+                      Total: UpdatePolicyPatrimonialDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: UpdatePolicyPatrimonialDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: UpdatePolicyPatrimonialDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return policies;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al actualizar poliza');
+    }
+  }
+
+  async updatePolicyTravel(id: number, UpdatePolicyTravelDto: UpdatePolicyTravelDto) {
+    try {
+      const policies = await this.prisma.policies.update({
+        where: {
+          id,
+        },
+        data: {
+          policyNum: UpdatePolicyTravelDto.policyNum,
+          Risk: UpdatePolicyTravelDto.Risk,
+          Renovable: UpdatePolicyTravelDto.Renovable,
+          Travels:{
+            create:{
+              startCountry: UpdatePolicyTravelDto.startCountry,
+              endCountry: UpdatePolicyTravelDto.endCountry,
+              startDate: UpdatePolicyTravelDto.startDate,
+              endDate: UpdatePolicyTravelDto.endDate,
+            },
+          },
+          InsuranceCarriers: {
+            connect: {
+              id: UpdatePolicyTravelDto.insuranceCarrierId,
+            },
+          },
+          BranchTypes: {
+            connect: {
+              id: UpdatePolicyTravelDto.branchTypeId,
+            },
+          },
+          SubBranchs: {
+            connect: {
+              id: UpdatePolicyTravelDto.subBranchId,
+            },
+          },
+          PolicyStatus: {
+            connect: {
+              id: UpdatePolicyTravelDto.policyStatusId,
+            },
+          },
+          Periods: {
+            create: {
+              startDate: UpdatePolicyTravelDto.periodStartDate,
+              endDate: UpdatePolicyTravelDto.periodEndDate,
+              renewal: UpdatePolicyTravelDto.renewal,
+            },
+          },
+          AgentContracts: {
+            create: {
+              agentId: UpdatePolicyTravelDto.agentId,
+            },
+          },
+          ClientHasPolicies: {
+            create: {
+              relationId: 1,
+              clientId: UpdatePolicyTravelDto.clientId,
+              ClientHasTaker: {
+                create: {
+                  PolicyDetails: {
+                    create: {
+                      primeValue: UpdatePolicyTravelDto.primeValue,
+                      AnnexValue: UpdatePolicyTravelDto.AnnexValue,
+                      comission: UpdatePolicyTravelDto.comission,
+                      comissionPolicyStatus: UpdatePolicyTravelDto.comissionPolicyStatus,
+                      ValorFinalizacion: UpdatePolicyTravelDto.ValorFinalizacion,
+                      Total: UpdatePolicyTravelDto.Total,
+                      Currencies: {
+                        connect: {
+                          id: UpdatePolicyTravelDto.currencyId,
+                        },
+                      },
+                      Periodicities: {
+                        connect: {
+                          id: UpdatePolicyTravelDto.periodicityId,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return policies;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al actualizar poliza');
+    }
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} policy`;
+    try {
+      const policies = await this.prisma.policies.delete({
+        where: {
+          id,
+        },
+      });
+
+      return policies;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al eliminar poliza');
+    }
   }
 }

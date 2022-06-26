@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { OrderDetails } from "@prisma/client";
+import { PolicyDetails } from "@prisma/client";
 
-export class OrderDetail implements OrderDetails{
+export class OrderDetail implements PolicyDetails{
     @ApiProperty()
     id: number;
     @ApiProperty()

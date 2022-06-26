@@ -8,7 +8,7 @@ import {
   IsString,
 } from 'class-validator';
 
-export class CreatePolicyDto {
+export class CreatePolicyClientDto {
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()

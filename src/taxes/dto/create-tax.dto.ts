@@ -4,7 +4,7 @@ import { IsNumber, IsString } from 'class-validator';
 export class CreateTaxDto {
   @ApiProperty()
   @IsNumber()
-  OrderDetailsId: number;
+  PolicyDetailsId: number;
 
   @ApiProperty()
   @IsString()

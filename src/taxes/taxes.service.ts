@@ -14,9 +14,9 @@ export class TaxesService {
         data: {
           metakey: createTaxDto.metakey,
           metavalue: createTaxDto.metavalue,
-          OrderDetails: {
+          PolicyDetails: {
             connect: {
-              id: createTaxDto.OrderDetailsId,
+              id: createTaxDto.PolicyDetailsId,
             },
           },
         },
@@ -66,9 +66,9 @@ export class TaxesService {
         data: {
           metakey: updateTaxDto.metakey,
           metavalue: updateTaxDto.metavalue,
-          OrderDetails: {
+          PolicyDetails: {
             connect: {
-              id: updateTaxDto.OrderDetailsId,
+              id: updateTaxDto.PolicyDetailsId,
             },
           },
         },

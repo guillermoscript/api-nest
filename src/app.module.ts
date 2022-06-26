@@ -25,10 +25,9 @@ import { RelationPolicyStatusModule } from './relation-policy-status/relation-po
 import { TravelsModule } from './travels/travels.module';
 import { DocumentTypesModule } from './document-types/document-types.module';
 import { PeriodicitiesModule } from './periodicities/periodicities.module';
-import { NotificationsModule } from './notifications/notifications.module';
-import { OrderDetailsModule } from './order-details/order-details.module';
-import { EntitiesHasPolizasModule } from './entities-has-polizas/entities-has-polizas.module';
-import { ClientHasTomadorsModule } from './client-has-tomadors/client-has-tomadors.module';
+import { PolicyDetailsModule } from './order-details/order-details.module';
+import { ClientHasPoliciesModule } from './entities-has-polizas/entities-has-polizas.module';
+import { ClientHasTakerModule } from './client-has-tomadors/client-has-tomadors.module';
 import { PaymentsModule } from './payments/payments.module';
 import { AgentContractsModule } from './agent-contracts/agent-contracts.module';
 import { ClientHasAgentsModule } from './client-has-agents/client-has-agents.module';
@@ -66,10 +65,9 @@ import { CurrenciesModule } from './currencies/currencies.module';
     TravelsModule,
     DocumentTypesModule,
     PeriodicitiesModule,
-    NotificationsModule,
-    OrderDetailsModule,
-    EntitiesHasPolizasModule,
-    ClientHasTomadorsModule,
+    PolicyDetailsModule,
+    ClientHasPoliciesModule,
+    ClientHasTakerModule,
     PaymentsModule,
     AgentContractsModule,
     ClientHasAgentsModule,

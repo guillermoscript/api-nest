@@ -19,8 +19,5 @@ export class User extends Person implements Users {
   @ApiProperty()
   userRole: UserRole;
   @ApiProperty()
-  hashedPassword: string;
-
-  
-        
+  hashedPassword: string;    
   }

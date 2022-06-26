@@ -3,7 +3,7 @@ import { IsNumber, IsString } from 'class-validator';
 
 // TODO tal vez eliminar el extends por que puede haber una ocacion que se cree un cliente
 // pero esete sea un usuario, eso crearia un nuevo person y no es la idea
-export class CreateExitingPersonClientDto {
+export class CreateExistingPersonClientDto {
   @ApiProperty()
   @IsNumber()
   personId: number;
