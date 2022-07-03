@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsString } from "class-validator";
 
 export class CreateVehicleDto {
-    
+
     @ApiProperty()
     @IsNumber()
     policyId: number;
@@ -14,7 +14,7 @@ export class CreateVehicleDto {
     @ApiProperty()
     @IsString()
     class: string
-    
+
     @ApiProperty()
     @IsString()
     model: string;
@@ -29,7 +29,7 @@ export class CreateVehicleDto {
 
     @ApiProperty()
     @IsString()
-    gasConverted?: string;
+    gasConverted?: boolean;
 
     @ApiProperty()
     @IsNumber()
