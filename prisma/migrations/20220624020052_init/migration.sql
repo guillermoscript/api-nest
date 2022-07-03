@@ -151,7 +151,7 @@ CREATE TABLE "Persons" (
 CREATE TABLE "PolicyStatus" (
     "id" SERIAL NOT NULL,
     "description" VARCHAR(255),
-    "policystatusName" VARCHAR(255) NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
 
     CONSTRAINT "PolicyStatus_pkey" PRIMARY KEY ("id")
 );
@@ -159,7 +159,7 @@ CREATE TABLE "PolicyStatus" (
 -- CreateTable
 CREATE TABLE "RelationPolicyStatus" (
     "id" SERIAL NOT NULL,
-    "relationName" VARCHAR(255) NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
 
     CONSTRAINT "RelationPolicyStatus_pkey" PRIMARY KEY ("id")
 );
