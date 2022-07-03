@@ -35,7 +35,7 @@ import { UpdateClientDto } from './dto/update-client.dto';
 @ApiTags('Clients')
 @Controller('clients')
 export class ClientController {
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService) { }
   @Get('/')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: CreateClientDto, description: 'Cliente encontrado' })
@@ -62,7 +62,9 @@ export class ClientController {
     type: CreateClientDto,
     description: 'Cliente ha sido creado con exito',
   })
-  @ApiForbiddenResponse({ description: 'Prohibido, puede que los datos ya existan' })
+  @ApiForbiddenResponse({
+    description: 'Prohibido, puede que los datos ya existan',
+  })
   @ApiUnauthorizedResponse({ description: 'No autorizado' })
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
@@ -76,7 +78,9 @@ export class ClientController {
     type: CreateClientDto,
     description: 'Cliente ha sido creado con exito',
   })
-  @ApiForbiddenResponse({ description: 'Prohibido, puede que los datos ya existan' })
+  @ApiForbiddenResponse({
+    description: 'Prohibido, puede que los datos ya existan',
+  })
   @ApiUnauthorizedResponse({ description: 'No autorizado' })
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
@@ -90,17 +94,16 @@ export class ClientController {
   @ApiNotFoundResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  update(
-    @Param('id') id: string,
-    @Body() UpdateClientDto: UpdateClientDto,
-  ) {
+  update(@Param('id') id: string, @Body() UpdateClientDto: UpdateClientDto) {
     return this.clientService.update(+id, UpdateClientDto);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: CreateClientDto, description: 'Cliente Eliminado' })
-  @ApiNotFoundResponse({ description: 'No se encontro el cliente especificado' })
+  @ApiNotFoundResponse({
+    description: 'No se encontro el cliente especificado',
+  })
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   remove(@Param('id') id: string) {
