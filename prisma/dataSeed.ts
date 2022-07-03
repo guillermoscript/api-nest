@@ -237,22 +237,22 @@ export function createRandomPolicyStatus() {
   const PolicyStatuses = [
     {
       id: 1,
-      policystatusName: 'Cotizada',
+      name: 'Cotizada',
       description: '',
     },
     {
       id: 2,
-      policystatusName: 'Sin Pagar',
+      name: 'Sin Pagar',
       description: '',
     },
     {
       id: 3,
-      policystatusName: 'Pagada',
+      name: 'Pagada',
       description: '',
     },
     {
       id: 4,
-      policystatusName: 'Patrimonial',
+      name: 'Patrimonial',
       description: '',
     },
   ];
@@ -263,17 +263,17 @@ export function createRandomRelationPolicyStatus() {
   const PolicyStatuses = [
     {
       id: 1,
-      relationName: 'Tomador',
+      name: 'Tomador',
     },
     {
       id: 2,
-      relationName: 'Beneficiario',
+      name: 'Beneficiario',
     },
 
     // TODO este tercero no sabemos cual es
     {
       id: 3,
-      relationName: 'Anexado',
+      name: 'Anexado',
     },
   ];
   return PolicyStatuses;
@@ -350,22 +350,22 @@ export function createRandomAddresses(min, max) {
   return address;
 }
 
-// export function createRandomCountryStates(min, max) {
-//   const countryState: CreateCountryStateDto = {
-//     name: faker.address.state(),
-//     countryId: randomIntFromInterval(min, max),
-//   };
-//   return countryState;
-// }
+export function wwwCreateRandomCountryStates(min, max) {
+  const countryState: CreateCountryStateDto = {
+    name: faker.address.state(),
+    countryId: randomIntFromInterval(min, max),
+  };
+  return countryState;
+}
 
-// export function createRandomCountries() {
-//   const country: CreateCountryDto = {
-//     countryName: faker.address.country(),
-//     continentId: randomIntFromInterval(1, 5),
-//   };
+export function wwwCreateRandomCountries() {
+  const country: CreateCountryDto = {
+    countryName: faker.address.country(),
+    continentId: randomIntFromInterval(1, 5),
+  };
 
-//   return country;
-// }
+  return country;
+}
 
 export function createRandomClients(min, max) {
   // const client: CreateClientDto = {
