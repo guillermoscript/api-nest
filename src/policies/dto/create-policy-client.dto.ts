@@ -81,7 +81,7 @@ export class CreatePolicyClientDto {
 
   // @ApiProperty()
   // @IsString()
-  // gasConverted?: string;
+  // gasConverted?: boolean;
 
   // @ApiProperty()
   // @IsNumber()
@@ -179,7 +179,7 @@ export class CreatePolicyClientDto {
   @IsDate()
   @Type(() => Date)
   periodEndDate: Date;
-  
+
   @ApiProperty()
   @IsNumber()
   renewal: number;

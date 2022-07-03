@@ -1,15 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsBoolean,
-  IsDate,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
 import { CreatePolicyClientDto } from './create-policy-client.dto';
 
-export class CreatePolicyTravelDto extends CreatePolicyClientDto{
+export class CreatePolicyTravelDto extends CreatePolicyClientDto {
   // travel dto
 
   @ApiProperty()

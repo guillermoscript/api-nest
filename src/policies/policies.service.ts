@@ -20,6 +20,7 @@ export class PoliciesService {
           policyNum: createPolicyClientDto.policyNum,
           Risk: createPolicyClientDto.Risk,
           Renovable: createPolicyClientDto.Renovable,
+          insuredValue: createPolicyClientDto.insuredValue,
           InsuranceCarriers: {
             connect: {
               id: createPolicyClientDto.insuranceCarrierId,
@@ -63,8 +64,10 @@ export class PoliciesService {
                       primeValue: createPolicyClientDto.primeValue,
                       AnnexValue: createPolicyClientDto.AnnexValue,
                       comission: createPolicyClientDto.comission,
-                      comissionPolicyStatus: createPolicyClientDto.comissionPolicyStatus,
-                      ValorFinalizacion: createPolicyClientDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        createPolicyClientDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        createPolicyClientDto.ValorFinalizacion,
                       Total: createPolicyClientDto.Total,
                       Currencies: {
                         connect: {
@@ -88,7 +91,9 @@ export class PoliciesService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
+          throw new ForbiddenException(
+            'Hubo un error en la creacion de la poliza, intentelo de nuevo',
+          );
         }
       }
       throw error;
@@ -102,9 +107,10 @@ export class PoliciesService {
           policyNum: createPolicyVehicleDto.policyNum,
           Risk: createPolicyVehicleDto.Risk,
           Renovable: createPolicyVehicleDto.Renovable,
-          Vehicles:{
-            create:{
-              brand:createPolicyVehicleDto.brand,
+          insuredValue: createPolicyVehicleDto.insuredValue,
+          Vehicles: {
+            create: {
+              brand: createPolicyVehicleDto.brand,
               class: createPolicyVehicleDto.class,
               model: createPolicyVehicleDto.model,
               vehicleType: createPolicyVehicleDto.vehicleType,
@@ -156,8 +162,10 @@ export class PoliciesService {
                       primeValue: createPolicyVehicleDto.primeValue,
                       AnnexValue: createPolicyVehicleDto.AnnexValue,
                       comission: createPolicyVehicleDto.comission,
-                      comissionPolicyStatus: createPolicyVehicleDto.comissionPolicyStatus,
-                      ValorFinalizacion: createPolicyVehicleDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        createPolicyVehicleDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        createPolicyVehicleDto.ValorFinalizacion,
                       Total: createPolicyVehicleDto.Total,
                       Currencies: {
                         connect: {
@@ -181,22 +189,27 @@ export class PoliciesService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
+          throw new ForbiddenException(
+            'Error, El numero de poliza debe ser, intentelo de nuevo',
+          );
         }
       }
       throw error;
     }
   }
 
-  async createPolicyPatrimonial(createPolicyPatrimonialDto: CreatePolicyPatrimonialDto) {
+  async createPolicyPatrimonial(
+    createPolicyPatrimonialDto: CreatePolicyPatrimonialDto,
+  ) {
     try {
       const policy = await this.prisma.policies.create({
         data: {
           policyNum: createPolicyPatrimonialDto.policyNum,
           Risk: createPolicyPatrimonialDto.Risk,
           Renovable: createPolicyPatrimonialDto.Renovable,
-          Patrimonials:{
-            create:{
+          insuredValue: createPolicyPatrimonialDto.insuredValue,
+          Patrimonials: {
+            create: {
               type: createPolicyPatrimonialDto.type,
               totalValue: createPolicyPatrimonialDto.totalValue,
               machineryValue: createPolicyPatrimonialDto.machineryValue,
@@ -246,8 +259,10 @@ export class PoliciesService {
                       primeValue: createPolicyPatrimonialDto.primeValue,
                       AnnexValue: createPolicyPatrimonialDto.AnnexValue,
                       comission: createPolicyPatrimonialDto.comission,
-                      comissionPolicyStatus: createPolicyPatrimonialDto.comissionPolicyStatus,
-                      ValorFinalizacion: createPolicyPatrimonialDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        createPolicyPatrimonialDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        createPolicyPatrimonialDto.ValorFinalizacion,
                       Total: createPolicyPatrimonialDto.Total,
                       Currencies: {
                         connect: {
@@ -271,7 +286,9 @@ export class PoliciesService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
+          throw new ForbiddenException(
+            'Hubo un error en la creacion de la poliza, intentelo de nuevo',
+          );
         }
       }
       throw error;
@@ -285,8 +302,9 @@ export class PoliciesService {
           policyNum: createPolicyTravelDto.policyNum,
           Risk: createPolicyTravelDto.Risk,
           Renovable: createPolicyTravelDto.Renovable,
-          Travels:{
-            create:{
+          insuredValue: createPolicyTravelDto.insuredValue,
+          Travels: {
+            create: {
               startCountry: createPolicyTravelDto.startCountry,
               endCountry: createPolicyTravelDto.endCountry,
               startDate: createPolicyTravelDto.startDate,
@@ -336,8 +354,10 @@ export class PoliciesService {
                       primeValue: createPolicyTravelDto.primeValue,
                       AnnexValue: createPolicyTravelDto.AnnexValue,
                       comission: createPolicyTravelDto.comission,
-                      comissionPolicyStatus: createPolicyTravelDto.comissionPolicyStatus,
-                      ValorFinalizacion: createPolicyTravelDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        createPolicyTravelDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        createPolicyTravelDto.ValorFinalizacion,
                       Total: createPolicyTravelDto.Total,
                       Currencies: {
                         connect: {
@@ -361,7 +381,9 @@ export class PoliciesService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Hubo un error en la creacion de la poliza, intentelo de nuevo');
+          throw new ForbiddenException(
+            'Hubo un error en la creacion de la poliza, intentelo de nuevo',
+          );
         }
       }
       throw error;
@@ -375,7 +397,7 @@ export class PoliciesService {
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('Error al buscar Polizas');
-    };
+    }
   }
 
   async findOne(id: number) {
@@ -389,10 +411,13 @@ export class PoliciesService {
     } catch (error) {
       console.log(error);
       throw new ForbiddenException(`Error al buscar poliza #${id}`);
-    };
+    }
   }
 
-  async updatePolicyClient(id: number, UpdatePolicyClientDto: UpdatePolicyClientDto) {
+  async updatePolicyClient(
+    id: number,
+    UpdatePolicyClientDto: UpdatePolicyClientDto,
+  ) {
     try {
       const policies = await this.prisma.policies.update({
         where: {
@@ -402,6 +427,7 @@ export class PoliciesService {
           policyNum: UpdatePolicyClientDto.policyNum,
           Risk: UpdatePolicyClientDto.Risk,
           Renovable: UpdatePolicyClientDto.Renovable,
+          insuredValue: UpdatePolicyClientDto.insuredValue,
           InsuranceCarriers: {
             connect: {
               id: UpdatePolicyClientDto.insuranceCarrierId,
@@ -445,8 +471,10 @@ export class PoliciesService {
                       primeValue: UpdatePolicyClientDto.primeValue,
                       AnnexValue: UpdatePolicyClientDto.AnnexValue,
                       comission: UpdatePolicyClientDto.comission,
-                      comissionPolicyStatus: UpdatePolicyClientDto.comissionPolicyStatus,
-                      ValorFinalizacion: UpdatePolicyClientDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        UpdatePolicyClientDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        UpdatePolicyClientDto.ValorFinalizacion,
                       Total: UpdatePolicyClientDto.Total,
                       Currencies: {
                         connect: {
@@ -474,7 +502,10 @@ export class PoliciesService {
     }
   }
 
-  async updatePolicyVehicle(id: number, updatePolicyVehicleDto: UpdatePolicyVehicleDto) {
+  async updatePolicyVehicle(
+    id: number,
+    updatePolicyVehicleDto: UpdatePolicyVehicleDto,
+  ) {
     try {
       const policies = await this.prisma.policies.update({
         where: {
@@ -484,8 +515,9 @@ export class PoliciesService {
           policyNum: updatePolicyVehicleDto.policyNum,
           Risk: updatePolicyVehicleDto.Risk,
           Renovable: updatePolicyVehicleDto.Renovable,
-          Vehicles:{
-            create:{
+          insuredValue: updatePolicyVehicleDto.insuredValue,
+          Vehicles: {
+            create: {
               brand: updatePolicyVehicleDto.brand,
               class: updatePolicyVehicleDto.class,
               model: updatePolicyVehicleDto.model,
@@ -538,8 +570,10 @@ export class PoliciesService {
                       primeValue: updatePolicyVehicleDto.primeValue,
                       AnnexValue: updatePolicyVehicleDto.AnnexValue,
                       comission: updatePolicyVehicleDto.comission,
-                      comissionPolicyStatus: updatePolicyVehicleDto.comissionPolicyStatus,
-                      ValorFinalizacion: updatePolicyVehicleDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        updatePolicyVehicleDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        updatePolicyVehicleDto.ValorFinalizacion,
                       Total: updatePolicyVehicleDto.Total,
                       Currencies: {
                         connect: {
@@ -567,7 +601,10 @@ export class PoliciesService {
     }
   }
 
-  async updatePolicyPatrimonial(id: number, UpdatePolicyPatrimonialDto: UpdatePolicyPatrimonialDto) {
+  async updatePolicyPatrimonial(
+    id: number,
+    UpdatePolicyPatrimonialDto: UpdatePolicyPatrimonialDto,
+  ) {
     try {
       const policies = await this.prisma.policies.update({
         where: {
@@ -577,8 +614,9 @@ export class PoliciesService {
           policyNum: UpdatePolicyPatrimonialDto.policyNum,
           Risk: UpdatePolicyPatrimonialDto.Risk,
           Renovable: UpdatePolicyPatrimonialDto.Renovable,
-          Patrimonials:{
-            create:{
+          insuredValue: UpdatePolicyPatrimonialDto.insuredValue,
+          Patrimonials: {
+            create: {
               type: UpdatePolicyPatrimonialDto.type,
               totalValue: UpdatePolicyPatrimonialDto.totalValue,
               machineryValue: UpdatePolicyPatrimonialDto.machineryValue,
@@ -628,8 +666,10 @@ export class PoliciesService {
                       primeValue: UpdatePolicyPatrimonialDto.primeValue,
                       AnnexValue: UpdatePolicyPatrimonialDto.AnnexValue,
                       comission: UpdatePolicyPatrimonialDto.comission,
-                      comissionPolicyStatus: UpdatePolicyPatrimonialDto.comissionPolicyStatus,
-                      ValorFinalizacion: UpdatePolicyPatrimonialDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        UpdatePolicyPatrimonialDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        UpdatePolicyPatrimonialDto.ValorFinalizacion,
                       Total: UpdatePolicyPatrimonialDto.Total,
                       Currencies: {
                         connect: {
@@ -657,7 +697,10 @@ export class PoliciesService {
     }
   }
 
-  async updatePolicyTravel(id: number, UpdatePolicyTravelDto: UpdatePolicyTravelDto) {
+  async updatePolicyTravel(
+    id: number,
+    UpdatePolicyTravelDto: UpdatePolicyTravelDto,
+  ) {
     try {
       const policies = await this.prisma.policies.update({
         where: {
@@ -667,8 +710,9 @@ export class PoliciesService {
           policyNum: UpdatePolicyTravelDto.policyNum,
           Risk: UpdatePolicyTravelDto.Risk,
           Renovable: UpdatePolicyTravelDto.Renovable,
-          Travels:{
-            create:{
+          insuredValue: UpdatePolicyTravelDto.insuredValue,
+          Travels: {
+            create: {
               startCountry: UpdatePolicyTravelDto.startCountry,
               endCountry: UpdatePolicyTravelDto.endCountry,
               startDate: UpdatePolicyTravelDto.startDate,
@@ -718,8 +762,10 @@ export class PoliciesService {
                       primeValue: UpdatePolicyTravelDto.primeValue,
                       AnnexValue: UpdatePolicyTravelDto.AnnexValue,
                       comission: UpdatePolicyTravelDto.comission,
-                      comissionPolicyStatus: UpdatePolicyTravelDto.comissionPolicyStatus,
-                      ValorFinalizacion: UpdatePolicyTravelDto.ValorFinalizacion,
+                      comissionPolicyStatus:
+                        UpdatePolicyTravelDto.comissionPolicyStatus,
+                      ValorFinalizacion:
+                        UpdatePolicyTravelDto.ValorFinalizacion,
                       Total: UpdatePolicyTravelDto.Total,
                       Currencies: {
                         connect: {

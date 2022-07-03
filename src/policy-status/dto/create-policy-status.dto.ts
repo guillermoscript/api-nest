@@ -6,7 +6,7 @@ export class CreatePolicyStatusDto extends PolicyStatuses {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  policystatusName: string;
+  name: string;
 
   @ApiProperty()
   @IsNotEmpty()

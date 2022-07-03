@@ -77,8 +77,12 @@ export class PoliciesController {
   @ApiUnauthorizedResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
-  createPolicyPatrimonial(@Body() createPolicyPatrimonialDto: CreatePolicyPatrimonialDto) {
-    return this.policiesService.createPolicyPatrimonial(createPolicyPatrimonialDto);
+  createPolicyPatrimonial(
+    @Body() createPolicyPatrimonialDto: CreatePolicyPatrimonialDto,
+  ) {
+    return this.policiesService.createPolicyPatrimonial(
+      createPolicyPatrimonialDto,
+    );
   }
 
   @Get('/')
@@ -108,7 +112,10 @@ export class PoliciesController {
   @ApiNotFoundResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  updatePolicyClient(@Param('id') id: string, @Body() UpdatePolicyClientDto: UpdatePolicyClientDto) {
+  updatePolicyClient(
+    @Param('id') id: string,
+    @Body() UpdatePolicyClientDto: UpdatePolicyClientDto,
+  ) {
     return this.policiesService.updatePolicyClient(+id, UpdatePolicyClientDto);
   }
 
@@ -118,8 +125,14 @@ export class PoliciesController {
   @ApiNotFoundResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  updatePolicyVehicle(@Param('id') id: string, @Body() UpdatePolicyVehicleDto: UpdatePolicyVehicleDto) {
-    return this.policiesService.updatePolicyVehicle(+id, UpdatePolicyVehicleDto);
+  updatePolicyVehicle(
+    @Param('id') id: string,
+    @Body() UpdatePolicyVehicleDto: UpdatePolicyVehicleDto,
+  ) {
+    return this.policiesService.updatePolicyVehicle(
+      +id,
+      UpdatePolicyVehicleDto,
+    );
   }
 
   @Patch('/patrimonial/:id')
@@ -128,8 +141,14 @@ export class PoliciesController {
   @ApiNotFoundResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  updatePolicyPatrimonial(@Param('id') id: string, @Body() UpdatePolicyPatrimonialDto: UpdatePolicyPatrimonialDto) {
-    return this.policiesService.updatePolicyPatrimonial(+id, UpdatePolicyPatrimonialDto);
+  updatePolicyPatrimonial(
+    @Param('id') id: string,
+    @Body() UpdatePolicyPatrimonialDto: UpdatePolicyPatrimonialDto,
+  ) {
+    return this.policiesService.updatePolicyPatrimonial(
+      +id,
+      UpdatePolicyPatrimonialDto,
+    );
   }
 
   @Patch('/travel/:id')
@@ -138,7 +157,10 @@ export class PoliciesController {
   @ApiNotFoundResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  updatePolicyTravel(@Param('id') id: string, @Body() UpdatePolicyTravelDto: UpdatePolicyTravelDto) {
+  updatePolicyTravel(
+    @Param('id') id: string,
+    @Body() UpdatePolicyTravelDto: UpdatePolicyTravelDto,
+  ) {
     return this.policiesService.updatePolicyTravel(+id, UpdatePolicyTravelDto);
   }
 
