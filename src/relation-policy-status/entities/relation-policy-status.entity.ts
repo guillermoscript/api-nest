@@ -5,7 +5,7 @@ export class RelationPolicyStatuses implements RelationPolicyStatus {
   @ApiProperty()
   id: number;
   @ApiProperty()
-  relationName: string;
+  name: string;
   
         
   }

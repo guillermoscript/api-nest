@@ -5,7 +5,7 @@ export class PolicyStatuses implements PolicyStatus {
   @ApiProperty()
   id: number;
   @ApiProperty()
-  policystatusName: string;
+  name: string;
   @ApiProperty()
   description: string;
   

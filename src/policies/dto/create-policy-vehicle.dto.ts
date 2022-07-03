@@ -34,7 +34,7 @@ export class CreatePolicyVehicleDto extends CreatePolicyClientDto{
 
   @ApiProperty()
   @IsString()
-  gasConverted?: string;
+  gasConverted?: boolean;
 
   @ApiProperty()
   @IsNumber()

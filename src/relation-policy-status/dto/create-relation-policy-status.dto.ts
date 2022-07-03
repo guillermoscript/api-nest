@@ -5,6 +5,6 @@ export class CreateRelationPolicyStatusDto {
 
     @ApiProperty()
     @IsString()
-    relationName: string;
+    name: string;
     
 }
