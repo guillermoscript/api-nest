@@ -8,6 +8,4 @@ export class SubBranch implements SubBranchs {
   name: string;
   @ApiProperty()
   branchTypeId: number;
-  
-        
-  }
+}

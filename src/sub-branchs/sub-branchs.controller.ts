@@ -25,7 +25,6 @@ import { SubBranchsService } from './sub-branchs.service';
 import { CreateSubBranchDto } from './dto/create-sub-branch.dto';
 import { UpdateSubBranchDto } from './dto/update-sub-branch.dto';
 
-
 @UseGuards(JwtGuard)
 @ApiTags('SubBranchs')
 @Controller('sub-branchs')
@@ -53,15 +52,24 @@ export class SubBranchsController {
     return this.subBranchsService.findAll();
   }
 
-  @Get(':id')
-  @HttpCode(HttpStatus.OK)
   @Get('/:id')
+  @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
   @ApiNotFoundResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findOne(@Param('id') id: string) {
     return this.subBranchsService.findOne(+id);
+  }
+
+  @Get('/branches/:branchId')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  getSubBranchByBranchId(@Param('branchId') id: string) {
+    return this.subBranchsService.getSubBranchByBranchId(+id);
   }
 
   @Patch(':id')

@@ -63,6 +63,24 @@ export class SubBranchsService {
     }
   }
 
+  async getSubBranchByBranchId(branchId: number) {
+    try {
+      const subBranch = await this.prisma.subBranchs.findMany({
+        where: {
+          branchTypeId: branchId,
+        },
+      });
+      return subBranch;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ForbiddenException(' Aye Mateee thats an error xd');
+        }
+      }
+      throw error;
+    }
+  }
+
   async update(id: number, updateSubBranchDto: UpdateSubBranchDto) {
     try {
       const subBranch = await this.prisma.subBranchs.update({
