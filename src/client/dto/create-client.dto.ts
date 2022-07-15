@@ -26,14 +26,14 @@ export class CreateClientDto extends CreatePersonDto {
   cityId: number;
 
   @ApiProperty()
-  @IsString()
-  street: string;
+  // @IsString()
+  street?: string;
 
   @ApiProperty()
-  @IsString()
-  residence: string;
+  // @IsString()
+  residence?: string;
 
   @ApiProperty()
-  @IsString()
+  // @IsString()
   GPS?: string;
 }

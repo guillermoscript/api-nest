@@ -22,11 +22,7 @@ export class AgentsService {
           birthDate: CreateAgentDto?.birthDate,
           Agents: {
             create: {
-              Agencies: {
-                connect: {
-                  id: CreateAgentDto.AgenciesId,
-                },
-              },
+              AgenciesId : 1
             },
           },
           DocumentTypes: {
@@ -37,8 +33,8 @@ export class AgentsService {
           Addresses: {
             create: {
               cityId: CreateAgentDto.cityId,
-              street: CreateAgentDto.street,
-              residence: CreateAgentDto.residence,
+              street: CreateAgentDto?.street,
+              residence: CreateAgentDto?.residence,
               GPS: CreateAgentDto?.GPS,
             },
           },
@@ -61,7 +57,11 @@ export class AgentsService {
     try {
       const agents = this.prisma.agents.findMany({
         include: {
-          Persons: true,
+          Persons:{
+            include: {
+              Addresses: true
+            },
+          },
         },
       });
       return agents;
@@ -78,7 +78,11 @@ export class AgentsService {
           id,
         },
         include: {
-          Persons: true,
+          Persons:{
+            include: {
+              Addresses: true
+            },
+          },
         },
       });
       return agents;

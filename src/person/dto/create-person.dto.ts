@@ -3,11 +3,8 @@ import { Type } from 'class-transformer';
 import { IsDate, IsNumber, IsPhoneNumber, IsString } from 'class-validator';
 export class CreatePersonDto {
   @ApiProperty()
-  AddressId?: number;
-
-  @ApiProperty()
   @IsNumber()
-  document?: number;
+  document: number;
 
   @ApiProperty()
   @IsNumber()
@@ -33,9 +30,6 @@ export class CreatePersonDto {
   // @IsString()
   @IsPhoneNumber('VE')
   phone?: string;
-
-  @ApiProperty()
-  gender: string;
 
   @ApiProperty()
   //   @IsNotEmpty()

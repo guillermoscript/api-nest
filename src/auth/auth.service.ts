@@ -25,7 +25,7 @@ export class AuthService {
     // check if entity exists
     if (!Users) {
       throw new ForbiddenException(
-        'Aye Mate are yu stupid? that email it aint here ya punk',
+        'El correo ingresado no existe',
       );
     }
 
@@ -34,7 +34,7 @@ export class AuthService {
 
     if (!matches) {
       throw new ForbiddenException(
-        'Aye Mate are yu stupid? that password is wrong',
+        'La contraseña ingresada es incorrecta',
       );
     }
 

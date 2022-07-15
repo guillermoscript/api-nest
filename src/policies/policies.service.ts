@@ -92,7 +92,7 @@ export class PoliciesService {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           throw new ForbiddenException(
-            'Hubo un error en la creacion de la poliza, intentelo de nuevo',
+            'Error, el numero de poliza ingresado ya existe',
           );
         }
       }
@@ -287,7 +287,7 @@ export class PoliciesService {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           throw new ForbiddenException(
-            'Hubo un error en la creacion de la poliza, intentelo de nuevo',
+            'Error, El numero de poliza ingresado ya existe',
           );
         }
       }
@@ -382,7 +382,7 @@ export class PoliciesService {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           throw new ForbiddenException(
-            'Hubo un error en la creacion de la poliza, intentelo de nuevo',
+            'Error, El numero de poliza ingresado ya existe',
           );
         }
       }
@@ -403,6 +403,31 @@ export class PoliciesService {
   async findOne(id: number) {
     try {
       const policies = await this.prisma.policies.findUnique({
+        include: {
+          ClientHasPolicies: {
+            include: {
+              ClientHasTaker: {
+                include : {
+                  PolicyDetails: {
+                    include: {
+                      Currencies: true,
+                      Periodicities: true,
+                      Payments: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          BranchTypes: true,
+          SubBranchs: true,
+          AgentContracts: true,
+          Vehicles: true,
+          Travels: true,
+          Patrimonials: true,
+          Periods: true,
+
+        },
         where: {
           id,
         },

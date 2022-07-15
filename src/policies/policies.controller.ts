@@ -40,7 +40,7 @@ export class PoliciesController {
   @Post('/')
   @HttpCode(HttpStatus.CREATED)
   @ApiOkResponse()
-  @ApiForbiddenResponse()
+  @ApiForbiddenResponse({ description: 'El numero de poliza ingresado ya existe' })
   @ApiUnauthorizedResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })

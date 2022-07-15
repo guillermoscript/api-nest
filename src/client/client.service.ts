@@ -91,7 +91,11 @@ export class ClientService {
     try {
       const clients = this.prisma.clients.findMany({
         include: {
-          Persons: true,
+          Persons:{
+            include: {
+              Addresses: true
+            },
+          },
         },
       });
       return clients;
@@ -108,7 +112,11 @@ export class ClientService {
           id,
         },
         include: {
-          Persons: true,
+          Persons: {
+            include: {
+              Addresses: true
+            },
+          },
         },
       });
       return clients;
@@ -144,11 +152,14 @@ export class ClientService {
               id: updateClientDto.documentTypeId,
             },
           },
-          // Addresses:{
-          //   connect:{
-          //     id: updateClientDto.AddressId,
-          //   },
-          // },
+          Addresses: {
+            create: {
+              cityId: updateClientDto.cityId,
+              street: updateClientDto. street,
+              residence: updateClientDto.residence,
+              GPS: updateClientDto?.GPS,
+            },
+          },
         },
       });
 

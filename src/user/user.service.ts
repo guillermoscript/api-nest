@@ -65,7 +65,7 @@ export class UserService {
     });
 
     if (!user) {
-      throw new ForbiddenException(' Aye Mateee that email is mine ya');
+      throw new ForbiddenException('El correo ingresado no existe');
     }
 
     return user;
