@@ -15,4 +15,7 @@ export class CreateUserDto extends CreatePersonDto {
   @ApiProperty()
   @IsNotEmpty()
   password: string;
+
+  @ApiProperty()
+  gender: string
 }

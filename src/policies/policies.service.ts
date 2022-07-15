@@ -431,29 +431,6 @@ export class PoliciesService {
         where: {
           id,
         },
-        include: {
-          ClientHasPolicies: {
-            include: {
-              ClientHasTaker: {
-                include: {
-                  PolicyDetails: {
-                    include: {
-                      Periodicities: true,
-                    },
-                  },
-                },
-              },
-            },
-          },
-          AgentContracts: true,
-          InsuranceCarriers: true,
-          BranchTypes: true,
-          SubBranchs: true,
-          Patrimonials: true,
-          Travels: true,
-          Periods: true,
-          Vehicles: true,
-        },
       });
       return policies;
     } catch (error) {
