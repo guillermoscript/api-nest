@@ -56,6 +56,16 @@ export class ClientController {
     return this.clientService.findOne(+id);
   }
 
+  @Get('/funtion/count')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ type: CreateClientDto, description: 'Clientes Contados' })
+  @ApiNotFoundResponse({ description: 'No se pudieron contar los clientes' })
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  countClient() {
+    return this.clientService.countClient();
+  }
+
   @Post('/')
   @HttpCode(HttpStatus.CREATED)
   @ApiOkResponse({

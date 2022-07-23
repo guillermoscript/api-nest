@@ -392,7 +392,33 @@ export class PoliciesService {
 
   async findAll() {
     try {
-      const policies = await this.prisma.policies.findMany();
+      const policies = await this.prisma.policies.findMany({
+        include: {
+          ClientHasPolicies: {
+            include: {
+              ClientHasTaker: {
+                include : {
+                  PolicyDetails: {
+                    include: {
+                      Currencies: true,
+                      Periodicities: true,
+                      Payments: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          BranchTypes: true,
+          SubBranchs: true,
+          AgentContracts: true,
+          Vehicles: true,
+          Travels: true,
+          Patrimonials: true,
+          Periods: true,
+          PolicyStatus:true
+        },
+      });
       return policies;
     } catch (error) {
       console.log(error);
@@ -815,6 +841,44 @@ export class PoliciesService {
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('Error al actualizar poliza');
+    }
+  }
+
+  async countPolicy(){
+    try {
+      const count = await this.prisma.policies.count();
+      return count;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error contar polizas');
+    }
+  }
+
+  async sumInsured(){
+    try {
+      const sum = await this.prisma.policies.aggregate({
+        _sum:{
+          insuredValue: true,
+        },
+      })
+      return sum;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error sumar valor asegurado');
+    }
+  }
+
+  async sumPrime(){
+    try {
+      const sum = await this.prisma.policyDetails.aggregate({
+        _sum:{
+          primeValue: true,
+        },
+      })
+      return sum;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error sumar valor prima');
     }
   }
 

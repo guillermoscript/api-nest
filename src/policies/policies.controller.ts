@@ -106,6 +106,36 @@ export class PoliciesController {
     return this.policiesService.findOne(+id);
   }
 
+  @Get('/function/count')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  countPolicy() {
+    return this.policiesService.countPolicy();
+  }
+
+  @Get('/function/sum/insured')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  sumInsured() {
+    return this.policiesService.sumInsured();
+  }
+
+  @Get('/function/sum/prime')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  sumPrime() {
+    return this.policiesService.sumPrime();
+  }
+
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()

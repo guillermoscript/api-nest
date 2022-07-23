@@ -46,7 +46,7 @@ export class AgentsService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Error al crear Agente');
+          throw new ForbiddenException('El Documento o Correo ingresado ya esta registrado');
         }
       }
       throw error;
@@ -94,7 +94,10 @@ export class AgentsService {
 
   async update(id: number, updateAgentDto: UpdateAgentDto) {
     try {
-      const Agent = await this.prisma.persons.create({
+      const Agent = await this.prisma.persons.update({
+        where:{
+          email: updateAgentDto.email,
+        },
         data: {
           name: updateAgentDto.name,
           lastName: updateAgentDto.lastName,
@@ -103,15 +106,6 @@ export class AgentsService {
           phone: updateAgentDto?.phone,
           gender: updateAgentDto.gender,
           birthDate: updateAgentDto?.birthDate,
-          Agents: {
-            create: {
-              Agencies: {
-                connect: {
-                  id: updateAgentDto.AgenciesId,
-                },
-              },
-            },
-          },
           DocumentTypes: {
             connect: {
               id: updateAgentDto.documentTypeId,
@@ -120,8 +114,8 @@ export class AgentsService {
           Addresses: {
             create: {
               cityId: updateAgentDto.cityId,
-              street: updateAgentDto.street,
-              residence: updateAgentDto.residence,
+              street: updateAgentDto?.street,
+              residence: updateAgentDto?.residence,
               GPS: updateAgentDto?.GPS,
             },
           },

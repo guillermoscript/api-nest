@@ -126,6 +126,16 @@ export class ClientService {
     }
   }
 
+  async countClient(){
+    try {
+      const client = await this.prisma.clients.count();
+      return client;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al contar clientes');
+    }
+  }
+
   async update(id: number, updateClientDto: UpdateClientDto) {
     try {
       const client = await this.prisma.persons.update({
