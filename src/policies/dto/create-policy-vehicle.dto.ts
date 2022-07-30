@@ -28,13 +28,13 @@ export class CreatePolicyVehicleDto extends CreatePolicyClientDto{
   @IsString()
   vehicleType?: string;
 
-  @ApiProperty()
-  @IsString()
-  serviceType?: string;
+  // @ApiProperty()
+  // @IsString()
+  // serviceType?: string;
 
-  @ApiProperty()
-  @IsString()
-  gasConverted?: boolean;
+  // @ApiProperty()
+  // @IsString()
+  // gasConverted?: boolean;
 
   @ApiProperty()
   @IsNumber()

@@ -9,7 +9,7 @@ import {
   createRandomContinent,
   createRandomCountryStates,
   createRandomAgents,
-  //   createRandomUsers,
+    createRandomUsers,
   createRandomDocumentsTypes,
   createRandomPeriods,
   createSubRandomBranchs,
@@ -19,8 +19,6 @@ import {
   createRandomRelationPolicyStatus,
   createRandomPeriodicitys,
   createRandomInsuranceCarriers,
-  createRandomAgencies,
-  createRandomCurrencies,
 } from './dataSeed';
 
 // import chalk from 'chalk';
@@ -48,10 +46,10 @@ const load = async () => {
     const RelationPolicyStatus = createRandomRelationPolicyStatus();
     const DocumentsTypes = createRandomDocumentsTypes();
     const Periodicitys = createRandomPeriodicitys();
-    const Currencies = createRandomCurrencies();
     const Countries = createRandomCountries();
     const CountryStates = createRandomCountryStates();
     const Cities = createRandomCities();
+    const Users = createRandomUsers();
 
     await prisma.continents.createMany({
       data: Continent,
@@ -98,19 +96,19 @@ const load = async () => {
     });
     console.info('Periodicitys created');
 
-    await prisma.currencies.createMany({
-      data: Currencies,
-    });
-    console.info('Currencies created');
+    // await prisma.users.createMany({
+    //   data: Users,
+    // });
+    // console.info('Users created');
 
+    // los de segundo nivel
     for (let index = min; index < max + 1; index++) {
       const randomAddresses = createRandomAddresses(min, max);
-      const randomAgencies = createRandomAgencies();
       const randomAgents = createRandomAgents(min, max);
       const randomClients = createRandomClients(min, max);
       // const randomUsers = createRandomUsers();
       const randomInsuranceCarriers = createRandomInsuranceCarriers();
-      const randomPeriods = createRandomPeriods();
+      // const randomPeriods = createRandomPeriods();
       const randomSubBranchs = createSubRandomBranchs();
       //   const randomPolicyDetails = createRandomPolicyDetails(min, max);
 
@@ -144,9 +142,7 @@ const load = async () => {
 
       await prisma.addresses.create({
         data: {
-          residence: randomAddresses.residence,
           street: randomAddresses.street,
-          GPS: randomAddresses.GPS,
           Cities: {
             connect: {
               id: 21,
@@ -156,21 +152,6 @@ const load = async () => {
       });
       console.info('addresses created');
 
-      await prisma.agencies.create({
-        data: {
-          document: randomAgencies.document,
-          name: randomAgencies.name,
-          phone: randomAgencies.phone,
-          email:  randomAgencies.email,
-        },
-      });
-      console.info('addresses created');
-
-      await prisma.periods.create({
-        data: randomPeriods,
-      });
-      console.info('randomPeriods created');
-
       await prisma.subBranchs.create({
         data: randomSubBranchs,
       });
@@ -178,21 +159,22 @@ const load = async () => {
 
         await prisma.agents.create({
           data: {
+            dummy: randomAgents.dummy,
             Persons: {
               create: {
+                email: randomAgents.email,
                 name: randomAgents.name,
                 lastName: randomAgents.lastName,
-                email: randomAgents.email,
+                gender: randomAgents.gender,
+                birthDate: randomAgents.birthDate,
+                document: randomAgents.document,
+                documentTypeId: randomAgents.documentTypeId,
+                phone: randomAgents.phone,
               },
             },
           },
         });
         console.info(('randomAgents created') );
-
-        // await prisma.policyDetails.create({
-        //   data: randoOr,
-        // });
-        // console.info(('randomAgents c)reated,);
     }
     console.info('DONEEEEE');
   } catch (e) {

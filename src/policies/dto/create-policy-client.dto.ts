@@ -140,9 +140,9 @@ export class CreatePolicyClientDto {
   @IsNotEmpty()
   periodicityId: number;
 
-  @ApiProperty()
-  @IsNumber()
-  currencyId: number;
+  // @ApiProperty()
+  // @IsNumber()
+  // currencyId: number;
 
   @ApiProperty()
   @IsNumber()
@@ -152,13 +152,13 @@ export class CreatePolicyClientDto {
   @IsNumber()
   AnnexValue: number;
 
-  @ApiProperty()
-  @IsNumber()
-  comission: number;
+  // @ApiProperty()
+  // @IsNumber()
+  // comission: number;
 
-  @ApiProperty()
-  @IsBoolean()
-  comissionPolicyStatus: boolean;
+  // @ApiProperty()
+  // @IsBoolean()
+  // comissionPolicyStatus: boolean;
 
   @ApiProperty()
   @IsNumber()

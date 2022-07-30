@@ -13,7 +13,11 @@ export enum UserRole {
 //   @ApiProperty()
 //   hashedPassword: string;
 // }
-export class User extends Person implements Users {
+export class User implements Users {
+  @ApiProperty()
+  email: string;
+  @ApiProperty()
+  username: string;
   @ApiProperty()
   id: number;
   @ApiProperty()

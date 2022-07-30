@@ -15,6 +15,7 @@ export class PoliciesService {
   constructor(private prisma: PrismaService) {}
   async createPolicyClient(createPolicyClientDto: CreatePolicyClientDto) {
     try {
+      console.log(createPolicyClientDto);
       const policy = await this.prisma.policies.create({
         data: {
           policyNum: createPolicyClientDto.policyNum,
@@ -24,6 +25,19 @@ export class PoliciesService {
           InsuranceCarriers: {
             connect: {
               id: createPolicyClientDto.insuranceCarrierId,
+            },
+          },
+          PolicyDetails: {
+            create: {
+              primeValue: createPolicyClientDto.primeValue,
+              AnnexValue: createPolicyClientDto.AnnexValue,
+              ValorFinalizacion: createPolicyClientDto.ValorFinalizacion,
+              Total: createPolicyClientDto.Total,
+              Periodicities: {
+                connect: {
+                  id: createPolicyClientDto.periodicityId,
+                },
+              },
             },
           },
           BranchTypes: {
@@ -55,34 +69,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: createPolicyClientDto.relationId,
               clientId: createPolicyClientDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: createPolicyClientDto.primeValue,
-                      AnnexValue: createPolicyClientDto.AnnexValue,
-                      comission: createPolicyClientDto.comission,
-                      comissionPolicyStatus:
-                        createPolicyClientDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        createPolicyClientDto.ValorFinalizacion,
-                      Total: createPolicyClientDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: createPolicyClientDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: createPolicyClientDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -114,14 +102,26 @@ export class PoliciesService {
               class: createPolicyVehicleDto.class,
               model: createPolicyVehicleDto.model,
               vehicleType: createPolicyVehicleDto.vehicleType,
-              serviceType: createPolicyVehicleDto.serviceType,
-              gasConverted: createPolicyVehicleDto.gasConverted,
               vehicleAge: createPolicyVehicleDto.vehicleAge,
             },
           },
           InsuranceCarriers: {
             connect: {
               id: createPolicyVehicleDto.insuranceCarrierId,
+            },
+          },
+          PolicyDetails: {
+            create: {
+              primeValue: createPolicyVehicleDto.primeValue,
+              AnnexValue: createPolicyVehicleDto.AnnexValue,
+              ValorFinalizacion:
+                createPolicyVehicleDto.ValorFinalizacion,
+              Total: createPolicyVehicleDto.Total,
+              Periodicities: {
+                connect: {
+                  id: createPolicyVehicleDto.periodicityId,
+                },
+              },
             },
           },
           BranchTypes: {
@@ -153,34 +153,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: createPolicyVehicleDto.relationId,
               clientId: createPolicyVehicleDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: createPolicyVehicleDto.primeValue,
-                      AnnexValue: createPolicyVehicleDto.AnnexValue,
-                      comission: createPolicyVehicleDto.comission,
-                      comissionPolicyStatus:
-                        createPolicyVehicleDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        createPolicyVehicleDto.ValorFinalizacion,
-                      Total: createPolicyVehicleDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: createPolicyVehicleDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: createPolicyVehicleDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -221,6 +195,20 @@ export class PoliciesService {
               id: createPolicyPatrimonialDto.insuranceCarrierId,
             },
           },
+          PolicyDetails: {
+            create: {
+              primeValue: createPolicyPatrimonialDto.primeValue,
+              AnnexValue: createPolicyPatrimonialDto.AnnexValue,
+              ValorFinalizacion:
+                createPolicyPatrimonialDto.ValorFinalizacion,
+              Total: createPolicyPatrimonialDto.Total,
+              Periodicities: {
+                connect: {
+                  id: createPolicyPatrimonialDto.periodicityId,
+                },
+              },
+            },
+          },
           BranchTypes: {
             connect: {
               id: createPolicyPatrimonialDto.branchTypeId,
@@ -250,34 +238,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: createPolicyPatrimonialDto.relationId,
               clientId: createPolicyPatrimonialDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: createPolicyPatrimonialDto.primeValue,
-                      AnnexValue: createPolicyPatrimonialDto.AnnexValue,
-                      comission: createPolicyPatrimonialDto.comission,
-                      comissionPolicyStatus:
-                        createPolicyPatrimonialDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        createPolicyPatrimonialDto.ValorFinalizacion,
-                      Total: createPolicyPatrimonialDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: createPolicyPatrimonialDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: createPolicyPatrimonialDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -316,6 +278,20 @@ export class PoliciesService {
               id: createPolicyTravelDto.insuranceCarrierId,
             },
           },
+          PolicyDetails: {
+            create: {
+              primeValue: createPolicyTravelDto.primeValue,
+              AnnexValue: createPolicyTravelDto.AnnexValue,
+              ValorFinalizacion:
+                createPolicyTravelDto.ValorFinalizacion,
+              Total: createPolicyTravelDto.Total,
+              Periodicities: {
+                connect: {
+                  id: createPolicyTravelDto.periodicityId,
+                },
+              },
+            },
+          },
           BranchTypes: {
             connect: {
               id: createPolicyTravelDto.branchTypeId,
@@ -345,34 +321,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: createPolicyTravelDto.relationId,
               clientId: createPolicyTravelDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: createPolicyTravelDto.primeValue,
-                      AnnexValue: createPolicyTravelDto.AnnexValue,
-                      comission: createPolicyTravelDto.comission,
-                      comissionPolicyStatus:
-                        createPolicyTravelDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        createPolicyTravelDto.ValorFinalizacion,
-                      Total: createPolicyTravelDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: createPolicyTravelDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: createPolicyTravelDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -394,21 +344,14 @@ export class PoliciesService {
     try {
       const policies = await this.prisma.policies.findMany({
         include: {
-          ClientHasPolicies: {
+          PolicyDetails: {
             include: {
-              ClientHasTaker: {
-                include : {
-                  PolicyDetails: {
-                    include: {
-                      Currencies: true,
-                      Periodicities: true,
-                      Payments: true,
-                    },
-                  },
-                },
-              },
+              Periodicities: true,
+              Payments: true,
             },
           },
+          ClientHasPolicies: true,
+          InsuranceCarriers: true,
           BranchTypes: true,
           SubBranchs: true,
           AgentContracts: true,
@@ -417,6 +360,9 @@ export class PoliciesService {
           Patrimonials: true,
           Periods: true,
           PolicyStatus:true
+        },
+        orderBy:{
+          id: 'asc'
         },
       });
       return policies;
@@ -430,21 +376,14 @@ export class PoliciesService {
     try {
       const policies = await this.prisma.policies.findUnique({
         include: {
-          ClientHasPolicies: {
+          PolicyDetails: {
             include: {
-              ClientHasTaker: {
-                include : {
-                  PolicyDetails: {
-                    include: {
-                      Currencies: true,
-                      Periodicities: true,
-                      Payments: true,
-                    },
-                  },
-                },
-              },
+              Periodicities: true,
+              Payments: true,
             },
           },
+          ClientHasPolicies: true,
+          InsuranceCarriers: true,
           BranchTypes: true,
           SubBranchs: true,
           AgentContracts: true,
@@ -452,7 +391,7 @@ export class PoliciesService {
           Travels: true,
           Patrimonials: true,
           Periods: true,
-
+          PolicyStatus:true
         },
         where: {
           id,
@@ -484,6 +423,20 @@ export class PoliciesService {
               id: UpdatePolicyClientDto.insuranceCarrierId,
             },
           },
+          PolicyDetails: {
+            create: {
+              primeValue: UpdatePolicyClientDto.primeValue,
+              AnnexValue: UpdatePolicyClientDto.AnnexValue,
+              ValorFinalizacion:
+                UpdatePolicyClientDto.ValorFinalizacion,
+              Total: UpdatePolicyClientDto.Total,
+              Periodicities: {
+                connect: {
+                  id: UpdatePolicyClientDto.periodicityId,
+                },
+              },
+            },
+          },
           BranchTypes: {
             connect: {
               id: UpdatePolicyClientDto.branchTypeId,
@@ -513,34 +466,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: UpdatePolicyClientDto.relationId,
               clientId: UpdatePolicyClientDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: UpdatePolicyClientDto.primeValue,
-                      AnnexValue: UpdatePolicyClientDto.AnnexValue,
-                      comission: UpdatePolicyClientDto.comission,
-                      comissionPolicyStatus:
-                        UpdatePolicyClientDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        UpdatePolicyClientDto.ValorFinalizacion,
-                      Total: UpdatePolicyClientDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: UpdatePolicyClientDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: UpdatePolicyClientDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -573,14 +500,26 @@ export class PoliciesService {
               class: updatePolicyVehicleDto.class,
               model: updatePolicyVehicleDto.model,
               vehicleType: updatePolicyVehicleDto.vehicleType,
-              serviceType: updatePolicyVehicleDto.serviceType,
-              gasConverted: updatePolicyVehicleDto.gasConverted,
               vehicleAge: updatePolicyVehicleDto.vehicleAge,
             },
           },
           InsuranceCarriers: {
             connect: {
               id: updatePolicyVehicleDto.insuranceCarrierId,
+            },
+          },
+          PolicyDetails: {
+            create: {
+              primeValue: updatePolicyVehicleDto.primeValue,
+              AnnexValue: updatePolicyVehicleDto.AnnexValue,
+              ValorFinalizacion:
+                updatePolicyVehicleDto.ValorFinalizacion,
+              Total: updatePolicyVehicleDto.Total,
+              Periodicities: {
+                connect: {
+                  id: updatePolicyVehicleDto.periodicityId,
+                },
+              },
             },
           },
           BranchTypes: {
@@ -612,34 +551,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: updatePolicyVehicleDto.relationId,
               clientId: updatePolicyVehicleDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: updatePolicyVehicleDto.primeValue,
-                      AnnexValue: updatePolicyVehicleDto.AnnexValue,
-                      comission: updatePolicyVehicleDto.comission,
-                      comissionPolicyStatus:
-                        updatePolicyVehicleDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        updatePolicyVehicleDto.ValorFinalizacion,
-                      Total: updatePolicyVehicleDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: updatePolicyVehicleDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: updatePolicyVehicleDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -679,6 +592,20 @@ export class PoliciesService {
               id: UpdatePolicyPatrimonialDto.insuranceCarrierId,
             },
           },
+          PolicyDetails: {
+            create: {
+              primeValue: UpdatePolicyPatrimonialDto.primeValue,
+              AnnexValue: UpdatePolicyPatrimonialDto.AnnexValue,
+              ValorFinalizacion:
+                UpdatePolicyPatrimonialDto.ValorFinalizacion,
+              Total: UpdatePolicyPatrimonialDto.Total,
+              Periodicities: {
+                connect: {
+                  id: UpdatePolicyPatrimonialDto.periodicityId,
+                },
+              },
+            },
+          },
           BranchTypes: {
             connect: {
               id: UpdatePolicyPatrimonialDto.branchTypeId,
@@ -708,34 +635,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: UpdatePolicyPatrimonialDto.relationId,
               clientId: UpdatePolicyPatrimonialDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: UpdatePolicyPatrimonialDto.primeValue,
-                      AnnexValue: UpdatePolicyPatrimonialDto.AnnexValue,
-                      comission: UpdatePolicyPatrimonialDto.comission,
-                      comissionPolicyStatus:
-                        UpdatePolicyPatrimonialDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        UpdatePolicyPatrimonialDto.ValorFinalizacion,
-                      Total: UpdatePolicyPatrimonialDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: UpdatePolicyPatrimonialDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: UpdatePolicyPatrimonialDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -775,6 +676,20 @@ export class PoliciesService {
               id: UpdatePolicyTravelDto.insuranceCarrierId,
             },
           },
+          PolicyDetails: {
+            create: {
+              primeValue: UpdatePolicyTravelDto.primeValue,
+              AnnexValue: UpdatePolicyTravelDto.AnnexValue,
+              ValorFinalizacion:
+                UpdatePolicyTravelDto.ValorFinalizacion,
+              Total: UpdatePolicyTravelDto.Total,
+              Periodicities: {
+                connect: {
+                  id: UpdatePolicyTravelDto.periodicityId,
+                },
+              },
+            },
+          },
           BranchTypes: {
             connect: {
               id: UpdatePolicyTravelDto.branchTypeId,
@@ -804,34 +719,8 @@ export class PoliciesService {
           },
           ClientHasPolicies: {
             create: {
-              relationId: 1,
+              relationId: UpdatePolicyTravelDto.relationId,
               clientId: UpdatePolicyTravelDto.clientId,
-              ClientHasTaker: {
-                create: {
-                  PolicyDetails: {
-                    create: {
-                      primeValue: UpdatePolicyTravelDto.primeValue,
-                      AnnexValue: UpdatePolicyTravelDto.AnnexValue,
-                      comission: UpdatePolicyTravelDto.comission,
-                      comissionPolicyStatus:
-                        UpdatePolicyTravelDto.comissionPolicyStatus,
-                      ValorFinalizacion:
-                        UpdatePolicyTravelDto.ValorFinalizacion,
-                      Total: UpdatePolicyTravelDto.Total,
-                      Currencies: {
-                        connect: {
-                          id: UpdatePolicyTravelDto.currencyId,
-                        },
-                      },
-                      Periodicities: {
-                        connect: {
-                          id: UpdatePolicyTravelDto.periodicityId,
-                        },
-                      },
-                    },
-                  },
-                },
-              },
             },
           },
         },
@@ -871,6 +760,11 @@ export class PoliciesService {
   async sumPrime(){
     try {
       const sum = await this.prisma.policyDetails.aggregate({
+        where:{
+          Policies:{
+            policyStatusId : 3,
+          },
+        },
         _sum:{
           primeValue: true,
         },
@@ -879,6 +773,114 @@ export class PoliciesService {
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('Error sumar valor prima');
+    }
+  }
+
+  async countCotization(){
+    try {
+      const num = await this.prisma.policies.aggregate({
+        where:{
+          PolicyStatus: {
+            id: 1,
+          },
+        },
+        _count:{
+          policyNum: true,
+        },
+      })
+      return num;
+    } catch (error) {
+      throw new ForbiddenException('Error sumar valor prima');
+    }
+  }
+
+  async countSend(){
+    try {
+      const num = await this.prisma.policies.aggregate({
+        where:{
+          PolicyStatus: {
+            id: 2,
+          },
+        },
+        _count:{
+          policyNum: true,
+        },
+      })
+      return num;
+    } catch (error) {
+      throw new ForbiddenException('Error sumar valor prima');
+    }
+  }
+
+  async countPaid(){
+    try {
+      const num = await this.prisma.policies.aggregate({
+        where:{
+          PolicyStatus: {
+            id: 3,
+          },
+        },
+        _count:{
+          policyNum: true,
+        },
+      })
+      return num;
+    } catch (error) {
+      throw new ForbiddenException('Error sumar valor prima');
+    }
+  }
+
+  async InsurerPrimes(){
+    try {
+      const result = await this.prisma.$queryRaw`
+      SELECT a.name as aseguradora, b.name as ramo, sum(e."primeValue") as "primaNeta", sum(e."Total") as "primaTotal"
+      FROM public."InsuranceCarriers" a, public."SubBranchs" b, public."Policies" c, public."PolicyDetails" e
+      WHERE a.id = c."InsuranceCarrierId" AND
+          b.id = c."subBranchId" AND
+          e."policyId" = c.id AND
+          c."policyStatusId" = 3
+      GROUP BY a.name, b.name
+      ORDER BY sum(e."Total") desc`
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al generar reporte');
+    }
+  }
+
+  async ClientPrimes(){
+    try {
+      const result = await this.prisma.$queryRaw`
+      SELECT a.name, a."lastName", a."documentTypeId", a.document, sum(e."primeValue") as "primaNeta", sum(e."Total") as "primaTotal"
+      FROM  public."Persons" a, public."Clients" b, public."Policies" c, public."ClientHasPolicies" d, public."PolicyDetails" e
+      WHERE a.id = b."personId" AND
+            b.id = d."clientId" AND
+            d."policyId" = c.id AND
+            e."policyId" = c.id AND
+            c."policyStatusId" = 3
+      GROUP BY a.name, a."lastName", a."documentTypeId", a.document
+      ORDER BY sum(e."Total") desc`
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al generar reporte');
+    }
+  }
+
+  async PeriodPrimes(){
+    try {
+      const result = await this.prisma.$queryRaw`
+      SELECT TO_CHAR(b."startDate", 'YYYY') as "year", TO_CHAR(b."startDate", 'Month') as "month", sum(d."primeValue") as "primaNeta", sum(d."Total") as "primaTotal"
+      FROM  public."Periods" b, public."Policies" c, public."PolicyDetails" d
+      WHERE b."policyId" = c.id AND
+          d."policyId" = c.id AND
+          c."policyStatusId" = 3
+      GROUP BY year, month
+      ORDER BY sum(d."Total") desc`
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('Error al generar reporte');
     }
   }
 

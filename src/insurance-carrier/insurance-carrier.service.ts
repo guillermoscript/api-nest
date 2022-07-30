@@ -25,7 +25,7 @@ export class InsuranceCarrierService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee that email is mine ya');
+          throw new ForbiddenException('El RIF ingresado ya existe');
         }
       }
       throw error;
@@ -34,11 +34,15 @@ export class InsuranceCarrierService {
 
   async findAll() {
     try {
-      const insuranceCarriers = await this.prisma.insuranceCarriers.findMany();
+      const insuranceCarriers = await this.prisma.insuranceCarriers.findMany({
+        orderBy: {
+          id: 'asc'
+        },
+      });
       return insuranceCarriers;
     } catch (error) {
       console.log(error);
-      throw new ForbiddenException(' Aye Mateee thats an error xd');
+      throw new ForbiddenException('No se pudo obtener los datos');
     }
   }
 
@@ -52,7 +56,7 @@ export class InsuranceCarrierService {
       return insuranceCarrier;
     } catch (error) {
       console.log(error);
-      throw new ForbiddenException(' Aye Mateee thats an error xd');
+      throw new ForbiddenException('No se pudo obtener la aseguradora');
     }
   }
 
@@ -78,7 +82,7 @@ export class InsuranceCarrierService {
       return insuranceCarrier;
     } catch (error) {
       console.log(error);
-      throw new ForbiddenException(' Aye Mateee thats an error xd');
+      throw new ForbiddenException('El RIF ingresado ya existe');
     }
   }
 
@@ -93,7 +97,7 @@ export class InsuranceCarrierService {
       return insuranceCarrier;
     } catch (error) {
       console.log(error);
-      throw new ForbiddenException(' Aye Mateee thats an error xd');
+      throw new ForbiddenException('No se pudo eliminar la Aseguradora');
     }
   }
 }

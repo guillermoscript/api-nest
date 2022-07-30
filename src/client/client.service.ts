@@ -39,10 +39,11 @@ export class ClientService {
             create: {
               cityId: CreateClientDto.cityId,
               street: CreateClientDto. street,
-              residence: CreateClientDto.residence,
-              GPS: CreateClientDto?.GPS,
             },
           },
+        },
+        include:{
+          Clients: true
         },
       });
 
@@ -51,7 +52,7 @@ export class ClientService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Error al crear cliente');
+          throw new ForbiddenException('El documento o correo ingresados ya existen');
         }
       }
       throw error;
@@ -97,6 +98,9 @@ export class ClientService {
             },
           },
         },
+        orderBy:{
+          id: 'asc'
+        }
       });
       return clients;
     } catch (error) {
@@ -138,36 +142,34 @@ export class ClientService {
 
   async update(id: number, updateClientDto: UpdateClientDto) {
     try {
-      const client = await this.prisma.persons.update({
+      const client = await this.prisma.clients.update({
         where: {
           id,
         },
         data: {
-          name: updateClientDto.name,
-          lastName: updateClientDto.lastName,
-          email: updateClientDto.email,
-          document: updateClientDto?.document,
-          phone: updateClientDto?.phone,
-          gender: updateClientDto.gender,
-          birthDate: updateClientDto?.birthDate,
-          Clients: {
-            create: {
-              civilPolicyStatus: updateClientDto?.civilPolicyStatus,
-              company: updateClientDto?.company,
-              ocupation: updateClientDto?.ocupation,
-            },
-          },
-          DocumentTypes: {
-            connect: {
-              id: updateClientDto.documentTypeId,
-            },
-          },
-          Addresses: {
-            create: {
-              cityId: updateClientDto.cityId,
-              street: updateClientDto. street,
-              residence: updateClientDto.residence,
-              GPS: updateClientDto?.GPS,
+          civilPolicyStatus: updateClientDto?.civilPolicyStatus,
+          company: updateClientDto?.company,
+          ocupation: updateClientDto?.ocupation,
+          Persons: {
+            update: {
+              name: updateClientDto.name,
+              lastName: updateClientDto.lastName,
+              email: updateClientDto.email,
+              document: updateClientDto?.document,
+              phone: updateClientDto?.phone,
+              gender: updateClientDto.gender,
+              birthDate: updateClientDto?.birthDate,
+              DocumentTypes: {
+                connect: {
+                  id: updateClientDto.documentTypeId,
+                },
+              },
+              Addresses: {
+                create: {
+                  cityId: updateClientDto.cityId,
+                  street: updateClientDto. street,
+                },
+              },
             },
           },
         },
@@ -176,7 +178,7 @@ export class ClientService {
       return client;
     } catch (error) {
       console.log(error);
-      throw new ForbiddenException('Error al actualizar cliente');
+      throw new ForbiddenException('El documento o correo ingresados ya existen');
     }
   }
 

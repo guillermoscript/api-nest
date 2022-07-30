@@ -7,9 +7,5 @@ export class address implements Addresses {
   @ApiProperty()
   cityId: number;
   @ApiProperty()
-  GPS: string;
-  @ApiProperty()
-  residence: string;
-  @ApiProperty()
   street: string;
 }

@@ -19,7 +19,5 @@ export class Policy implements Policies {
   @ApiProperty()
   insuredValue: number;
   @ApiProperty()
-  Renovable: boolean;
-  
-        
+  Renovable: boolean;   
   }

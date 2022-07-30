@@ -25,7 +25,7 @@ export class SubBranchsService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee that email is mine ya');
+          throw new ForbiddenException('El ramo ya existe');
         }
       }
       throw error;
@@ -33,12 +33,19 @@ export class SubBranchsService {
   }
   async findAll() {
     try {
-      const subBranch = await this.prisma.subBranchs.findMany();
+      const subBranch = await this.prisma.subBranchs.findMany({
+        include:{
+          BranchTypes: true,
+        },
+        orderBy:{
+          id: 'asc'
+        }
+      });
       return subBranch;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee thats an error xd');
+          throw new ForbiddenException('No se pudo obtener los ramos');
         }
       }
       throw error;
@@ -51,12 +58,15 @@ export class SubBranchsService {
         where: {
           id,
         },
+        include:{
+          BranchTypes: true,
+        },
       });
       return subBranch;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee thats an error xd');
+          throw new ForbiddenException('no se pudo obtener el ramo');
         }
       }
       throw error;
@@ -74,7 +84,7 @@ export class SubBranchsService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee thats an error xd');
+          throw new ForbiddenException('no se pudo obtener el ramo');
         }
       }
       throw error;
@@ -89,13 +99,18 @@ export class SubBranchsService {
         },
         data: {
           name: updateSubBranchDto.name,
+          BranchTypes: {
+            connect: {
+              id: updateSubBranchDto.branchTypeId,
+            },
+          },
         },
       });
       return subBranch;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee thats an error xd');
+          throw new ForbiddenException('El ramo ya existe');
         }
       }
       throw error;
@@ -113,7 +128,7 @@ export class SubBranchsService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee thats an error xd');
+          throw new ForbiddenException('No se pudo eliminar el ramo');
         }
       }
       throw error;

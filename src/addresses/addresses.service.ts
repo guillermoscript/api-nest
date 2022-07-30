@@ -13,8 +13,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
         const Address = await this.prisma.addresses.create({
           data: {
             street: CreateAddressDto.street,
-            residence: CreateAddressDto.residence,
-            GPS: CreateAddressDto.GPS,
             Cities: {
               connect:{
                 id: CreateAddressDto.cityId,
@@ -69,8 +67,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
           },
           data: {
             street: updateAddressDto.street,
-            residence: updateAddressDto.residence,
-            GPS: updateAddressDto.GPS,
           },
         });
   

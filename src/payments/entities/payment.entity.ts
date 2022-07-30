@@ -12,8 +12,4 @@ export class Payment implements Payments {
     paymentValue: number;
     @ApiProperty()
     paymentDate: Date;
-    @ApiProperty()
-    comissionDate: Date;
-    
-                
     }

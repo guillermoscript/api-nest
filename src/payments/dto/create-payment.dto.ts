@@ -20,9 +20,4 @@ export class CreatePaymentDto {
   @Type(() => Date)
   @IsDate()
   paymentDate: Date;
-
-  @ApiProperty()
-  @Type(() => Date)
-  @IsDate()
-  comissionDate: Date;
 }

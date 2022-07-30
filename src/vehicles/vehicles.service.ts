@@ -16,8 +16,6 @@ export class VehiclesService {
           class: CreateVehicleDto.class,
           model: CreateVehicleDto.model,
           vehicleType: CreateVehicleDto.vehicleType,
-          serviceType: CreateVehicleDto.serviceType,
-          gasConverted: CreateVehicleDto.gasConverted,
           vehicleAge: CreateVehicleDto.vehicleAge,
           Policies: {
             connect: {
@@ -76,8 +74,6 @@ export class VehiclesService {
           class: updatevehicleDto.class,
           model: updatevehicleDto.model,
           vehicleType: updatevehicleDto.vehicleType,
-          serviceType: updatevehicleDto.serviceType,
-          gasConverted: updatevehicleDto.gasConverted,
           vehicleAge: updatevehicleDto.vehicleAge,
         },
       });

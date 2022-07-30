@@ -16,11 +16,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: { sub: number; email: string }) {
-    const entity = await this.prisma.persons.findUnique({
+    const entity = await this.prisma.users.findUnique({
       where: { id: payload.sub },
-      include: { Users: true },
     });
-    const userRole = entity.Users.userRole;
+    const userRole = entity.userRole;
     if (!entity) {
       throw new ForbiddenException(
         'Aye Mate error from validate JWT strategy ya punk',

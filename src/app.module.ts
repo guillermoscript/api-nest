@@ -13,7 +13,6 @@ import { SubBranchsModule } from './sub-branchs/sub-branchs.module';
 import { PoliciesModule } from './policies/policies.module';
 import { PolicyStatusModule } from './policy-status/policy-status.module';
 import { PeriodsModule } from './periods/periods.module';
-import { AgenciesModule } from './agencies/agencies.module';
 import { CountriesModule } from './countries/countries.module';
 import { ContinentsModule } from './continents/continents.module';
 import { CountryStatesModule } from './country-states/country-states.module';
@@ -27,13 +26,10 @@ import { DocumentTypesModule } from './document-types/document-types.module';
 import { PeriodicitiesModule } from './periodicities/periodicities.module';
 import { PolicyDetailsModule } from './order-details/order-details.module';
 import { ClientHasPoliciesModule } from './entities-has-polizas/entities-has-polizas.module';
-import { ClientHasTakerModule } from './client-has-tomadors/client-has-tomadors.module';
 import { PaymentsModule } from './payments/payments.module';
 import { AgentContractsModule } from './agent-contracts/agent-contracts.module';
 import { ClientHasAgentsModule } from './client-has-agents/client-has-agents.module';
 import { ConfigsModule } from './configs/configs.module';
-import { TaxesModule } from './taxes/taxes.module';
-import { CurrenciesModule } from './currencies/currencies.module';
 
 @Module({
   imports: [
@@ -53,7 +49,6 @@ import { CurrenciesModule } from './currencies/currencies.module';
     PoliciesModule,
     PolicyStatusModule,
     PeriodsModule,
-    AgenciesModule,
     ContinentsModule,
     CountriesModule,
     CountryStatesModule,
@@ -67,13 +62,10 @@ import { CurrenciesModule } from './currencies/currencies.module';
     PeriodicitiesModule,
     PolicyDetailsModule,
     ClientHasPoliciesModule,
-    ClientHasTakerModule,
     PaymentsModule,
     AgentContractsModule,
     ClientHasAgentsModule,
     ConfigsModule,
-    TaxesModule,
-    CurrenciesModule,
   ],
   controllers: [],
   providers: [],

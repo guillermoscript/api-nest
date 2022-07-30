@@ -126,6 +126,66 @@ export class PoliciesController {
     return this.policiesService.sumInsured();
   }
 
+  @Get('/function/count/cotization')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  countCotization() {
+    return this.policiesService.countCotization();
+  }
+
+  @Get('/function/count/send')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  countSend() {
+    return this.policiesService.countSend();
+  }
+
+  @Get('/function/count/paid')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  countPaid() {
+    return this.policiesService.countPaid();
+  }
+
+  @Get('/reports/insurer')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  InsurerPrimes() {
+    return this.policiesService.InsurerPrimes();
+  }
+
+  @Get('/reports/client')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  ClientPrimes() {
+    return this.policiesService.ClientPrimes();
+  }
+
+  @Get('/reports/period')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  PeriodPrimes() {
+    return this.policiesService.PeriodPrimes();
+  }
+
   @Get('/function/sum/prime')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()

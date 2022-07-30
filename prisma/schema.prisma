@@ -11,17 +11,14 @@ model Addresses {
   id        Int       @id @default(autoincrement())
   cityId    Int
   street    String?   @db.VarChar(255)
-  residence String?   @db.VarChar(255)
-  GPS       String?   @db.VarChar(255)
   Cities    Cities    @relation(fields: [cityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   Persons   Persons[]
 }
 
 model Agents {
   id              Int               @id @default(autoincrement())
-  personId        Int
-  AgenciesId      Int?
-  Agencies        Agencies?         @relation(fields: [AgenciesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  personId        Int               @unique
+  dummy           String?           @db.VarChar(255)
   Persons         Persons           @relation(fields: [personId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   AgentContracts  AgentContracts[]
   ClientHasAgents ClientHasAgents[]
@@ -35,16 +32,9 @@ model ClientHasAgents {
   Clients  Clients? @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model ClientHasTaker {
-  id                  Int                 @id @default(autoincrement())
-  clientPolizaId      Int?
-  ClientHasPolicies   ClientHasPolicies? @relation(fields: [clientPolizaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  PolicyDetails       PolicyDetails[]
-}
-
 model Clients {
   id                Int               @id @default(autoincrement())
-  personId          Int
+  personId          Int               @unique
   civilPolicyStatus String?           @db.VarChar(255)
   company           String?           @db.VarChar(255)
   ocupation         String?           @db.VarChar(255)
@@ -59,16 +49,9 @@ model Configs {
   value String @db.VarChar(255)
 }
 
-model Currencies {
-  id            Int            @id @default(autoincrement())
-  name          String         @db.VarChar(255)
-  symbol        String         @db.VarChar(255)
-  PolicyDetails PolicyDetails[]
-}
-
 model InsuranceCarriers {
   id          Int        @id @default(autoincrement())
-  document    Int?
+  document    Int?       @unique
   name        String?    @db.VarChar(255)
   phone       String?    @db.VarChar(255)
   email       String?    @db.VarChar(255)
@@ -79,17 +62,13 @@ model InsuranceCarriers {
 
 model PolicyDetails {
   id                    Int               @id @default(autoincrement())
-  ClientHasTomadorId    Int
+  policyId              Int
   periodicityId         Int
   primeValue            Float?
   AnnexValue            Float?
-  comission             Float?
-  comissionPolicyStatus Boolean?
   ValorFinalizacion     Float?
   Total                 Float?
-  currencyId            Int
-  ClientHasTaker        ClientHasTaker @relation(fields: [ClientHasTomadorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  Currencies            Currencies        @relation(fields: [currencyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Policies              Policies          @relation(fields: [policyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   Periodicities         Periodicities     @relation(fields: [periodicityId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   Payments              Payments[]
   Taxes                 Taxes[]
@@ -111,7 +90,6 @@ model Payments {
   receiptNumber  Float?
   paymentValue   Float?
   paymentDate    DateTime?    @db.Date
-  comissionDate  DateTime?    @db.Date
   PolicyDetails   PolicyDetails @relation(fields: [policyDetailsId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
@@ -126,8 +104,8 @@ model Periods {
 
 model Persons {
   id             Int            @id @default(autoincrement())
-  documentTypeId Int?
-  document       Int?
+  documentTypeId Int?           
+  document       Int?           @unique
   AddressId      Int?
   gender         String?
   name           String         @db.VarChar(255)
@@ -139,7 +117,6 @@ model Persons {
   DocumentTypes  DocumentTypes? @relation(fields: [documentTypeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   Agents         Agents[]
   Clients        Clients[]
-  Users          Users?
 }
 
 model PolicyStatus {
@@ -169,9 +146,10 @@ model Travels {
 
 model Users {
   id             Int        @id @default(autoincrement())
+  email          String     @unique @db.VarChar(255)
+  username       String     @db.VarChar(255)
   userRole       userroles?
   hashedPassword String
-  Persons        Persons    @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Vehicles {
@@ -181,15 +159,13 @@ model Vehicles {
   class        String?  @db.VarChar(255)
   model        String?  @db.VarChar(255)
   vehicleType  String?  @db.VarChar(255)
-  serviceType  String?  @db.VarChar(255)
-  gasConverted Boolean? 
   vehicleAge   Int?
   Policies     Policies @relation(fields: [policyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model BranchTypes {
   id         Int          @id @default(autoincrement())
-  name       String       @db.VarChar(255)
+  name       String       @unique @db.VarChar(255)
   Policies   Policies[]
   SubBranchs SubBranchs[]
 }
@@ -222,15 +198,6 @@ model Taxes {
   metakey        String       @db.VarChar(255)
   metavalue      String       @db.VarChar(255)
   PolicyDetails   PolicyDetails @relation(fields: [PolicyDetailsId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
-model Agencies {
-  id       Int      @id @default(autoincrement())
-  document Int?
-  name     String?  @db.VarChar(255)
-  phone    String?  @db.VarChar(255)
-  email    String?  @db.VarChar(255)
-  Agents   Agents[]
 }
 
 model Cities {
@@ -283,6 +250,7 @@ model Policies {
   Periods            Periods[]
   Travels            Travels[]
   Vehicles           Vehicles[]
+  PolicyDetails      PolicyDetails[] 
 }
 
 model AgentContracts {
@@ -301,7 +269,6 @@ model ClientHasPolicies {
   Policies             Policies?             @relation(fields: [policyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   RelationPolicyStatus RelationPolicyStatus? @relation(fields: [relationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   Clients              Clients?              @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  ClientHasTaker       ClientHasTaker[]
 }
 
 enum userroles {

@@ -22,7 +22,7 @@ export class AgentsService {
           birthDate: CreateAgentDto?.birthDate,
           Agents: {
             create: {
-              AgenciesId : 1
+              dummy: 'dummy'
             },
           },
           DocumentTypes: {
@@ -34,10 +34,11 @@ export class AgentsService {
             create: {
               cityId: CreateAgentDto.cityId,
               street: CreateAgentDto?.street,
-              residence: CreateAgentDto?.residence,
-              GPS: CreateAgentDto?.GPS,
             },
           },
+        },
+        include: {
+          Agents: true,
         },
       });
 
@@ -46,7 +47,9 @@ export class AgentsService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('El Documento o Correo ingresado ya esta registrado');
+          throw new ForbiddenException(
+            'El documento o correo ingresados ya existen',
+          );
         }
       }
       throw error;
@@ -57,11 +60,14 @@ export class AgentsService {
     try {
       const agents = this.prisma.agents.findMany({
         include: {
-          Persons:{
+          Persons: {
             include: {
-              Addresses: true
+              Addresses: true,
             },
           },
+        },
+        orderBy: {
+          id: 'asc',
         },
       });
       return agents;
@@ -78,9 +84,9 @@ export class AgentsService {
           id,
         },
         include: {
-          Persons:{
+          Persons: {
             include: {
-              Addresses: true
+              Addresses: true,
             },
           },
         },
@@ -94,29 +100,32 @@ export class AgentsService {
 
   async update(id: number, updateAgentDto: UpdateAgentDto) {
     try {
-      const Agent = await this.prisma.persons.update({
-        where:{
-          email: updateAgentDto.email,
+      const Agent = await this.prisma.agents.update({
+        where: {
+          id,
         },
         data: {
-          name: updateAgentDto.name,
-          lastName: updateAgentDto.lastName,
-          email: updateAgentDto.email,
-          document: updateAgentDto?.document,
-          phone: updateAgentDto?.phone,
-          gender: updateAgentDto.gender,
-          birthDate: updateAgentDto?.birthDate,
-          DocumentTypes: {
-            connect: {
-              id: updateAgentDto.documentTypeId,
-            },
-          },
-          Addresses: {
-            create: {
-              cityId: updateAgentDto.cityId,
-              street: updateAgentDto?.street,
-              residence: updateAgentDto?.residence,
-              GPS: updateAgentDto?.GPS,
+          dummy: 'dummy',
+          Persons:{
+            update:{
+              name: updateAgentDto.name,
+              lastName: updateAgentDto.lastName,
+              email: updateAgentDto.email,
+              document: updateAgentDto?.document,
+              phone: updateAgentDto?.phone,
+              gender: updateAgentDto.gender,
+              birthDate: updateAgentDto?.birthDate,
+              DocumentTypes: {
+                connect: {
+                  id: updateAgentDto.documentTypeId,
+                },
+              },
+              Addresses: {
+                create: {
+                  cityId: updateAgentDto.cityId,
+                  street: updateAgentDto?.street,
+                },
+              },
             },
           },
         },
@@ -127,7 +136,9 @@ export class AgentsService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException('Error al crear Agente');
+          throw new ForbiddenException(
+            'El documento o correo ingresados ya existen',
+          );
         }
       }
       throw error;
@@ -145,7 +156,7 @@ export class AgentsService {
       return agents;
     } catch (error) {
       console.log(error);
-      throw new ForbiddenException('Error al remover agentes');
+      throw new ForbiddenException('Error al remover agente');
     }
   }
 }

@@ -14,23 +14,16 @@ export class PolicyDetailsService {
         data: {
           primeValue: CreateOrderDetailDto.primeValue,
           AnnexValue: CreateOrderDetailDto.AnnexValue,
-          comission: CreateOrderDetailDto.comission,
-          comissionPolicyStatus: CreateOrderDetailDto.comissionPolicyStatus,
           ValorFinalizacion: CreateOrderDetailDto.ValorFinalizacion,
           Total: CreateOrderDetailDto.Total,
-          ClientHasTaker: {
-            connect: {
-              id: CreateOrderDetailDto.ClientHasTomadorId,
-            },
-          },
           Periodicities: {
             connect: {
               id: CreateOrderDetailDto.periodicityId,
             },
           },
-          Currencies: {
-            connect: {
-              id: CreateOrderDetailDto.currencyId,
+          Policies:{
+            connect:{
+              id: CreateOrderDetailDto.policyId,
             },
           },
         },
@@ -80,13 +73,11 @@ export class PolicyDetailsService {
         data: {
           primeValue: updateorderDetailDto.primeValue,
           AnnexValue: updateorderDetailDto.AnnexValue,
-          comission: updateorderDetailDto.comission,
-          comissionPolicyStatus: updateorderDetailDto.comissionPolicyStatus,
           ValorFinalizacion: updateorderDetailDto.ValorFinalizacion,
           Total: updateorderDetailDto.Total,
-          ClientHasTaker: {
-            connect: {
-              id: updateorderDetailDto.ClientHasTomadorId,
+          Policies:{
+            connect:{
+              id: updateorderDetailDto.policyId,
             },
           },
           Periodicities: {

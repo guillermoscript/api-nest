@@ -31,7 +31,7 @@ export class UserController {
   @ApiUnauthorizedResponse({ description: 'Error, no autorizado' })
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto) {
     return this.userService.create(createUserDto);
   }
 

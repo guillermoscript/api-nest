@@ -14,7 +14,7 @@ export class CreateOrderDetailDto {
   
   @ApiProperty()
   @IsNumber()
-  currencyId: number;
+  policyId: number;
 
   @ApiProperty()
   @IsNumber()
@@ -24,13 +24,6 @@ export class CreateOrderDetailDto {
   @IsNumber()
   AnnexValue: number;
 
-  @ApiProperty()
-  @IsNumber()
-  comission: number;
-
-  @ApiProperty()
-  @IsBoolean()
-  comissionPolicyStatus: boolean;
 
   @ApiProperty()
   @IsNumber()

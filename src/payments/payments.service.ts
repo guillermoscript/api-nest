@@ -15,7 +15,6 @@ export class PaymentsService {
           receiptNumber: CreatePaymentDto.receiptNumber,
           paymentValue: CreatePaymentDto.paymentValue,
           paymentDate: CreatePaymentDto.paymentDate,
-          comissionDate: CreatePaymentDto.comissionDate,
           PolicyDetails: {
             connect: {
               id: CreatePaymentDto.policyDetailsId,
@@ -69,7 +68,6 @@ export class PaymentsService {
           receiptNumber: updatepaymentDto.receiptNumber,
           paymentValue: updatepaymentDto.paymentValue,
           paymentDate: updatepaymentDto.paymentDate,
-          comissionDate: updatepaymentDto.comissionDate,
           PolicyDetails: {
             connect: {
               id: updatepaymentDto.policyDetailsId,
