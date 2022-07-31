@@ -3,7 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 import { CreatePersonDto } from 'src/person/dto/create-person.dto';
 import { UserRole } from '../entities/user.entity';
 
-export class CreateUserDto extends CreatePersonDto {
+export class CreateUserDto{
   @ApiProperty()
   // @IsNotEmpty()
   userRole?: UserRole;
@@ -15,4 +15,8 @@ export class CreateUserDto extends CreatePersonDto {
   @ApiProperty()
   @IsNotEmpty()
   password: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  username: string;
 }

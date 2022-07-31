@@ -13,23 +13,14 @@ export class UserService {
     // generate password hash
     console.log(createUserDto, ' user service');
     const hash = await argon.hash(createUserDto.password);
-
+    
     try {
-      const user = await this.prisma.persons.create({
+      const user = await this.prisma.users.create({
         data: {
           email: createUserDto.email,
-          name: createUserDto.name,
-          lastName: createUserDto.lastName,
-          document: createUserDto?.document,
-          birthDate: createUserDto?.birthDate,
-          phone: createUserDto?.phone,
-          gender: createUserDto?.gender,
-          Users: {
-            create: {
-              hashedPassword: hash,
-              userRole: createUserDto?.userRole,
-            },
-          },
+          username: createUserDto.username,
+          hashedPassword: hash,
+          userRole: createUserDto?.userRole,
         },
       });
 
@@ -38,7 +29,7 @@ export class UserService {
       console.log(error);
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(' Aye Mateee that email is mine ya');
+          throw new ForbiddenException('El correo ingresado ya se encuentra en uso');
         }
       }
 
@@ -46,36 +37,80 @@ export class UserService {
     }
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    try {
+      const users = await this.prisma.users.findMany({
+        orderBy:{
+          id: 'asc',
+        },
+      });
+      return users;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('No se pudo realizar la busqueda');
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    try {
+      const user = await this.prisma.users.findUnique({
+      where: {
+        id,
+      },
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('No se pudo encontrar el usuario');
+    }
   }
 
   async findByEmail(email: string) {
-    const user = await this.prisma.persons.findUnique({
+    const user = await this.prisma.users.findUnique({
       where: {
         email,
-      },
-      include: {
-        Users: true,
       },
     });
 
     if (!user) {
-      throw new ForbiddenException(' Aye Mateee that email is mine ya');
+      throw new ForbiddenException('El correo ingresado no existe');
     }
 
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const hash = await argon.hash(updateUserDto.password);
+    try{
+      const user = await this.prisma.users.update({
+        where: {
+          id,
+        },
+        data: {
+          email: updateUserDto.email,
+          username: updateUserDto.username,
+          userRole: updateUserDto.userRole,
+          hashedPassword: hash,
+        },
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('El correo ingresado ya se encuentra en uso');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    try {
+      const user = await this.prisma.users.delete({
+        where: {
+          id,
+        },
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new ForbiddenException('No se pudo eliminar el usuario');
+    }
   }
 }

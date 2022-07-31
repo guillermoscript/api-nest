@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CreatePersonDto } from 'src/person/dto/create-person.dto';
 
-import { IsString } from 'class-validator';
-
+import { IsNumber, IsString } from 'class-validator';
 export class CreateClientDto extends CreatePersonDto {
   @ApiProperty()
   @IsString()
@@ -14,5 +13,19 @@ export class CreateClientDto extends CreatePersonDto {
 
   @ApiProperty()
   @IsString()
+  gender: string;
+
+  @ApiProperty()
+  @IsString()
   ocupation?: string;
+
+  // address dto
+
+  @ApiProperty()
+  @IsNumber()
+  cityId: number;
+
+  @ApiProperty()
+  // @IsString()
+  street?: string;
 }

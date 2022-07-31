@@ -19,11 +19,5 @@ export class Policy implements Policies {
   @ApiProperty()
   insuredValue: number;
   @ApiProperty()
-  Renovable: boolean;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
-}
+  Renovable: boolean;   
+  }

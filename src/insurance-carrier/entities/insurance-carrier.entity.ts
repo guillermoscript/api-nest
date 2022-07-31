@@ -16,10 +16,6 @@ export class InsuranceCarrier implements InsuranceCarriers {
   account: string;
   @ApiProperty()
   paymentLink: string;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
-}
+  
+        
+  }

@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsPhoneNumber, IsString } from 'class-validator';
-import { Gender } from '../entities/person.entity';
-
+import { Type } from 'class-transformer';
+import { IsDate, IsNumber, IsPhoneNumber, IsString } from 'class-validator';
 export class CreatePersonDto {
   @ApiProperty()
   @IsNumber()
-  document?: number;
+  document: number;
+
+  @ApiProperty()
+  @IsNumber()
+  documentTypeId: number;
 
   @ApiProperty()
   //   @IsNotEmpty()
@@ -23,9 +26,6 @@ export class CreatePersonDto {
   email: string;
 
   @ApiProperty()
-  gender?: Gender;
-
-  @ApiProperty()
   // @IsNotEmpty()
   // @IsString()
   @IsPhoneNumber('VE')
@@ -33,6 +33,7 @@ export class CreatePersonDto {
 
   @ApiProperty()
   //   @IsNotEmpty()
-  @IsString()
-  birthDate?: string;
+  @Type(() => Date)
+  @IsDate()
+  birthDate?: Date;
 }

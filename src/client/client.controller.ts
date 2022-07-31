@@ -8,6 +8,7 @@ import {
   HttpStatus,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Put,
   Req,
@@ -28,63 +29,94 @@ import {
 import { Action } from 'src/ability/ability.factory';
 import { CheckAbilty, ManageReadAbility } from 'src/ability/ability.decorator';
 import { AbilityGuard } from 'src/ability/ability.guard';
+import { UpdateClientDto } from './dto/update-client.dto';
 
 @UseGuards(JwtGuard)
 @ApiTags('Clients')
 @Controller('clients')
 export class ClientController {
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService) { }
   @Get('/')
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: CreateClientDto, description: 'Client response' })
-  @ApiNotFoundResponse({ description: 'Client not found' })
+  @ApiOkResponse({ type: CreateClientDto, description: 'Cliente encontrado' })
+  @ApiNotFoundResponse({ description: 'Cliente no encontrado' })
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  getClients() {
-    return this.clientService.getClients();
+  findAll() {
+    return this.clientService.findAll();
   }
 
   @HttpCode(HttpStatus.OK)
   @Get('/:id')
-  @ApiOkResponse({ type: CreateClientDto, description: 'Client response' })
-  @ApiNotFoundResponse({ description: 'Client not found' })
+  @ApiOkResponse({ type: CreateClientDto, description: 'Cliente encontrado' })
+  @ApiNotFoundResponse({ description: 'Cliente no encontrado' })
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  getClient(@Param('id', ParseIntPipe) id: number): string {
-    return `This action returns a #${id} client`;
+  findOne(@Param('id') id: string) {
+    return this.clientService.findOne(+id);
+  }
+
+  @Get('/funtion/count')
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ type: CreateClientDto, description: 'Clientes Contados' })
+  @ApiNotFoundResponse({ description: 'No se pudieron contar los clientes' })
+  @UseGuards(AbilityGuard)
+  @CheckAbilty(new ManageReadAbility())
+  countClient() {
+    return this.clientService.countClient();
   }
 
   @Post('/')
   @HttpCode(HttpStatus.CREATED)
   @ApiOkResponse({
     type: CreateClientDto,
-    description: 'Client Created Response',
+    description: 'Cliente ha sido creado con exito',
   })
-  @ApiForbiddenResponse({ description: 'Forbidden email may exist mate' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized Mate' })
+  @ApiForbiddenResponse({
+    description: 'Prohibido, puede que los datos ya existan',
+  })
+  @ApiUnauthorizedResponse({ description: 'No autorizado' })
   @UseGuards(AbilityGuard)
   @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
   postClient(@Body() dto: CreateClientDto) {
     return this.clientService.postClient(dto);
   }
 
-  @Put('/:id')
+  @Post('/:id/person')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOkResponse({
+    type: CreateClientDto,
+    description: 'Cliente ha sido creado con exito',
+  })
+  @ApiForbiddenResponse({
+    description: 'Prohibido, puede que los datos ya existan',
+  })
+  @ApiUnauthorizedResponse({ description: 'No autorizado' })
+  @UseGuards(AbilityGuard)
+  @CheckAbilty({ action: Action.MANAGE, subject: 'all' })
+  createExistingPersonClient(@Body() dto: CreateClientDto) {
+    return this.clientService.postClient(dto);
+  }
+
+  @Patch(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: CreateClientDto, description: 'Client response' })
-  @ApiNotFoundResponse({ description: 'Client not found' })
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  putClient(id: string) {
-    return `This action updates a #${id} client`;
+  update(@Param('id') id: string, @Body() UpdateClientDto: UpdateClientDto) {
+    return this.clientService.update(+id, UpdateClientDto);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: CreateClientDto, description: 'Client response' })
-  @ApiNotFoundResponse({ description: 'Client not found' })
+  @ApiOkResponse({ type: CreateClientDto, description: 'Cliente Eliminado' })
+  @ApiNotFoundResponse({
+    description: 'No se encontro el cliente especificado',
+  })
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
-  deleteClient(id: string) {
-    return `This action removes a #${id} client`;
+  remove(@Param('id') id: string) {
+    return this.clientService.remove(+id);
   }
 }

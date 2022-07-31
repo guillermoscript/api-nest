@@ -38,11 +38,4 @@ export class CreateInsuranceCarrierDto {
   //   @IsNotEmpty()
   @IsString()
   paymentLink?: string;
-
-  //   createdAt: Date;
-  //   createdBy: string;
-  //   updatedAt: Date;
-  //   updatedBy: string;
-  //   softDeletedAt: Date;
-  //   softDeletedBy: string;
 }

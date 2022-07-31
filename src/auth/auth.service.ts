@@ -20,12 +20,12 @@ export class AuthService {
   async login(dto: AuthDto) {
     // search for user email
 
-    const { Users, email } = await this.userService.findByEmail(dto.email);
+    const Users = await this.userService.findByEmail(dto.email);
 
     // check if entity exists
     if (!Users) {
       throw new ForbiddenException(
-        'Aye Mate are yu stupid? that email it aint here ya punk',
+        'El correo ingresado no existe',
       );
     }
 
@@ -34,12 +34,16 @@ export class AuthService {
 
     if (!matches) {
       throw new ForbiddenException(
-        'Aye Mate are yu stupid? that password is wrong',
+        'La contraseña ingresada es incorrecta',
       );
     }
 
     console.log(Users);
-    return this.signToken(Users.id, email);
+    const result = await this.signToken(Users.id, Users.email);
+    return ({
+      ...result,
+        Users,
+    })
   }
 
   async signToken(
@@ -49,7 +53,7 @@ export class AuthService {
     const payload = { sub: userId, email };
     const secret = 'secret';
     const access_token = await this.jwt.signAsync(payload, {
-      expiresIn: '1h',
+      expiresIn: '12h',
       secret,
     });
     return {

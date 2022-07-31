@@ -58,7 +58,7 @@ export class InsuranceCarrierController {
   @HttpCode(HttpStatus.OK)
   @Get('/:id')
   @ApiOkResponse()
-  @ApiNotFoundResponse({ description: 'Client not found' })
+  @ApiNotFoundResponse({ description: 'Insurance Carrier not found' })
   @UseGuards(AbilityGuard)
   @CheckAbilty(new ManageReadAbility())
   findOne(@Param('id') id: string) {

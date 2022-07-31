@@ -5,6 +5,7 @@ import { Person } from 'src/person/entities/person.entity';
 export class Client extends Person implements Clients {
   @ApiProperty()
   id: number;
+  @ApiProperty()
   personId: number;
   @ApiProperty()
   civilPolicyStatus: string;
@@ -12,10 +13,4 @@ export class Client extends Person implements Clients {
   company: string;
   @ApiProperty()
   ocupation: string;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
 }

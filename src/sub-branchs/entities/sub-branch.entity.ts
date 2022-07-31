@@ -8,10 +8,4 @@ export class SubBranch implements SubBranchs {
   name: string;
   @ApiProperty()
   branchTypeId: number;
-  createdAt: Date;
-  createdBy: string;
-  updatedAt: Date;
-  updatedBy: string;
-  softDeletedAt: Date;
-  softDeletedBy: string;
 }

@@ -13,14 +13,14 @@ export class AuthController {
   ) {}
 
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ type: ResponseLoginDto, description: 'Login response' })
+  @ApiOkResponse({ type: ResponseLoginDto, description: 'Inicio de sesion exitoso' })
   @Post('login')
   login(@Body() dto: AuthDto) {
     return this.authService.login(dto);
   }
 
   @HttpCode(HttpStatus.CREATED)
-  @ApiOkResponse({ type: ResponseSignUpDto, description: 'Sign up response' })
+  @ApiOkResponse({ type: ResponseSignUpDto, description: 'registro exitoso' })
   @Post('signup')
   signUp(@Body() dto) {
     console.log(dto, 'prins');
